@@ -1,0 +1,10 @@
+<div>
+  <button mat-button [matMenuTriggerFor]="menu" class="cna">Create new account</button>
+  <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="goToFao()">FAO Managers</button>
+      <button mat-menu-item (click)="goToNpc()">NPC</button>
+      <button mat-menu-item (click)="goToOperators()">Operators</button>
+    </mat-menu>
+</div>
+
+

@@ -1,0 +1,13 @@
+h1{
+    text-align: center;
+    font-size: 50px;
+    margin: 40px 0 40px 0;
+}
+
+div{
+    text-align: center;
+}
+
+button{
+    background-color: rgb(151, 236, 148);
+}

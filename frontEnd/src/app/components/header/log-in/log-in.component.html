@@ -1,0 +1,31 @@
+<div class="btn"><button mat-raised-button (click)="server()" (click)="openModal(template)" (click)="checkEnterState()" class="li">{{enterData.enterQuit}}</button></div>
+
+<ng-template #template >
+        <div class="modal-header" *ngIf="enterData.modalLogIn">
+          <h4 class="modal-title pull-left">Enter your login or e-mail:</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="enterData.modalLogIn">
+          
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your login or e-mail:</mat-label>
+                        <input matInput #login>          
+                        <mat-hint>Hint</mat-hint>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput #password>          
+                         <mat-hint>Hint</mat-hint>
+                    </mat-form-field>
+                </p>
+
+                <button mat-button color="primary" class="ok" (click)="modalRef.hide()" (click)="setName(login.value, password.value)">OK</button>      
+
+        </div>
+      </ng-template>

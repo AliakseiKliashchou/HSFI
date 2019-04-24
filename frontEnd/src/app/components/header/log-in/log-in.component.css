@@ -1,0 +1,9 @@
+.li{
+    position: relative;
+    top: -52px;
+    background-color: rgba(255, 255, 255, 0.623);
+}
+
+.ok{
+    background-color: rgb(151, 236, 148);
+}
