@@ -17,10 +17,14 @@ export class LogInComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  response: any;
   server(){
-    this.http.get('http://localhost:3000')
-    console.log('server');
+  
+   this.http.get('http://localhost:3000/check').subscribe((response)=>{
+     this.response = response;
+     console.log(this.response);
+    });
+    
   }
 
   openModal(template: TemplateRef<any>) {
