@@ -29,9 +29,17 @@ app.use(bodyParser.json());
 const routes = require('./routes/user_router');
 const secureRoute = require('./routes/user_secure_router');
 
-app.use('/', routes);
+app.use('/', routes); 
 
 app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+
+//**********FAO REGISTRATION***************** */
+
+const faoRouter = require('./routes/fao_router');
+app.post('/faoReg', faoRouter);
+
+
+//******************************************* */
 
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);

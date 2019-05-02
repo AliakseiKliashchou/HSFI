@@ -32,6 +32,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -63,7 +64,7 @@ const appRoutes: Routes = [
     ScratchCardDeskComponent,
     HotlineComponent, 
     InspectionDeskComponent, 
-    ReportComponent, HomeComponent,   
+    ReportComponent, HomeComponent, FooterComponent,   
   ],
   imports: [
     BrowserModule,

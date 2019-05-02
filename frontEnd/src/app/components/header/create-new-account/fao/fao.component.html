@@ -1,47 +1,50 @@
-<app-header ></app-header>
-<h1>FAO Managers registration form</h1>
 
-<div>
-
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Enter your name</mat-label>
-        <input matInput>          
-        <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-    </p>
-
-    <p>
-        <mat-form-field>
-          <mat-select placeholder="Office">
-            <mat-option value="option">HQ</mat-option>
-            <mat-option value="option">Country list</mat-option>
-          </mat-select>
-        </mat-form-field>
-    </p>
-
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Enter your phone number</mat-label>
-        <input matInput>          
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-    </p>
-
-    <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Enter your e-mail adress</mat-label>
-          <input matInput>          
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-    </p>
+<div class="wrapper">
+  <app-header ></app-header>
   
-    <p>
+
+  <div class="center_wrapper">
+      <h3>FAO Managers registration form</h3>
+      <p>
         <mat-form-field appearance="outline">
-          <mat-label>Enter your password</mat-label>
-          <input matInput>          
+          <mat-label>Enter your name</mat-label>
+          <input matInput #name>          
+          <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+      </p>
+
+      <p>
+          <mat-form-field>
+            <mat-select placeholder="Office" #office>
+              <mat-option value="HQ">HQ</mat-option>
+              <mat-option value="country_list">Country list</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your phone number</mat-label>
+          <input matInput #phone>          
           <mat-hint>Hint</mat-hint>
         </mat-form-field>
-    </p>  
-    <button mat-button color="primary">OK</button>
-</div>  
+      </p>
+
+      <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your e-mail adress</mat-label>
+            <input matInput #email>          
+            <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+      </p>
+    
+      <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your password</mat-label>
+            <input matInput #password>          
+            <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+      </p>  
+      <button mat-button color="primary" (click)="submit(name.value, office.value, phone.value, email.value, password.value)">OK</button>
+  </div>  
+</div>
