@@ -1,13 +1,14 @@
 <div class="header">  
    
-    <div class="logo">HEALTHY STREET FOOD INCENTIEVES</div>
+    <div class="logotype" (click)="goHome()"></div>
+    
     
     <app-log-in class="button" (onSetName)="setName($event)"></app-log-in>
     <app-create-new-account class="button"></app-create-new-account>
     <div class="nameOfUser" >{{name}}</div> 
     <router-outlet></router-outlet>
 
-    <app-choose-category *ngIf="logInOut"></app-choose-category>
+    <app-choose-category *ngIf="isLogin"></app-choose-category>
   
 </div>
 

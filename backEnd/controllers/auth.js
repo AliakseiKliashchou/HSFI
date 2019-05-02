@@ -1,31 +1,52 @@
-const mongoose = require('mongoose');
-const bCrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const UserModel = require('../models/user');
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 
-const {jwtSecret} = require('../config/app_config');
+passport.use('signup', new localStrategy({
+  usernameField : 'email',
+  passwordField : 'password'
+}, async (email, password, done) => {
+    try {
+      const user = await UserModel.create({ email, password });
+      console.log('прошла строчка 12 в auth.js');
+      console.log(null, user);      
+      return done(null, user);
+    } catch (error) {
+      done(error);
+    }
+}));
 
-const User = mongoose.model('User');
+passport.use('login', new localStrategy({
+  usernameField : 'email',
+  passwordField : 'password'
+}, async (email, password, done) => {
+  try {
+    const user = await UserModel.findOne({ email });
 
+    if( !user ){
+      return done(null, false, { message : 'User not found'});
+    }
 
-const signIn = (req, res) =>{
-    const {email, password} = req.body;
-    User.findOne({email})
-        .exec()
-        .then((user) => {
-            if(!user){
-                res.status(401).json({message: 'User does not exist!'});
-            }
-            const isValid = bCrypt.compareSync(password, user.password);
-            if(isValid){
-              const token = jwt.sign(user._id.toString(), jwtSecret);
-              res.json({token});
-            } else{
-                res.status(401).json({message: 'Invalid credentials!'});
-            }
-        })
-        .catch(err => res.status(500).json({message: err.message}));
-};
+    const validate = await user.isValidPassword(password);
+    if( !validate ){
+      return done(null, false, { message : 'Wrong Password'});
+    }
+    return done(null, user, { message : 'Logged in Successfully'});
+    
+  } catch (error) {
+    return done(error, 'ошибка');
+  }
+}));
 
-module.exports = {
-    signIn,   
-}
+passport.use(new JWTstrategy({
+  secretOrKey: 'top_secret',
+  jwtFromRequest: ExtractJWT.fromHeader('secret_token')
+}, async(token, done) => {
+  try {
+    return done(null, token.user);
+  } catch(error) {
+    done(error);
+  }
+}));

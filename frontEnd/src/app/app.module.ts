@@ -31,10 +31,12 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './components/home/home.component';
 
 
 
 const appRoutes: Routes = [
+  {path:'',component: HomeComponent},
   {path:'fao', component: FaoComponent},
   {path:'npc', component: NpcComponent},
   {path:'operators', component: OperatorsComponent},
@@ -61,7 +63,7 @@ const appRoutes: Routes = [
     ScratchCardDeskComponent,
     HotlineComponent, 
     InspectionDeskComponent, 
-    ReportComponent,   
+    ReportComponent, HomeComponent,   
   ],
   imports: [
     BrowserModule,

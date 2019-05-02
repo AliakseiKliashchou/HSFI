@@ -2,10 +2,6 @@ import { Component, OnInit, TemplateRef, Output, EventEmitter } from '@angular/c
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
-
-
-
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -13,70 +9,98 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LogInComponent implements OnInit {
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService, private http: HttpClient) { }
-
-  ngOnInit() {
-  }
-
-  enterData = {
-    name: 'admin',
-    logInOut: false,
-    enterQuit: 'Log In',
-    modalLogIn: true,
-    enterState: false,
-    isLogin: false
-  }
-
-//Check login and logining
-  logining(loginValue, passwordValue){
-    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };  
-    
-    let user = {
-      login: loginValue,
-      password: passwordValue
-    };
-    
-    this.http.post('http://localhost:3000/login', user, httpOptions).subscribe((data: any) => {
-      console.log(data); 
-      this.enterData.isLogin = data.isLogin; 
-      if(this.enterData.isLogin){
-        this.enterData.logInOut = true;
-        this.enterData.modalLogIn = false;
-        this.enterData.enterState = true;
-        this.enterData.enterQuit = 'Quit';
-        this.onSetName.emit(this.enterData); 
-      } else alert('Wrong password or e-mail');        
-    });  
-      
-        
-         
-  }
-//--------------------------------------
-
-checkIsLogin(){
-  if(this.enterData.enterState){
-    let qa = function() { return confirm('Do you really want to quit?'); }     
-    if(qa()){
-     this.enterData.logInOut = false;
-     this.enterData.modalLogIn = true;
-     this.enterData.enterQuit = 'Log In';
-     this.enterData.enterState = false;
-     this.onSetName.emit(''); 
-    }
-   }
-}
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
  
-  @Output() onSetName: EventEmitter<any> = new EventEmitter(); 
+  constructor(private modalService: BsModalService, private http: HttpClient) { 
+    
+  }
+
+  ngOnInit() {    
+    if(localStorage.getItem('user')){
+      this.enterData.enterQuit = 'Quit';
+      this.enterData.modalLogIn = false;
+      this.enterData.isLogin = true;      
+    }
+    
+  }
+
+  enterData = {      
+    enterQuit: 'Log In', //Button "Log In/Quit" text
+    modalLogIn: true, //In 'ngIf' templates    
+    isLogin: false,
+    token: '' ,
+    localStatus: localStorage.getItem('user')      
+  }
+
+ 
   
+//Check login and logining
+  logining(loginValue, passwordValue){     
+    if(!Boolean(localStorage.getItem('userStatus'))){
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        })
+      };  
+      let user = {
+        email: loginValue,
+        password: passwordValue
+      };
+      console.log(user.email, user.password);
+      
+      this.http.post('http://localhost:3000/login', user, httpOptions).subscribe((data: any) => {
+      console.log(data);
+      if(data.isFind){       
+        this.enterData.isLogin = data.isFind; 
+        this.enterData.token = data.token;
+        this.enterData.enterQuit = 'Quit';
+        this.enterData.modalLogIn = false;
+        localStorage.setItem('userName', data.user.email);         
+        localStorage.setItem('user', data.token);
+        localStorage.setItem('userStatus', 'true');
+        this.onSetName.emit({
+          name : localStorage.getItem('userName'), 
+          isLogin : this.enterData.isLogin
+      });
+      
+      }else {
+        console.log('Server not answered!(');
+        console.log(data);
+        alert(data.message);
+      }       
+    });
+  } 
+}
+// QUIT
+quit(){
+  if(this.enterData.isLogin){
+    console.log('confirm');    
+    if(confirm('Do you really want to quit?')){
+      this.enterData.enterQuit = 'Log In';
+      this.enterData.modalLogIn = true;      
+      this.enterData.isLogin = false;
+      localStorage.removeItem('user');
+      localStorage.removeItem('userName');
+      localStorage.setItem('userStatus', '');
+      this.onSetName.emit({
+        name : '', 
+        isLogin : this.enterData.isLogin
+    });
+    }
+  }
+}
+
+openModal(template: TemplateRef<any>) {
+  this.modalRef = this.modalService.show(template);
+}
+ 
+@Output() onSetName: EventEmitter<any> = new EventEmitter();
+setName(){
+  this.onSetName.emit({
+    name : localStorage.getItem('userName'), 
+    isLogin : this.enterData.isLogin
+});
+} 
   
 
 }

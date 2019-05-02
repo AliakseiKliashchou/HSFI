@@ -1,25 +1,46 @@
-const express       = require("express");
-const mongoose      = require("mongoose");
-const cors          = require('cors');
-const config        = require('./config/app_config.js');
-const app           = express();
-const session       = require('express-session');
-const FileStore     = require('session-file-store')(session);
-const passport      = require('passport');
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const http = require('http');
+//const MongoClient = require('mongodb').MongoClient;
+//const mongoClient = new MongoClient("mongodb://localhost:27017/", { useNewUrlParser: true });
+const mongoose = require('mongoose');
+//const Schema = mongoose.Schema;
+const express = require('express');
+const passport = require('passport');
+const app = express();
+const UserModel = require('./models/user');
+const jsonParser = express.json();
 
-require('./config/server_config.js')(app);
-require('./models');
-require('./routes/product_router.js')(app);
 
+mongoose.connect('mongodb://127.0.0.1:27017/HSFI', { useNewUrlParser: true });
+mongoose.set('useCreateIndex', true);
+mongoose.connection.on('error', error => console.log(error));
+mongoose.Promise = global.Promise;
+//Cors--------------------------------------------------
+const cors = require('cors');
 app.use(cors());
+//****************************************************
 
-mongoose.connect(config.mongoUrl, { useNewUrlParser: true })
-    .then(() => app.listen(
-        config.appPort,
-        () => console.log(`Listening on port ${config.appPort}...`)
-    ))
-    .catch((err) => console.error(`Error connection to mongo DB: ${config.mongoUrl}`, err) );
+require('./controllers/auth');
 
+app.use(urlencodedParser);
+app.use(bodyParser.json());
+
+const routes = require('./routes/user_router');
+const secureRoute = require('./routes/user_secure_router');
+
+app.use('/', routes);
+
+app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({ error: err });
+})
+
+app.listen(3000, () => {
+  console.log('server started');
+})
 
 
 
