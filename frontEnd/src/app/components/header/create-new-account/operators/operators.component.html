@@ -8,7 +8,7 @@
 
         <p>
             <mat-form-field>
-              <mat-select placeholder="Country">            
+              <mat-select placeholder="Country" #country>            
                 <mat-option value="option">Country list</mat-option>
               </mat-select>
             </mat-form-field>
@@ -17,7 +17,7 @@
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Enter your name</mat-label>
-            <input matInput>          
+            <input matInput #name>          
             <mat-hint>Hint</mat-hint>
           </mat-form-field>
         </p>
@@ -25,7 +25,7 @@
         <p>
             <mat-form-field appearance="outline">
               <mat-label>Enter your organization</mat-label>
-              <input matInput>          
+              <input matInput #organization>          
               <mat-hint>Hint</mat-hint>
             </mat-form-field>
         </p>
@@ -33,7 +33,7 @@
         <p>
             <mat-form-field appearance="outline">
               <mat-label>Enter your e-mail adress</mat-label>
-              <input matInput>          
+              <input matInput #email>          
               <mat-hint>Hint</mat-hint>
             </mat-form-field>
         </p> 
@@ -41,22 +41,22 @@
         <p>
             <mat-form-field appearance="outline">
               <mat-label>Enter your password</mat-label>
-              <input matInput>          
+              <input matInput #password>          
               <mat-hint>Hint</mat-hint>
             </mat-form-field>
         </p> 
 
         <p>
             <mat-form-field>
-              <mat-select placeholder="Task">            
-                <mat-option value="option">Vendor regestration</mat-option>
-                <mat-option value="option">Scratch card desk</mat-option>
-                <mat-option value="option">Hotline</mat-option>
-                <mat-option value="option">Inspection</mat-option>
+              <mat-select placeholder="Task" #task>            
+                <mat-option value="vendor_registration">Vendor regestration</mat-option>
+                <mat-option value="scratch_card_desk">Scratch card desk</mat-option>
+                <mat-option value="hotline">Hotline</mat-option>
+                <mat-option value="inspection">Inspection</mat-option>
               </mat-select>
             </mat-form-field>
         </p>
-        <button mat-button color="primary">OK</button>
+        <button mat-button color="primary" (click)="submit(country.value, name.value, organization.value, email.value, password.value, task.value)">OK</button>
     </div>
   </div>
 </div>  

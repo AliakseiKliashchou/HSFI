@@ -10,8 +10,6 @@ passport.use('signup', new localStrategy({
 }, async (email, password, done) => {
     try {
       const user = await UserModel.create({ email, password });
-      console.log('прошла строчка 12 в auth.js');
-      console.log(null, user);      
       return done(null, user);
     } catch (error) {
       done(error);

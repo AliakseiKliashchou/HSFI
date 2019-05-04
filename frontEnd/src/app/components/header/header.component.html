@@ -5,10 +5,11 @@
     
     <app-log-in class="button" (onSetName)="setName($event)"></app-log-in>
     <app-create-new-account class="button"></app-create-new-account>
+    <div class="view" *ngIf="isLogin"><button mat-raised-button class="view_btn" (click)="goProfile()">View profile</button></div>
     <div class="nameOfUser" >{{name}}</div> 
     <router-outlet></router-outlet>
 
-    <app-choose-category *ngIf="isLogin"></app-choose-category>
+    <!----<app-choose-category *ngIf="isLogin"></app-choose-category>--->
   
 </div>
 

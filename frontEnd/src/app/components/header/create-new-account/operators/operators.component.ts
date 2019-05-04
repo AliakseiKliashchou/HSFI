@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-operators',
@@ -7,9 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperatorsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+  }
+
+  submit(country, name, organization, email, password, task){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    console.log(country, name, organization, email, password, task);
+    const user = {
+      role: 'operator',
+      country: country,
+      name: name,
+      organization: organization,
+      email: email,
+      password: password,
+      task: task,
+    };
+    this.http.post('http://localhost:3000/operatorReg', user, httpOptions).subscribe((data: any) => {
+      console.log(data);
+      alert('New ' + data.name + ' was registered!');
+    });
   }
 
 }

@@ -11,7 +11,44 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  name: {
+    type: String,
+    default: ''
+  },
+  phone: {
+    type: String,
+    default: ''
+  },
+  office: {
+    type: String,
+    default: ''
+  },
+  role: {
+    type: String,
+    default: ''
+  },
+  token: {
+    type: String,
+    default: ''
+  },
+  country: {
+    type: String,
+    default: ''
+  },
+  mailing : {
+    type: String,
+    default: ""
+  },
+  task: {
+    type: String,
+    default: ''
+  },
+  organization: {
+    type: String,
+    default: ''
   }
+
 });
 
 UserSchema.pre('save', async function(next) {

@@ -29,4 +29,8 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(['/']);
   }
 
+  goProfile(){
+    this._router.navigate(['/fao_profile']);
+  }
+
 }

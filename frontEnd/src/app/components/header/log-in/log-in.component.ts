@@ -58,6 +58,7 @@ export class LogInComponent implements OnInit {
         localStorage.setItem('userName', data.user.email);         
         localStorage.setItem('user', data.token);
         localStorage.setItem('userStatus', 'true');
+        localStorage.setItem('role', data.user.role);
         this.onSetName.emit({
           name : localStorage.getItem('userName'), 
           isLogin : this.enterData.isLogin
@@ -81,6 +82,7 @@ quit(){
       this.enterData.isLogin = false;
       localStorage.removeItem('user');
       localStorage.removeItem('userName');
+      localStorage.removeItem('role');
       localStorage.setItem('userStatus', '');
       this.onSetName.emit({
         name : '', 

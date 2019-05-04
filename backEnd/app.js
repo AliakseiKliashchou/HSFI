@@ -34,11 +34,23 @@ app.use('/', routes);
 app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
 
 //**********FAO REGISTRATION***************** */
-
 const faoRouter = require('./routes/fao_router');
 app.post('/faoReg', faoRouter);
+//******************************************* */
 
+//*************FAO PROFILE********************* */
+const changeProfileRouter = require('./routes/change_profile_router');
+app.post('/changeProfile', changeProfileRouter);
+//********************************************* */
 
+//***********NPC REGISTRATION***************** */
+const npcRouter = require('./routes/npc_router');
+app.post('/npcReg', npcRouter);
+//******************************************* */
+
+//***********OPERATOR REGISTRATION********** */
+const operatorRouter = require('./routes/operator_router');
+app.post('/operatorReg', operatorRouter);
 //******************************************* */
 
 app.use(function(err, req, res, next) {

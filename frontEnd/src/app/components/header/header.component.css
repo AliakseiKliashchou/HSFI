@@ -1,7 +1,7 @@
 .header{
     width: 100%;
     height: 70px;
-    background-color: #3F3F3F;
+    background-color: rgba(63, 63, 63, 0.74);
     border: 2px solid #C9C2C2;
     border-radius: 20px;
     margin: 0px 0px;
@@ -22,11 +22,20 @@
     margin-top: 15px;
     margin-right: 15px;
     font-size: 20px;
-    width: 60px;
     position: relative;
-    top: -60px;
+    top: -65px;
 }
 
 .button{
     float: right;    
+}
+.view_btn{
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.623);
+}
+.view{    
+    float: right;
+    position: relative;
+    top: -51px;
+    margin: 0 10px 0 10px;
 }

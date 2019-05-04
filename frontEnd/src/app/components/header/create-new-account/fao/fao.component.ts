@@ -31,6 +31,7 @@ export class FaoComponent implements OnInit {
     };
     this.http.post('http://localhost:3000/faoReg', user, httpOptions).subscribe((data: any) => {
       console.log(data);
+      alert('New ' + data.name + ' was registered!');
     });
 
   }

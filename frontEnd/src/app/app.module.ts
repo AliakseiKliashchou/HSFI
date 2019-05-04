@@ -33,14 +33,20 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FaoProfileComponent } from './components/header/create-new-account/fao/fao-profile/fao-profile.component';
+import { NpcProfileComponent } from './components/header/create-new-account/npc/npc-profile/npc-profile.component';
+import { OperatorProfileComponent } from './components/header/create-new-account/operators/operator-profile/operator-profile.component';
 
 
 
 const appRoutes: Routes = [
   {path:'',component: HomeComponent},
   {path:'fao', component: FaoComponent},
+  {path:'fao_profile', component: FaoProfileComponent},
   {path:'npc', component: NpcComponent},
+  {path:'npc-profile', component:  NpcProfileComponent},
   {path:'operators', component: OperatorsComponent},
+  {path:'operators_profile', component: OperatorProfileComponent},
   {path:'hotline', component: HotlineComponent},
   {path:'inspectionDesk', component: InspectionDeskComponent},
   {path:'report', component: ReportComponent},
@@ -64,7 +70,7 @@ const appRoutes: Routes = [
     ScratchCardDeskComponent,
     HotlineComponent, 
     InspectionDeskComponent, 
-    ReportComponent, HomeComponent, FooterComponent,   
+    ReportComponent, HomeComponent, FooterComponent, FaoProfileComponent, NpcProfileComponent, OperatorProfileComponent,   
   ],
   imports: [
     BrowserModule,

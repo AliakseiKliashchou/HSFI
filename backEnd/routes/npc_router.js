@@ -3,21 +3,22 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 
-const faoRouter = express.Router();
+const npcRouter = express.Router();
 
-faoRouter.post('/faoReg', async(req, res, next) => {    
+npcRouter.post('/npcReg', async(req, res, next) => {    
     
     user.create({
+        country: req.body.country,
+        name: req.body.name,
+        organization: req.body.organization,
+        mailing: req.body.mailing,
+        phone: req.body.phone,
         email: req.body.email,
         password: req.body.password,
         role: req.body.role,
-        name: req.body.name,
-        office: req.body.office,
-        phone: req.body.phone
-
     });
 
     res.json({message: "Vse zaebok!", name: req.body.name});
 });     
      
-module.exports = faoRouter;
+module.exports = npcRouter;
