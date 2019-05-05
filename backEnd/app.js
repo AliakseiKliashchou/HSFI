@@ -38,9 +38,9 @@ const faoRouter = require('./routes/fao_router');
 app.post('/faoReg', faoRouter);
 //******************************************* */
 
-//*************FAO PROFILE********************* */
-const changeProfileRouter = require('./routes/change_profile_router');
-app.post('/changeProfile', changeProfileRouter);
+//*************PROFILE********************* */
+const viewProfileRouter = require('./routes/view_profile_router');
+app.post('/viewProfile', viewProfileRouter);
 //********************************************* */
 
 //***********NPC REGISTRATION***************** */

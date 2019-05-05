@@ -40,16 +40,20 @@
             <button mat-button color="primary" (click)="confirmPhoneChanges(phone.value)" *ngIf="confirmPhoneBtn">Ок</button>          
           </form>
 
-          <form class="example-form">
-              <mat-form-field class="example-full-width">
-                <mat-label>Password:</mat-label>
-                <input matInput placeholder="Enter new password" value="{{user.password}}" disabled="{{disablePassword}}" #password>        
-              </mat-form-field>
-              <button mat-button color="primary" (click)="changePassword()">&#9998;</button>
-              <button mat-button color="primary" (click)="confirmPasswordChanges(password.value)" *ngIf="confirmPasswordBtn">Ок</button>          
-            </form>
+          <button mat-button color="primary" (click)="changePassword()">Change password</button> 
+        <form class="example-form" *ngIf="changePasswordBtn">
+            <mat-form-field class="example-full-width">
+              <mat-label>Enter your password:</mat-label>
+              <input matInput type="password" #password1  value="">     
+            </mat-form-field><br>   
+            <mat-form-field class="example-full-width">
+              <mat-label>Enter your password again:</mat-label>
+              <input matInput type="password" #password2  value="">        
+            </mat-form-field><br>  
+            <button mat-button color="primary" (click)="saveChanges(password1.value, password2.value)" *ngIf="saveChangesBtn">Save changes</button>                    
+         </form>
 
-      <button mat-button color="primary" (click)="saveChanges()" *ngIf="saveChangesBtn">Save changes</button>  
+        
 
   </div> 
   </div>

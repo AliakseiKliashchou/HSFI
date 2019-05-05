@@ -3,9 +3,9 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-const changeProfileRouter = express.Router();
+const viewProfileRouter = express.Router();
 
-changeProfileRouter.post('/changeProfile', async(req, res, next) => {    
+viewProfileRouter.post('/viewProfile', async(req, res, next) => {    
     
   
    const user = await User.findOne({ email : req.body.email });
@@ -15,5 +15,5 @@ changeProfileRouter.post('/changeProfile', async(req, res, next) => {
  
 });
 
-module.exports = changeProfileRouter;
+module.exports = viewProfileRouter;
 

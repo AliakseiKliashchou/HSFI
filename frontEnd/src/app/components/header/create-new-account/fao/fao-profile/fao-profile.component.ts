@@ -18,13 +18,12 @@ export class FaoProfileComponent implements OnInit {
         "Access-Control-Allow-Origin": "*"
       })
     };
-    this.http.post('http://localhost:3000/changeProfile', userEmail, httpOptions).subscribe((data: any) => {
+    this.http.post('http://localhost:3000/viewProfile', userEmail, httpOptions).subscribe((data: any) => {
       console.log(data.user.name);
       this.user.name = data.user.name;
       this.user.email = data.user.email;
       this.user.country = data.user.country;
-      this.user.phone = data.user.phone;
-      this.user.password = data.user.password;
+      this.user.phone = data.user.phone;     
     });
   }
 
@@ -33,8 +32,8 @@ export class FaoProfileComponent implements OnInit {
     name: '',
     email: '',
     country: '',
-    phone: '',
-    password: '',
+    phone: '', 
+    password: ''
   };
   //----------------------------------
   
@@ -43,17 +42,16 @@ export class FaoProfileComponent implements OnInit {
   disableName     = true;   //
   disableEmail    = true;   //
   disableCountry  = true;   //
-  disablePhone    = true;   //
-  disablePassword = true;   //
+  disablePhone    = true;   //     
   //------------------------//
 
   //ngIf----------------------- //
   confirmNameBtn      = false;  //
   confirmEmailBtn     = false;  //
   confirmCountryBtn   = false;  //
-  confirmPhoneBtn     = false;  //
-  confirmPasswordBtn  = false;  //
-  saveChangesBtn      = false;  //
+  confirmPhoneBtn     = false;  //  
+  saveChangesBtn      = false;  // 
+  changePasswordBtn   = false;  //
   //----------------------------//
 
  
@@ -117,21 +115,27 @@ export class FaoProfileComponent implements OnInit {
   //-----------------------------//
 
   //--------PASSWORD------------------//
-  changePassword(){                   //
-    this.disablePassword = false;     //
-    this.confirmPasswordBtn  = true;  //
-    this.saveChangesBtn  = true;      //
-  }                                   //
-  confirmPasswordChanges(newPassword){//
-    this.disablePassword = true;      //
-    this.confirmPasswordBtn  = false; //
-    console.log(newPassword);         //
-    this.user.password = newPassword;//
-  }                                   //
+  changePassword(){
+    this.changePasswordBtn   = true;
+    this.saveChangesBtn  = true;
+  }
+
+
+
   //----------------------------------//     
 
-  saveChanges(){
-    console.log(this.user);
+  saveChanges(password_1, password_2){
+    console.log(password_1);
+    
+    if(this.changePasswordBtn){      
+      if((password_1 == password_2) && (password_1 == '')){        
+        this.user.password = password_1;
+        delete this.user.password;
+        console.log(this.user);
+      }
+    } else if(password_1 !== ''){      
+      console.log(this.user);
+    }
   }
 
 }
