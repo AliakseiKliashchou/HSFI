@@ -10,6 +10,10 @@ const passport = require('passport');
 const app = express();
 const UserModel = require('./models/user');
 const jsonParser = express.json();
+const ejs = require('ejs');
+const path = require('path');
+const multer = require('multer');
+
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/HSFI', { useNewUrlParser: true });
@@ -41,6 +45,8 @@ app.post('/faoReg', faoRouter);
 //*************PROFILE********************* */
 const viewProfileRouter = require('./routes/view_profile_router');
 app.post('/viewProfile', viewProfileRouter);
+const changeProfileRouter = require('./routes/change_profile_router');
+app.post('/changeProfile', changeProfileRouter);
 //********************************************* */
 
 //***********NPC REGISTRATION***************** */
@@ -53,6 +59,61 @@ const operatorRouter = require('./routes/operator_router');
 app.post('/operatorReg', operatorRouter);
 //******************************************* */
 
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 1000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb);
+  }
+}).single('avatar');
+// Check File Type
+function checkFileType(file, cb){
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
+// EJS
+app.set('view engine', 'ejs');
+
+// Public Folder
+app.use(express.static('./public'));
+
+app.post('/loadImg', (req, res) => {
+  upload(req, res, (err) => {
+    if(err){
+      res.json( { msg: err });
+    } else {
+      if(req.file == undefined){
+        res.json( {   msg: 'Error: No File Selected!' });
+      } else {
+        res.json( { msg: 'File Uploaded!', file: `uploads/${req.file.filename}`});
+      }
+    }
+  });
+});
+
+
+app.get('/img', (req, res) => {
+  res.send('public/uploads/avatar-1557429472104.jpg');
+});
+
+//==============================================================================
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({ error: err });

@@ -41,8 +41,8 @@ const UserSchema = new Schema({
     default: ""
   },
   task: {
-    type: String,
-    default: ''
+    type: Object,
+    default: []
   },
   organization: {
     type: String,

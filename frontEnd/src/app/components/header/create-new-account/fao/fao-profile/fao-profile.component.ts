@@ -23,7 +23,8 @@ export class FaoProfileComponent implements OnInit {
       this.user.name = data.user.name;
       this.user.email = data.user.email;
       this.user.country = data.user.country;
-      this.user.phone = data.user.phone;     
+      this.user.phone = data.user.phone;  
+      this.user.organization = data.user.organization;    
     });
   }
 
@@ -33,7 +34,8 @@ export class FaoProfileComponent implements OnInit {
     email: '',
     country: '',
     phone: '', 
-    password: ''
+    password: '',
+    organization: '',
   };
   //----------------------------------
   
@@ -42,7 +44,8 @@ export class FaoProfileComponent implements OnInit {
   disableName     = true;   //
   disableEmail    = true;   //
   disableCountry  = true;   //
-  disablePhone    = true;   //     
+  disablePhone    = true;   // 
+  disablePasswordFields = false;    
   //------------------------//
 
   //ngIf----------------------- //
@@ -68,7 +71,7 @@ export class FaoProfileComponent implements OnInit {
     this.confirmNameBtn = false;  //
     this.disableName    = true;   //
     console.log(newName);         //
-    this.user.name = newName;  //
+    this.user.name = newName;     //
   }                               //
   //------------------------------//
 
@@ -82,7 +85,7 @@ export class FaoProfileComponent implements OnInit {
     this.confirmEmailBtn  = false;//
     this.disableEmail     = true; //
     console.log(newEmail);        //
-    this.user.email = newEmail;//
+    this.user.email = newEmail;   //
   }                               //
   //------------------------------//
 
@@ -96,7 +99,7 @@ export class FaoProfileComponent implements OnInit {
     this.disableCountry     = true; //
     this.confirmCountryBtn  = false;//
     console.log(newCountry);        //
-    this.user.country = newCountry;//
+    this.user.country = newCountry; //
   }                                 //    
   //------------------------------- //
 
@@ -110,32 +113,49 @@ export class FaoProfileComponent implements OnInit {
     this.disablePhone    = true; //
     this.confirmPhoneBtn = false;//
     console.log(newPhone);       //
-    this.user.phone = newPhone;//
+    this.user.phone = newPhone;  //
   }                              //   
   //-----------------------------//
 
   //--------PASSWORD------------------//
-  changePassword(){
-    this.changePasswordBtn   = true;
-    this.saveChangesBtn  = true;
-  }
 
-
-
-  //----------------------------------//     
-
-  saveChanges(password_1, password_2){
+  acceptNewPassword(password_1, password_2){
     console.log(password_1);
-    
-    if(this.changePasswordBtn){      
+    this.disablePasswordFields = true;
+          
       if((password_1 == password_2) && (password_1 == '')){        
-        this.user.password = password_1;
         delete this.user.password;
         console.log(this.user);
+        
       }
-    } else if(password_1 !== ''){      
+     else if((password_1 == password_2) && (password_1 !== '')){  
+      this.user.password = password_1;    
       console.log(this.user);
+      
     }
+  }
+
+  changePassword(){
+    this.changePasswordBtn = true;
+    this.saveChangesBtn  = true;    
+  }
+  //----------------------------------//    
+
+  saveChanges(){
+    if(this.user.password == ''){
+      delete this.user.password;
+    }
+    console.log(this.user);       
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    this.http.post('http://localhost:3000/changeProfile', this.user, httpOptions).subscribe((data: any) => {
+        
+    });
+
   }
 
 }

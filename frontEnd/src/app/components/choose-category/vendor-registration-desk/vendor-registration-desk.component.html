@@ -1,5 +1,14 @@
 <h1>Vendor registration desk</h1>
 
+
+<input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+<!-- button to trigger the file upload when submitted -->
+<button type="button" class="btn btn-success btn-s"
+      (click)="uploader.uploadAll()" 
+      [disabled]="!uploader.getNotUploadedItems().length">
+      Upload with ng-2 file uploader
+</button>
+
 <p>
   <mat-form-field appearance="outline">
     <mat-label>Operator`s Name (fetched)</mat-label>
@@ -65,7 +74,7 @@
 </p>
 
 <p>Business Location</p>
-<p> 
+<p *ngFor="let string of locationArray; let i = index"> 
   <mat-form-field appearance="outline">
     <mat-label>City</mat-label>
     <input matInput>          
@@ -84,11 +93,11 @@
         <mat-hint>Hint</mat-hint>
         </mat-form-field>  
 
-        <button mat-button >ADD+</button>    
+        <button mat-button (click)="addLocation()">ADD+</button>    
 </p>
 
 <p>Business schedule</p>
-<p> 
+<p *ngFor="let string of scheduleArray; let i = index"> 
   <mat-form-field appearance="outline">
     <mat-select placeholder="Day">      
       <mat-option value="option">Day list</mat-option>
@@ -106,26 +115,27 @@
         <input matInput>          
         <mat-hint>Hint</mat-hint>
         </mat-form-field>  
-
-        <button mat-button >ADD+</button>    
+        
+        <button mat-button (click)="addSchedule()">ADD+</button>    
 </p>
 
-<p>
+
+<p *ngFor="let string of ingredientArray; let i = index">
   <mat-form-field appearance="outline">
     <mat-label>ingredient source</mat-label>
     <input matInput>          
     <mat-hint>Hint</mat-hint>
     </mat-form-field>
 
-    <button mat-button >ADD+</button>  
+    <button mat-button (click)="addIngredient()">ADD+</button>  
 </p>
 
 <p>
   <mat-form-field appearance="outline">
     <mat-select placeholder="Food group">      
-      <mat-option value="option">A</mat-option>
-      <mat-option value="option">B</mat-option>
-      <mat-option value="option">C</mat-option>
+      <mat-option value="option">Fruit</mat-option>
+      <mat-option value="option">Meat</mat-option>
+      <mat-option value="option">Fastfood</mat-option>
     </mat-select>
     </mat-form-field>
 </p>

@@ -36,6 +36,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FaoProfileComponent } from './components/header/create-new-account/fao/fao-profile/fao-profile.component';
 import { NpcProfileComponent } from './components/header/create-new-account/npc/npc-profile/npc-profile.component';
 import { OperatorProfileComponent } from './components/header/create-new-account/operators/operator-profile/operator-profile.component';
+import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 
 
@@ -44,7 +46,7 @@ const appRoutes: Routes = [
   {path:'fao', component: FaoComponent},
   {path:'fao_profile', component: FaoProfileComponent},
   {path:'npc', component: NpcComponent},
-  {path:'npc-profile', component:  NpcProfileComponent},
+  {path:'npc_profile', component:  NpcProfileComponent},
   {path:'operators', component: OperatorsComponent},
   {path:'operators_profile', component: OperatorProfileComponent},
   {path:'hotline', component: HotlineComponent},
@@ -70,7 +72,13 @@ const appRoutes: Routes = [
     ScratchCardDeskComponent,
     HotlineComponent, 
     InspectionDeskComponent, 
-    ReportComponent, HomeComponent, FooterComponent, FaoProfileComponent, NpcProfileComponent, OperatorProfileComponent,   
+    ReportComponent, 
+    HomeComponent, 
+    FooterComponent, 
+    FaoProfileComponent, 
+    NpcProfileComponent, 
+    OperatorProfileComponent, 
+    FileSelectDirective,  
   ],
   imports: [
     BrowserModule,
@@ -92,6 +100,7 @@ const appRoutes: Routes = [
     MatSlideToggleModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+   
 
     ModalModule.forRoot()
   ],

@@ -30,7 +30,18 @@ export class HeaderComponent implements OnInit {
   }
 
   goProfile(){
-    this._router.navigate(['/fao_profile']);
+    if(localStorage.getItem('role') == 'fao' ){
+      this._router.navigate(['/fao_profile']);
+    }
+    if(localStorage.getItem('role') == 'npc'){
+      this._router.navigate(['/npc_profile']);
+    }
+    if(localStorage.getItem('role') == 'operator'){
+      this._router.navigate(['/operators_profile']);
+    }
+    
+
+    
   }
 
 }

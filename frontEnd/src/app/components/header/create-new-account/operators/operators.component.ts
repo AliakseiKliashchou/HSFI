@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-operators',
@@ -12,6 +13,8 @@ export class OperatorsComponent implements OnInit {
 
   ngOnInit() {
   }
+  toppings = new FormControl();
+  toppingList: string[] = ['Vendor registration', 'Scratch card desk', 'Hotline', 'Inspection'];
 
   submit(country, name, organization, email, password, task){
     const httpOptions = {
@@ -20,6 +23,7 @@ export class OperatorsComponent implements OnInit {
         "Access-Control-Allow-Origin": "*"
       })
     };
+    
     console.log(country, name, organization, email, password, task);
     const user = {
       role: 'operator',
@@ -35,5 +39,8 @@ export class OperatorsComponent implements OnInit {
       alert('New ' + data.name + ' was registered!');
     });
   }
+
+  
+  
 
 }
