@@ -38,6 +38,8 @@ import { NpcProfileComponent } from './components/header/create-new-account/npc/
 import { OperatorProfileComponent } from './components/header/create-new-account/operators/operator-profile/operator-profile.component';
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { FileSelectDirective } from 'ng2-file-upload';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 
 
@@ -99,6 +101,7 @@ const appRoutes: Routes = [
     MatRadioModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatDatepickerModule,
     RouterModule.forRoot(appRoutes),
    
 

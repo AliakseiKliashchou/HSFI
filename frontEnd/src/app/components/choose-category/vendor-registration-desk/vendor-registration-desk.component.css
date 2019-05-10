@@ -1,0 +1,30 @@
+.title{
+    height: 50px;
+    text-align: center;
+}
+.h2_title{
+    display: inline-block;
+    position: relative;
+    top: -40px;
+    width: 550px;
+    margin: 0 auto;
+    color: white;
+}
+.form_wrapper{
+    width: 700px;
+    height: 100%;
+    margin: 15px auto;
+    border-radius: 8px;
+    background-color: rgb(231, 241, 243);
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;  
+}
+.wrapper{
+    background-image: url('../../../../assets/images/background.jpeg');
+    background-repeat: vertical;
+    background-size: 100%;
+}
+button{
+    background-color: rgb(74, 238, 74);
+}

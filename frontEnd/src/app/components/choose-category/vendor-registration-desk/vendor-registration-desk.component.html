@@ -1,143 +1,151 @@
-<h1>Vendor registration desk</h1>
+<div class="wrapper">
+    <app-header></app-header>
 
+    <div class="title"><h2 class="h2_title">Vendor registration desk</h2></div>
 
-<input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
-<!-- button to trigger the file upload when submitted -->
-<button type="button" class="btn btn-success btn-s"
-      (click)="uploader.uploadAll()" 
-      [disabled]="!uploader.getNotUploadedItems().length">
-      Upload with ng-2 file uploader
-</button>
+  <div class="form_wrapper">
+    
+      <mat-form-field>
+          <input matInput [matDatepicker]="dp" placeholder="Date of registration" [formControl]="date" #dateVal>
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
 
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Operator`s Name (fetched)</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-</p>
-
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Registration Date (fetched)</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-</p>
-
-<p>
-  <mat-form-field>
-    <mat-select placeholder="Conutry">      
-      <mat-option value="option">Country list</mat-option>
-    </mat-select>
-  </mat-form-field>
-</p>
-
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Vendor Name</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-</p>
-
-<br>
-<p>Здесь будет фотка вендора</p>
-<br>
-
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>License number</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-</p>
-
-<br>
-<p>Здесь будет скан лицензии</p>
-<br>
-
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Phone</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-</p>
-
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>E-mail</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-</p>
-
-<p>Business Location</p>
-<p *ngFor="let string of locationArray; let i = index"> 
-  <mat-form-field appearance="outline">
-    <mat-label>City</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Street</mat-label>
-      <input matInput>          
-      <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-      
+    <p>
       <mat-form-field appearance="outline">
-        <mat-label>#</mat-label>
-        <input matInput>          
+        <mat-label>Operator`s Name (fetched)</mat-label>
+        <input matInput [value]="vendor.operatorName" #operatorName>          
         <mat-hint>Hint</mat-hint>
-        </mat-form-field>  
+        </mat-form-field>
+    </p>
 
-        <button mat-button (click)="addLocation()">ADD+</button>    
-</p>
+   <p>Load vendor profile photo:</p>
+    <input type="file" name="avatar" ng2FileSelect [uploader]="uploader" /><br><br>
+    <!-- button to trigger the file upload when submitted -->
+    <button  mat-button type="button" 
+          (click)="uploader.uploadAll()" 
+          [disabled]="!uploader.getNotUploadedItems().length">
+          Upload 
+    </button>
 
-<p>Business schedule</p>
-<p *ngFor="let string of scheduleArray; let i = index"> 
-  <mat-form-field appearance="outline">
-    <mat-select placeholder="Day">      
-      <mat-option value="option">Day list</mat-option>
-    </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>from</mat-label>
-      <input matInput>          
-      <mat-hint>Hint</mat-hint>
+    <p>
+      <mat-form-field>
+        <mat-select placeholder="Conutry" #country>      
+          <mat-option value="option">Country list</mat-option>
+        </mat-select>
       </mat-form-field>
-      
+    </p>
+
+    <p>
       <mat-form-field appearance="outline">
-        <mat-label>to</mat-label>
-        <input matInput>          
+        <mat-label>Vendor Name</mat-label>
+        <input matInput #name>          
         <mat-hint>Hint</mat-hint>
-        </mat-form-field>  
-        
-        <button mat-button (click)="addSchedule()">ADD+</button>    
-</p>
+        </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>License number</mat-label>
+        <input matInput #licenceNumber>          
+        <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+    </p>
+
+    <br>
+    <p>Здесь будет скан лицензии</p>
+    <br>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input matInput #phone>          
+        <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput #email>          
+        <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+    </p>
+
+    <p>Business Location</p>
+    <p *ngFor="let string of locationArray; let i = index"> 
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput #city (change)="businessLocationCity(city.value, i)">          
+        <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Street</mat-label>
+          <input matInput #street (change)="businessLocationStreet(street.value, i)">          
+          <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>#</mat-label>
+            <input matInput #num (change)="businessLocationNum(num.value, i)">          
+            <mat-hint>Hint</mat-hint>
+            </mat-form-field>  
+
+            <button mat-button (click)="addLocation()">ADD+</button>    
+    </p>
+
+    <p>Business schedule</p>
+    <p *ngFor="let string of scheduleArray; let i = index"> 
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Day">      
+          <mat-option value="Mon">Mon</mat-option>
+          <mat-option value="Thue">Thue</mat-option>
+          <mat-option value="Wen">Wen</mat-option>
+          <mat-option value="Thur">Thur</mat-option>
+          <mat-option value="Fri">Fri</mat-option>
+          <mat-option value="Sat">Sat</mat-option>
+          <mat-option value="Sun">Sun</mat-option>
+        </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>from</mat-label>
+          <input matInput>          
+          <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>to</mat-label>
+            <input matInput>          
+            <mat-hint>Hint</mat-hint>
+            </mat-form-field>  
+            
+            <button mat-button (click)="addSchedule()">ADD+</button>    
+    </p>
 
 
-<p *ngFor="let string of ingredientArray; let i = index">
-  <mat-form-field appearance="outline">
-    <mat-label>ingredient source</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
+    <p *ngFor="let string of ingredientArray; let i = index">
+      <mat-form-field appearance="outline">
+        <mat-label>ingredient source</mat-label>
+        <input matInput #item  (change)="ingredientValue(item.value, i)">          
+        <mat-hint>Hint</mat-hint>
+        </mat-form-field>
 
-    <button mat-button (click)="addIngredient()">ADD+</button>  
-</p>
+        <button mat-button (click)="addIngredient()" >ADD+</button>  
+    </p>
 
-<p>
-  <mat-form-field appearance="outline">
-    <mat-select placeholder="Food group">      
-      <mat-option value="option">Fruit</mat-option>
-      <mat-option value="option">Meat</mat-option>
-      <mat-option value="option">Fastfood</mat-option>
-    </mat-select>
-    </mat-form-field>
-</p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Food group" #foodGroup>      
+          <mat-option value="Fruit">Fruit</mat-option>
+          <mat-option value="Meat">Meat</mat-option>
+          <mat-option value="Fastfood">Fastfood</mat-option>
+        </mat-select>
+        </mat-form-field>
+    </p>
 
-<button mat-button >OK!</button>  
+    <button mat-button (click)="submit()"
+    >OK!</button>  
+  </div>
+</div>
