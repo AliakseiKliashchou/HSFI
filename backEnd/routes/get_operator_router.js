@@ -8,7 +8,7 @@ const getOperatorRouter = express.Router();
 getOperatorRouter.post('/getOperator', async(req, res, next) => {    
     
     const user = await User.findOne({ email : req.body.email });
-    console.log(user);
+    //console.log(user);
     res.json({user : user});
     
 });     

@@ -5,12 +5,12 @@ const User = require('../models/user');
 const path = require('path');
 const multer = require('multer');
 
-const uploadVendorPhotoRouter = express.Router();
+const uploadVendorLicenceRouter = express.Router();
 
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
-      cb(null,req.query.logoName +'-photo'+ path.extname(file.originalname));
+      cb(null,req.query.logoName +'-licence'+ path.extname(file.originalname));
     }
   });
 
@@ -20,7 +20,7 @@ const upload = multer({
     fileFilter: function(req, file, cb){
       checkFileType(file, cb);
     }
-  }).single('avatar');  
+  }).single('licence');  
 
   function checkFileType(file, cb){
     // Allowed ext
@@ -37,7 +37,7 @@ const upload = multer({
     }
   };  
 
-  uploadVendorPhotoRouter.post('/uploadVendorPhoto', (req, res) => {
+  uploadVendorLicenceRouter.post('/uploadVendorLicence', (req, res) => {
     var logoName = req.query.logoName;
     //console.log(logoName);
     upload(req, res, (err) => {
@@ -53,4 +53,4 @@ const upload = multer({
     });
   });
 
-module.exports = uploadVendorPhotoRouter;
+module.exports = uploadVendorLicenceRouter;

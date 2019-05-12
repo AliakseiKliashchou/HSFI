@@ -17,21 +17,14 @@
         <input matInput [value]="vendor.operatorName" #operatorName>          
         <mat-hint>Hint</mat-hint>
         </mat-form-field>
-    </p>
-
-   <p>Load vendor profile photo:</p>
-    <input type="file" name="avatar" ng2FileSelect [uploader]="uploader" /><br><br>
-    <!-- button to trigger the file upload when submitted -->
-    <button  mat-button type="button" 
-          (click)="uploader.uploadAll()" 
-          [disabled]="!uploader.getNotUploadedItems().length">
-          Upload 
-    </button>
+    </p>   
 
     <p>
       <mat-form-field>
         <mat-select placeholder="Conutry" #country>      
-          <mat-option value="option">Country list</mat-option>
+          <mat-option value="Russia">Russia</mat-option>
+          <mat-option value="Belarus">Belarus</mat-option>
+          <mat-option value="Ukraine">Ukraine</mat-option>          
         </mat-select>
       </mat-form-field>
     </p>
@@ -52,9 +45,23 @@
         </mat-form-field>
     </p>
 
-    <br>
-    <p>Здесь будет скан лицензии</p>
-    <br>
+    <p>Load vendor photo:</p>
+    <input type="file" name="avatar" ng2FileSelect [uploader]="uploader" /><br><br>
+    <!-- button to trigger the file upload when submitted -->
+    <button  mat-button type="button" 
+          (click)="uploader.uploadAll()" 
+          [disabled]="!uploader.getNotUploadedItems().length">
+          Upload 
+    </button> <br>
+
+    <p>Load licence scan:</p>
+    <input type="file" name="licence" ng2FileSelect [uploader]="uploader2" /><br><br>
+    <!-- button to trigger the file upload when submitted -->
+    <button  mat-button type="button" 
+          (click)="uploader2.uploadAll()" 
+          [disabled]="!uploader2.getNotUploadedItems().length">
+          Upload 
+    </button><br>
 
     <p>
       <mat-form-field appearance="outline">
@@ -98,7 +105,7 @@
     <p>Business schedule</p>
     <p *ngFor="let string of scheduleArray; let i = index"> 
       <mat-form-field appearance="outline">
-        <mat-select placeholder="Day">      
+        <mat-select  #day placeholder="Day" (focus)="businessScheduleDay(day.value, i)">      
           <mat-option value="Mon">Mon</mat-option>
           <mat-option value="Thue">Thue</mat-option>
           <mat-option value="Wen">Wen</mat-option>
@@ -111,13 +118,13 @@
 
         <mat-form-field appearance="outline">
           <mat-label>from</mat-label>
-          <input matInput>          
+          <input matInput #from (change)="businessScheduleFrom(from.value, i)">          
           <mat-hint>Hint</mat-hint>
           </mat-form-field>
           
           <mat-form-field appearance="outline">
             <mat-label>to</mat-label>
-            <input matInput>          
+            <input matInput #to (change)="businessScheduleTo(to.value, i)">          
             <mat-hint>Hint</mat-hint>
             </mat-form-field>  
             
@@ -145,7 +152,17 @@
         </mat-form-field>
     </p>
 
-    <button mat-button (click)="submit()"
+    <button mat-button type="button" (click)="submit(
+      dateVal.value,
+      operatorName.value,
+      country.value,
+      name.value,
+      licenceNumber.value,
+      phone.value,
+      email.value,
+      foodGroup.value
+    )"   
+      
     >OK!</button>  
   </div>
 </div>

@@ -13,7 +13,7 @@ const jsonParser = express.json();
 const ejs = require('ejs');
 const path = require('path');
 const multer = require('multer');
-
+const fs = require('fs');
 // Public Folder
 app.use(express.static('./public/uploads'));
 
@@ -66,16 +66,18 @@ const getOperatorRouter = require('./routes/get_operator_router');
 app.post('/getOperator', getOperatorRouter);
 //******************************************* */
 
-//***********GET OPERATOR INFORMATION********** */
+//***********UPLOAD VENDOR IMAGES********* */
 const uploadVendorPhotoRouter = require('./routes/upload_vendor_photo_router');
 app.post('/uploadVendorPhoto', uploadVendorPhotoRouter);
+
+const uploadVendorLicenceRouter = require('./routes/upload_vendor_licence_router');
+app.post('/uploadVendorLicence', uploadVendorLicenceRouter);
 //******************************************* */
 
-
-
-
-
-
+//***********VENDOR REGISTRATION********** */
+const vendorRegistrationRouter = require('./routes/vendor_registration_router');
+app.post('/vendorRegistration', vendorRegistrationRouter);
+//******************************************* */
 
 
 
