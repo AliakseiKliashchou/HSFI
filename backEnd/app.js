@@ -66,6 +66,20 @@ const getOperatorRouter = require('./routes/get_operator_router');
 app.post('/getOperator', getOperatorRouter);
 //******************************************* */
 
+//***********GET VENDOR INFORMATION********** */
+const getVendorRouter = require('./routes/get_vendor_router');
+app.post('/getVendor', getVendorRouter);
+//******************************************* */
+
+//***********GET VENDOR CARD********** */
+const getVendorCardRouter = require('./routes/get_vendorCard_router');
+app.post('/getVendorCard', getVendorCardRouter);
+//******************************************* */
+//***********CREATE NEW VENDOR CARD********** */
+const createVendorCardRouter = require('./routes/create_vendorCard_router');
+app.post('/createVendorCard', createVendorCardRouter);
+//******************************************* */
+
 //***********UPLOAD VENDOR IMAGES********* */
 const uploadVendorPhotoRouter = require('./routes/upload_vendor_photo_router');
 app.post('/uploadVendorPhoto', uploadVendorPhotoRouter);

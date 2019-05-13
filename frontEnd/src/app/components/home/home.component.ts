@@ -19,5 +19,8 @@ export class HomeComponent implements OnInit {
     this._router.navigate(['vendorregistrationDesk']);
   }
 
+  goToScratchCardDesk(){
+    this._router.navigate(['scratchCardDesk']);
+  }
 
 }

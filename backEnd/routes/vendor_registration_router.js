@@ -24,6 +24,8 @@ vendorRegistrationRouter.post('/vendorRegistration', (req, res) => {
                         registrationDate: req.body.registrationDate,
                         photo: img.photoName, 
                         licenceScan: img.licenceName,
+                        licenceNumber: req.body.licenceNumber,
+                        name: req.body.name,
                         country: req.body.country, 
                         phone: req.body.phone,
                         email: req.body.email,

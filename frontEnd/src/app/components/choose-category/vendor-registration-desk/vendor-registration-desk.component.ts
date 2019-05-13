@@ -67,7 +67,7 @@ export class VendorRegistrationDeskComponent implements OnInit {
     };
     //REQUEST FOR FETCHING OPERATOR`S NAME FIELD
     this.http.post('http://localhost:3000/getOperator', {email: localStorage.getItem('userName')}, httpOptions).subscribe((data: any) => {
-        this.vendor.operatorName = data.user.name;
+        this.vendor.operatorName = data.user.email;
         console.log(this.vendor);  
     });
   }
