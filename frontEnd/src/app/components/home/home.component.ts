@@ -22,5 +22,8 @@ export class HomeComponent implements OnInit {
   goToScratchCardDesk(){
     this._router.navigate(['scratchCardDesk']);
   }
+  goToHotline(){
+    this._router.navigate(['hotline']);
+  }
 
 }
