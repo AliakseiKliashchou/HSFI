@@ -69,7 +69,30 @@ const VendorSchema = new Schema({
     required: true,
     
   },
-
+  flag: {
+    type: String,
+    default: '',
+  },
+  wasFlag: {
+    type: Boolean,
+    default: false
+  },
+  stars: {
+    type: Number,
+    default: 0
+  },
+  callerID: {
+    type: Object,
+    default: []
+  },
+  callCount: {
+    type: Number,
+    default: 0
+  },
+  callDate: {
+    type: Object,
+    default: []
+  }
 });
 
 

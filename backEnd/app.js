@@ -93,6 +93,11 @@ const vendorRegistrationRouter = require('./routes/vendor_registration_router');
 app.post('/vendorRegistration', vendorRegistrationRouter);
 //******************************************* */
 
+//***********VENDOR REGISTRATION********** */
+const hotlineRouter = require('./routes/hotline_router');
+app.post('/hotline', hotlineRouter);
+//******************************************* */
+
 
 
 
