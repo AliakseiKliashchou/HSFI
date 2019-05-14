@@ -29,19 +29,35 @@ export const MY_FORMATS = {
 export class HotlineComponent implements OnInit {
 
   date = new FormControl(moment());
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.userName = localStorage.getItem('userName');
   }
 userName = '';
 
-submit(dateValue, date){
-    console.log(dateValue);
+submit(operatorName, dateVal, callerID, serialNumber){
+    //console.log(dateValue);
     //2019-05-14
-    var y = '2019-05-10';
+    //var y = '2019-05-10';
     //var x =  moment(y);
-    console.log(moment(y).fromNow());
+    //console.log(moment(y).fromNow());
+   let vendor = {
+    operatorName: operatorName,
+    callDate: dateVal,
+    callerID: callerID, 
+    serialNumber: serialNumber,   
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    this.http.post('http://localhost:3000/hotline', vendor, httpOptions).subscribe((data: any) => {
+      console.log(data);
+  });
+
     
 }
 

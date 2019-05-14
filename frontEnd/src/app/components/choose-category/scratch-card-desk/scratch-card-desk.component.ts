@@ -9,12 +9,12 @@ import { Content } from '@angular/compiler/src/render3/r3_ast';
 const moment = _moment;
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'LL',
+    dateInput: 'YYYY-MM-DD',
   },
   display: {
-    dateInput: 'LL',
+    dateInput: 'YYYY-MM-DD',
     monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
+    dateA11yLabel: 'YYYY-MM-DD',
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
