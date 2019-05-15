@@ -92,6 +92,14 @@ const VendorSchema = new Schema({
   callDate: {
     type: Object,
     default: []
+  },
+  openClosed: {
+    type: String,
+    default: 'open'
+  },
+  oss: {
+    type: Number,
+    default: 0
   }
 });
 

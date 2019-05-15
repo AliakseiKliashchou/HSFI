@@ -26,4 +26,8 @@ export class HomeComponent implements OnInit {
     this._router.navigate(['hotline']);
   }
 
+  goToInspectionDesk(){
+    this._router.navigate(['inspectionDesk']);
+  }
+
 }

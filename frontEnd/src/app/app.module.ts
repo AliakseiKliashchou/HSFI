@@ -39,7 +39,7 @@ import { OperatorProfileComponent } from './components/header/create-new-account
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { FileSelectDirective } from 'ng2-file-upload';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 
 
@@ -103,7 +103,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatDatepickerModule,
     RouterModule.forRoot(appRoutes),
-   
+    AlertModule.forRoot(),
 
     ModalModule.forRoot()
   ],

@@ -98,6 +98,11 @@ const hotlineRouter = require('./routes/hotline_router');
 app.post('/hotline', hotlineRouter);
 //******************************************* */
 
+//***********VIEW VENDOR********** */
+const viewVendorRouter = require('./routes/view_vendor_router');
+app.post('/viewVendor', viewVendorRouter);
+//******************************************* */
+
 
 
 
