@@ -22,7 +22,8 @@
             <p>
                 <mat-form-field appearance="outline">
                 <mat-select placeholder="City" #city>      
-                  <mat-option value="Minsk">Minsk</mat-option>
+                  <mat-option value="Minsk">Minsk</mat-option> 
+         
                   <mat-option value="Gomel">Gomel</mat-option> 
                   <mat-option value="Brest">Brest</mat-option> 
                   <mat-option value="Grodno">Grodno</mat-option> 
@@ -114,7 +115,7 @@
           </div>
           <div class="modal-body">
             <div class="vendor_photo"><img src="{{vendorsArray[i].photo}}" alt=""></div><br>
-            <p><strong>Name: </strong> {{vendorsArray[i].name}}</p>
+            <p><strong>Name: </strong> {{vendorsArray[i].name}} <button  mat-button class="info_btn">&#9998;</button></p>
             <p><strong>Licence number: </strong> {{vendorsArray[i].licenceNumber}}</p>
             <p><strong>Phone: </strong> {{vendorsArray[i].phone}}</p>
             <p><strong>E-mail: </strong> {{vendorsArray[i].email}}</p>
