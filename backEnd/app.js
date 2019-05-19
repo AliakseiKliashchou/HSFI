@@ -93,7 +93,7 @@ const vendorRegistrationRouter = require('./routes/vendor_registration_router');
 app.post('/vendorRegistration', vendorRegistrationRouter);
 //******************************************* */
 
-//***********VENDOR REGISTRATION********** */
+//***********HOTLINE********** */
 const hotlineRouter = require('./routes/hotline_router');
 app.post('/hotline', hotlineRouter);
 //******************************************* */
@@ -101,6 +101,11 @@ app.post('/hotline', hotlineRouter);
 //***********VIEW VENDOR********** */
 const viewVendorRouter = require('./routes/view_vendor_router');
 app.post('/viewVendor', viewVendorRouter);
+//******************************************* */
+
+//***********CHANGE VENDOR PROFILE********** */
+const changeVendorProfileRouter = require('./routes/change_vendor_profile_router');
+app.post('/changeVendorProfile', changeVendorProfileRouter);
 //******************************************* */
 
 

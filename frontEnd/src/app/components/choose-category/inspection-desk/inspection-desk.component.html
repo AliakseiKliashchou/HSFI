@@ -76,7 +76,7 @@
                           </mat-form-field>
                       </p> <br><br>
 
-              <button mat-button type="button" (click)="showVendor(
+              <button mat-button type="button" class="save_btn" (click)="showVendor(
                 country.value,
                 city.value,
                 openClosed.value,
@@ -113,15 +113,45 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <!------------------------------VIEW VENDOR PROFILE--------------------------------------------------------->
           <div class="modal-body">
             <div class="vendor_photo"><img src="{{vendorsArray[i].photo}}" alt=""></div><br>
-            <p><strong>Name: </strong> {{vendorsArray[i].name}} <button  mat-button class="info_btn">&#9998;</button></p>
-            <p><strong>Licence number: </strong> {{vendorsArray[i].licenceNumber}}</p>
-            <p><strong>Phone: </strong> {{vendorsArray[i].phone}}</p>
-            <p><strong>E-mail: </strong> {{vendorsArray[i].email}}</p>
-            <p><strong>Country: </strong> {{vendorsArray[i].country}}</p>
-            <p><strong>Food group: </strong> {{vendorsArray[i].foodGroup}}</p>
-            <p><strong>OSS: </strong> {{vendorsArray[i].oss}}</p>
+            <p>
+              <strong>Name: </strong> 
+              <button  mat-button class="info_btn" (click)="changeName(name.value, i)" [innerHTML]="nameBtn"></button>              
+              <input class="inputs" type="text" #name [value]="vendorsArray[i].name" [disabled]="nameDisable">
+            </p>
+            <p>
+              <strong>Licence number: </strong> 
+              <button  mat-button class="info_btn" (click)="changeLicenceNumber(licenceNumber.value, i)" [innerHTML]="licenceBtn"></button>
+              <input class="inputs" type="text" #licenceNumber [value]="vendorsArray[i].licenceNumber" [disabled]="licenceDisable">
+            </p>
+            <p>
+              <strong>Phone: </strong> 
+              <button  mat-button class="info_btn" (click)="changePhone(phone.value, i)" [innerHTML]="phoneBtn"></button>
+              <input class="inputs" type="text" #phone [value]="vendorsArray[i].phone" [disabled]="phoneDisable">
+            </p>
+            <p>
+              <strong>E-mail: </strong> 
+              <button  mat-button class="info_btn" (click)="changeEmail(email.value, i)" [innerHTML]="emailBtn"></button>
+              <input class="inputs" type="text" #email [value]="vendorsArray[i].email" [disabled]="emailDisable">
+            </p>
+            <p>
+              <strong>Country: </strong>
+              <button  mat-button class="info_btn" (click)="changeCountry(country.value, i)" [innerHTML]="countryBtn"></button>
+              <input class="inputs" type="text" #country [value]="vendorsArray[i].country" [disabled]="countryDisable">
+            </p>
+            <p>
+              <strong>Food group: </strong> 
+              <button  mat-button class="info_btn" (click)="changeFoodgroup(foodGroup.value, i)" [innerHTML]="foodGroupBtn"></button>
+              <input class="inputs" type="text" #foodGroup [value]="vendorsArray[i].foodGroup" [disabled]="foodGroupDisable">
+            </p>
+            <p>
+              <strong>OSS: </strong> 
+              <button  mat-button class="info_btn" (click)="changeOss(oss.value, i)" [innerHTML]="ossBtn"></button>
+              <input class="inputs" type="text" #oss [value]="vendorsArray[i].oss" [disabled]="ossDisable">
+            </p>
+            <button *ngIf="isShowChangesBtn" mat-button class="submit_btn" (click)="saveChanges(i)">Save changes</button>
           </div>
         </ng-template>
 

@@ -43,7 +43,7 @@
     margin-left: 16px;
 }
 
-button{
+.save_btn{
     background-color: rgb(74, 238, 74);  
     margin: 10px;  
 }
@@ -80,6 +80,14 @@ img{
     height: 100%;
 }
 
-info_btn{
+.info_btn{
    background-color: #fff;
+   float: right;
+}
+.submit_btn{
+    background-color: rgb(74, 238, 74);  
+    float: right; 
+}
+.inputs{
+    float: right;
 }

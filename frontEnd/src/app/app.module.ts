@@ -104,8 +104,8 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     RouterModule.forRoot(appRoutes),
     AlertModule.forRoot(),
-
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
