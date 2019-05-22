@@ -13,7 +13,9 @@ createVendorCardRouter.post('/createVendorCard', async(req, res) => {
         name: req.body.name,
         photo: req.body.photo,
         foodGroup: req.body.foodGroup,    
-        serialNumber: req.body.serialNumber,              
+        serialNumber: req.body.serialNumber,   
+        cost: req.body.cost,
+        money: req.body.money,           
     });
        
     console.log('check2');

@@ -1,43 +1,42 @@
-<h1>generate report</h1>
+<div class="wrapper">
+  <app-header></app-header>
+        <h1>generate report</h1>
 
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Report date (fetched)</mat-label>
-    <input matInput>          
-    <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-</p>
+        <div class="form_wrapper">
+          <p>
+            <mat-form-field>
+              <input matInput [matDatepicker]="dp" placeholder="Date of registration" [formControl]="date" #dateVal>
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp></mat-datepicker>
+            </mat-form-field>
+          </p>
 
-<br>
-<p>Здесь будет календарь</p>
-<br>
+        <br>
+        <p>Здесь будет календарь</p>
+        <br>
 
-<p>
-  <mat-form-field appearance="outline">
-    <mat-select placeholder="Country">      
-      <mat-option value="option">Country list</mat-option>       
-    </mat-select>
-    </mat-form-field>
-</p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Country">      
+              <mat-option value="option">Country list</mat-option>       
+            </mat-select>
+            </mat-form-field>
+        </p>
 
-<p>
-  <mat-form-field appearance="outline">
-    <mat-select placeholder="City">      
-      <mat-option value="option">City list</mat-option>       
-    </mat-select>
-    </mat-form-field>
-</p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="City">      
+              <mat-option value="option">City list</mat-option>       
+            </mat-select>
+            </mat-form-field>
+        </p>
 
-<p>
-  <mat-radio-group aria-label="Select an option">
-    <mat-radio-button value="1">Registered vendors</mat-radio-button><br>
-    <mat-radio-button value="2">Vendors by group</mat-radio-button><br>
-    <mat-radio-button value="3">Average OSS</mat-radio-button><br>
-    <mat-radio-button value="4">Tot red flags</mat-radio-button><br>
-    <mat-radio-button value="5">Average quality stars</mat-radio-button><br>
-    <mat-radio-button value="6">Hotline calls</mat-radio-button><br>
-    <mat-radio-button value="7">Tot card transactions</mat-radio-button><br>
-    <mat-radio-button value="8">Tot revenues</mat-radio-button><br>
-    
-  </mat-radio-group>
-</p>
+        <p>
+          <mat-radio-group aria-label="Select an option" *ngFor="let task of taskList; let i = index">
+            <p class="check_box"><mat-checkbox #checkboxItem [value]="i"  (change)="check_checkBox(checkboxItem, i)">{{task}}</mat-checkbox></p>         
+            
+          </mat-radio-group>
+        </p>
+        <button mat-button type="button" (click)="submit()">Submit</button>  
+      </div>
+</div>

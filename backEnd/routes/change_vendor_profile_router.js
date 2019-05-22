@@ -18,6 +18,9 @@ changeVendorProfileRouter.post('/changeVendorProfile', async(req, res, next) => 
         email: req.body.email,
         foodGroup: req.body.foodGroup,
         oss: req.body.oss,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        stars: req.body.stars,
         
     },
     {new: true},

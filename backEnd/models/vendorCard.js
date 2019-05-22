@@ -38,7 +38,14 @@ const vendorCardSchema = new Schema({
     required: true,
    
   },
-
+  cost: {
+    type: Number,
+    default: 0
+  },
+  money: {
+    type: String,
+    default: ''
+  }
 });
 
 

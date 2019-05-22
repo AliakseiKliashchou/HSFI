@@ -29,5 +29,8 @@ export class HomeComponent implements OnInit {
   goToInspectionDesk(){
     this._router.navigate(['inspectionDesk']);
   }
+  goToReport(){
+    this._router.navigate(['report']);
+  }
 
 }

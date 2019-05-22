@@ -86,21 +86,148 @@
                 stars.value
               )">Show vendor</button>
       </div>
-
+<!----------------------------MAP MODE VIEW------------------------------------------------------>
       <div class="map_mode" *ngIf="toggle">
+        <agm-map [latitude]="latitude" [longitude]="longitude" >
+          <agm-marker *ngFor="let marker of vendorsArrayMap; let i = index" [latitude]="vendorsArrayMap[i].latitude" [longitude]="vendorsArrayMap[i].longitude" [markerDraggable]="true" (dragEnd)="markerMove($event, i)">
+            <agm-info-window>
+              <p><strong>Name:</strong> {{vendorsArrayMap[i].name}}</p>
+              <p><strong>Licence number:</strong> {{vendorsArrayMap[i].licenceNumber}}</p>
+              <img class="map_photo" [src]="vendorsArrayMap[i].photo" alt="">
+              <button (click)="openModalMap(mapModal)">Show all info</button>
 
+              <ng-template #mapModal>
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Vendor`s profile</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                <!--/////////////////////////Modal window from map///////////////////////////////////-->  
+                  <div class="modal-body">
+                    <div class="vendor_photo"><img src="{{vendorsArrayMap[i].photo}}" alt=""></div><br>
+                    <p>
+                      <strong>Name: </strong> 
+                      <button  mat-button class="info_btn" (click)="changeNameMap(nameMap.value, i)" [innerHTML]="nameBtn"></button>              
+                      <input class="inputs" type="text" #nameMap [value]="vendorsArrayMap[i].name" [disabled]="nameDisable">
+                    </p>
+                    <p>
+                      <strong>Licence number: </strong> 
+                      <button  mat-button class="info_btn" (click)="changeLicenceNumberMap(licenceNumberMap.value, i)" [innerHTML]="licenceBtn"></button>
+                      <input class="inputs" type="text" #licenceNumberMap [value]="vendorsArrayMap[i].licenceNumber" [disabled]="licenceDisable">
+                    </p>
+                    <p>
+                      <strong>Phone: </strong> 
+                      <button  mat-button class="info_btn" (click)="changePhoneMap(phoneMap.value, i)" [innerHTML]="phoneBtn"></button>
+                      <input class="inputs" type="text" #phoneMap [value]="vendorsArrayMap[i].phone" [disabled]="phoneDisable">
+                    </p>
+                    <p>
+                      <strong>E-mail: </strong> 
+                      <button  mat-button class="info_btn" (click)="changeEmailMap(emailMap.value, i)" [innerHTML]="emailBtn"></button>
+                      <input class="inputs" type="text" #emailMap [value]="vendorsArrayMap[i].email" [disabled]="emailDisable">
+                    </p>
+                    <p>
+                      <strong>Country: </strong>
+                      <button  mat-button class="info_btn" (click)="changeCountryMap(countryMap.value, i)" [innerHTML]="countryBtn"></button>
+                      <input class="inputs" type="text" #countryMap [value]="vendorsArrayMap[i].country" [disabled]="countryDisable">
+                    </p>
+                    <p>
+                      <strong>Food group: </strong> 
+                      <button  mat-button class="info_btn" (click)="changeFoodgroupMap(foodGroupMap.value, i)" [innerHTML]="foodGroupBtn"></button>
+                      <input class="inputs" type="text" #foodGroupMap [value]="vendorsArrayMap[i].foodGroup" [disabled]="foodGroupDisable">
+                    </p>
+                    <p>
+                      <strong>OSS: </strong> 
+                      <button  mat-button class="info_btn" (click)="changeOssMap(ossMap.value, i)" [innerHTML]="ossBtn"></button>
+                      <input class="inputs" type="text" #ossMap [value]="vendorsArrayMap[i].oss" [disabled]="ossDisable">
+                    </p>
+                    <button *ngIf="isShowChangesBtn" mat-button class="submit_btn" (click)="saveChangesMap(i)">Save changes</button>
+                   
+                    <p style="color:orangered; font-size: 40px">&#9733; {{vendorsArrayMap[i].stars}}</p>
+                  </div>
+
+                </div>
+              </ng-template>
+
+
+            </agm-info-window>
+          </agm-marker>
+        </agm-map>
+        
       </div>
 
      </div>
     <!-----------------------INSPECTION FIELD------------------------------------------->   
     <div class="inspection_field">
+        <h3>Inspection field</h3>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Operator`s name</mat-label>
+          <input matInput [value]="userName">          
+          <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+      </p>
+
+      <mat-form-field>
+          <input matInput [matDatepicker]="dp" placeholder="Date of registration" [formControl]="date" #dateVal>
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+
+        <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Licence number</mat-label>
+              <input matInput #licenceNumberFind (change)="findVendor(licenceNumberFind.value)">          
+              <mat-hint>Hint</mat-hint>
+              </mat-form-field>
+          </p>
+
+          <p *ngIf="isShowFindVendor">
+              <mat-form-field appearance="outline">
+                <mat-label>Vendor`s name</mat-label>
+                <input matInput [value]='vendorOnInspection.name'>          
+                <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+            </p>
+
+            <br>
+            <div class="vendor_photo" *ngIf="isShowFindVendor"><img src="{{vendorOnInspection.photo}}" alt=""></div>
+
+            <p *ngIf="isShowFindVendor">
+                <mat-form-field appearance="outline">
+                  <mat-label>Food group</mat-label>
+                  <input matInput [value]="vendorOnInspection.foodGroup">          
+                  <mat-hint>Hint</mat-hint>
+                  </mat-form-field>
+              </p>
+              
+                <ul><strong>GPS Location</strong> 
+                  <li>Latitude:</li>
+                  <li>Longitude:</li>
+                </ul>
+              
+                <h5 style="text-decoration: underline">Question List</h5>
+                <ul>
+                  <li type='none' *ngFor="let question of questions; let i = index">
+                    <mat-radio-group aria-label="Question list">
+                        <mat-radio-button #ossYesRadio value="1" style="color:green" (change)="ossYes(ossYesRadio, i)">&#10004;</mat-radio-button>
+                        <mat-radio-button #ossNoRadio value="-1"  style="color:red" (change)="ossNo(ossNoRadio, i)">&#10008;</mat-radio-button>
+                    </mat-radio-group>
+                      {{question}}
+                  </li>
+                 
+                </ul>
+                <br>
+                <button mat-button class="save_btn" (click)="overal_safety_score()">Overall safety score</button>
+  
 
     </div>
     <div style="clear: both"></div>
 
 
   </div>
-
+<!------------------------------VIEW VENDOR PROFILE  (MODAL)--------------------------------------------------------->
   <div class="show_vendor" >
     <div class="item" *ngFor="let item of vendorsArray; let i = index" (click)="openModal(template)">
 
@@ -113,7 +240,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <!------------------------------VIEW VENDOR PROFILE--------------------------------------------------------->
+          <!------------------------------VIEW VENDOR PROFILE   (MODAL BODY)--------------------------------------------------------->
           <div class="modal-body">
             <div class="vendor_photo"><img src="{{vendorsArray[i].photo}}" alt=""></div><br>
             <p>
@@ -152,6 +279,9 @@
               <input class="inputs" type="text" #oss [value]="vendorsArray[i].oss" [disabled]="ossDisable">
             </p>
             <button *ngIf="isShowChangesBtn" mat-button class="submit_btn" (click)="saveChanges(i)">Save changes</button>
+            
+            <p style="color:orangered; font-size: 40px">&#9733; {{vendorsArray[i].stars}}</p>
+    
           </div>
         </ng-template>
 

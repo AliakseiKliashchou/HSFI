@@ -89,6 +89,8 @@ export class VendorRegistrationDeskComponent implements OnInit {
     businessSchedule: [[],[],[]],
     ingredientSource: [],
     foodGroup: '',
+    latitude: 0,
+    longitude: 0,
   };
   
 
@@ -137,7 +139,11 @@ export class VendorRegistrationDeskComponent implements OnInit {
 submit(date, operatorName, country, name, licenceNumber, phone, email, foodGroup){
   this.vendor.registrationDate = date;
   this.vendor.operatorName = operatorName;
-  this.vendor.country = country;
+  if(country == "Belarus"){
+    this.vendor.country = country;
+    this.vendor.latitude = 53.54;
+    this.vendor.longitude = 27.30;
+  }  
   this.vendor.name = name;
   this.vendor.licenceNumber = licenceNumber;
   this.vendor.phone = phone;

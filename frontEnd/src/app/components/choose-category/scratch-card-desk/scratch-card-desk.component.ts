@@ -47,9 +47,9 @@ export class ScratchCardDeskComponent implements OnInit {
   isShowCost = false;
   cardQuantity = 0;
   cardCount = [""];
-  cardCost = 0;
-  summaryCost = 0;
+  cardCost = 0;  
   isShowConvert = false;
+  summaryCost = 0;
 
   vendorCardData = {
     operatorName : '',
@@ -59,6 +59,8 @@ export class ScratchCardDeskComponent implements OnInit {
     photo: '',
     foodGroup: '',    
     serialNumber: 0,
+    cost: 0,
+    money: ''
   };
 //------PULL SOME DATA FROM DB ON LICENCE NUMBER-------------------
   licenceCheck(licence){  
@@ -70,9 +72,7 @@ export class ScratchCardDeskComponent implements OnInit {
     };  
     this.http.post('http://localhost:3000/getVendor', {licenceNumber: licence}, httpOptions).subscribe((data: any) => {
         if(data.vendor){
-          this.vendorCardData.name = data.vendor.name;
-          this.vendorCardData.photo = data.vendor.photo;
-          this.vendorCardData.foodGroup = data.vendor.foodGroup;
+          this.vendorCardData = data.vendor;          
           this.isShowPhoto = true;
         }else console.log('vendor is not found');   
     });
@@ -85,12 +85,14 @@ export class ScratchCardDeskComponent implements OnInit {
     this.vendorCardData.licenceNumber = licenceNumber;
     this.cardQuantity = cardQuantity;
     this.cardCost = cost;
-    this.summaryCost = this.cardQuantity*cost + money;
+    this.summaryCost = this.cardQuantity*cost + money;    
     for(let i = 0; i < this.cardQuantity; i++){
-      let min = 999;
-      let max = 10000;
-      let random = Math.floor(Math.random()*(max - min + 1));
+      let min = 10000;
+      let max = 99999;
+      let random = Math.floor(Math.random()*(max - min));
       this.vendorCardData.serialNumber = random;
+      this.vendorCardData.cost = cost;
+      this.vendorCardData.money = money;
       console.log(random);
       const httpOptions = {
         headers: new HttpHeaders({

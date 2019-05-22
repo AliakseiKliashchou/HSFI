@@ -33,6 +33,8 @@ vendorRegistrationRouter.post('/vendorRegistration', (req, res) => {
                         businessSchedule: req.body.businessSchedule,
                         ingredientSource: req.body.ingredientSource,
                         foodGroup: req.body.foodGroup,
+                        latitude: req.body.latitude,
+                        longitude: req.body.longitude,
                     });
                 }
             });

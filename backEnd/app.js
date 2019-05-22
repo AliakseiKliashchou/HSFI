@@ -108,6 +108,16 @@ const changeVendorProfileRouter = require('./routes/change_vendor_profile_router
 app.post('/changeVendorProfile', changeVendorProfileRouter);
 //******************************************* */
 
+//***********GET ALL VENDORS********** */
+const getAllVendorsRouter = require('./routes/get_all_vendors_router');
+app.get('/getAllVendors', getAllVendorsRouter);
+//******************************************* */
+
+//***********REPORT********** */
+const reportRouter = require('./routes/report_router');
+app.post('/report', reportRouter);
+//******************************************* */
+
 
 
 

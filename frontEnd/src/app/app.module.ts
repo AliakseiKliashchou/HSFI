@@ -40,6 +40,7 @@ import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { FileSelectDirective } from 'ng2-file-upload';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import {AgmCoreModule} from '@agm/core';
 
 
 
@@ -105,7 +106,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AlertModule.forRoot(),
     ModalModule.forRoot(),
-    
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDa9R87pK5BOBy5bCKP9b8n7vSVP_LmE8k'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
