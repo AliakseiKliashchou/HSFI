@@ -37,6 +37,7 @@
             
           </mat-radio-group>
         </p>
-        <button mat-button type="button" (click)="submit()">Submit</button>  
+        <button mat-button type="button" (click)="submit()">Submit</button><br>  
+        <button mat-button type="button" (click)="report(dateVal.value)" *ngIf="isShowReportBtn">Report</button>
       </div>
 </div>
