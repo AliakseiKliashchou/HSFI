@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -10,7 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class LogInComponent implements OnInit {
   modalRef: BsModalRef;
  
-  constructor(private modalService: BsModalService, private http: HttpClient) { 
+  constructor(private modalService: BsModalService, private http: HttpClient, private _router: Router) { 
     
   }
 
@@ -62,7 +63,8 @@ export class LogInComponent implements OnInit {
         this.onSetName.emit({
           name : localStorage.getItem('userName'), 
           isLogin : this.enterData.isLogin
-      });
+        });
+        window.location.reload();
       
       }else {
         console.log('Server not answered!(');
@@ -78,7 +80,7 @@ quit(){
     console.log('confirm');    
     if(confirm('Do you really want to quit?')){
       this.enterData.enterQuit = 'Log In';
-      this.enterData.modalLogIn = true;      
+      //this.enterData.modalLogIn = true;      
       this.enterData.isLogin = false;
       localStorage.removeItem('user');
       localStorage.removeItem('userName');
@@ -88,6 +90,8 @@ quit(){
         name : '', 
         isLogin : this.enterData.isLogin
     });
+    this._router.navigate(['/']);
+    window.location.reload();
     }
   }
 }

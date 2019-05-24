@@ -119,6 +119,34 @@ app.post('/report', reportRouter);
 //******************************************* */
 
 
+app.get('/mail', (req,res) =>{
+  const nodemailer = require('nodemailer');
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,
+    port: 25,
+    auth: {
+      user: 'irongoga130@gmail.com',
+      pass: 'Svoboda491956'
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+  let HelperOptions = {
+    from: '"Nephelim" <irongoga130@gmail.com',
+    to: 'iron-goga@yandex.ru',
+    subject: 'some shit',
+    text: 'Did you got this shit?'
+  };
+  transporter.sendMail(HelperOptions, (err, info) => {
+    if(err){console.log(err);}
+    console.log('check');
+    console.log(info); 
+  });
+  res.json({message: 'Check'});
+});
+
 
 
 //==============================================================================
