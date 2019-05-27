@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output, OnInit, AfterViewInit, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-npc',
