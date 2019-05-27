@@ -17,32 +17,33 @@
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Enter your name</mat-label>
-            <input matInput #name>          
-            <mat-hint>Hint</mat-hint>
+            <input matInput #name [formControl]="userInput.name" (change)="checkForm()">          
+            <mat-error *ngIf="userInput.name.invalid">{{getErrorMessageName()}}</mat-error>
           </mat-form-field>
         </p>
 
         <p>
             <mat-form-field appearance="outline">
               <mat-label>Enter your organization</mat-label>
-              <input matInput #organization>          
-              <mat-hint>Hint</mat-hint>
+              <input matInput #organization [formControl]="userInput.organization" (change)="checkForm()">          
+              <mat-error *ngIf="userInput.organization.invalid">{{getErrorMessageOrganization()}}</mat-error>
             </mat-form-field>
         </p>
 
         <p>
             <mat-form-field appearance="outline">
               <mat-label>Enter your e-mail adress</mat-label>
-              <input matInput #email>          
-              <mat-hint>Hint</mat-hint>
+              <input matInput #email [formControl]="userInput.email" (change)="checkForm()">          
+              <mat-error *ngIf="userInput.email.invalid">{{getErrorMessageEmail()}}</mat-error>
             </mat-form-field>
         </p> 
 
         <p>
             <mat-form-field appearance="outline">
               <mat-label>Enter your password</mat-label>
-              <input matInput #password>          
-              <mat-hint>Hint</mat-hint>
+              <input matInput #password [formControl]="userInput.password" (change)="checkForm()" [type]="hide ? 'password' : 'text'">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>           
+              <mat-error *ngIf="userInput.password.invalid">{{getErrorMessagePassword()}}</mat-error>
             </mat-form-field>
         </p> 
 
@@ -62,7 +63,7 @@
               </mat-select>
             </mat-form-field>
         </p>
-        <button mat-button color="primary" (click)="submit(country.value, name.value, organization.value, email.value, password.value, task.value)">OK</button>
+        <button mat-button color="primary" [disabled]="isShowSubmitBtn" (click)="submit(country.value, name.value, organization.value, email.value, password.value, task.value)">OK</button>
     </div>
   </div>
 </div>  

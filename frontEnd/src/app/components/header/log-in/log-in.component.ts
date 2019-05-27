@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, Output, EventEmitter } from '@angular/c
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-log-in',
@@ -24,6 +25,8 @@ export class LogInComponent implements OnInit {
     
   }
 
+  isShowSubmitBtn = true;
+
   enterData = {      
     enterQuit: 'Log In', //Button "Log In/Quit" text
     modalLogIn: true, //In 'ngIf' templates    
@@ -31,8 +34,30 @@ export class LogInComponent implements OnInit {
     token: '' ,
     localStatus: localStorage.getItem('user')      
   }
-
- 
+//*****************VALIDATION****************************************************************************************************************** */
+  userInput = {
+    email: new FormControl('', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(2)])
+  };
+  getErrorMessageEmail() {
+    return this.userInput.email.hasError('required') ? 'You must enter a value' :
+        this.userInput.email.hasError('pattern') ? 'Not a valid email' :
+            '';
+  }
+  checkForm(){
+    if(!this.userInput.email.invalid && !this.userInput.password.invalid){
+      this.isShowSubmitBtn = false;
+    } else this.isShowSubmitBtn = true;
+  }
+  getErrorMessagePassword() {    
+    return this.userInput.password.hasError('required') ? 'You must enter a value' :
+        this.userInput.password.hasError('minlength') ? 'The password is too short' :
+        this.userInput.password.hasError('maxlength') ? 'The password is too long' :
+            '';
+  }
+  
+ //*********************************************************************************************************************************************** */
+  
   
 //Check login and logining
   logining(loginValue, passwordValue){     

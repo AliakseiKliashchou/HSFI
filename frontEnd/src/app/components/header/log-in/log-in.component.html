@@ -11,9 +11,9 @@
           
                 <p>
                     <mat-form-field appearance="outline">
-                        <mat-label>Enter your login or e-mail:</mat-label>
-                        <input matInput #login   required>          
-                        <mat-hint>Hint</mat-hint>
+                        <mat-label>Enter your e-mail:</mat-label>
+                        <input matInput #login [formControl]="userInput.email" (change)="checkForm()" >          
+                        <mat-error *ngIf="userInput.email.invalid">{{getErrorMessageEmail()}}</mat-error>
                         
                     </mat-form-field>
                 </p>
@@ -21,12 +21,12 @@
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>Enter your password</mat-label>
-                        <input matInput #password>          
-                         <mat-hint>Hint</mat-hint>
+                        <input type="password" matInput #password [formControl]="userInput.password" (change)="checkForm()">          
+                        <mat-error *ngIf="userInput.email.invalid">{{getErrorMessagePassword()}}</mat-error>
                     </mat-form-field>
                 </p>
 
-                <button mat-button color="primary" class="ok" (click)="modalRef.hide()" (click)="logining(login.value, password.value)" (click)="setName()">OK</button>      
+                <button mat-button color="primary" class="ok" [disabled]="isShowSubmitBtn" (click)="modalRef.hide()" (click)="logining(login.value, password.value)" (click)="setName()">OK</button>      
 
         </div>
       </ng-template>

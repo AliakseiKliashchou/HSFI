@@ -8,16 +8,17 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Enter your name</mat-label>
-          <input matInput #name>          
-          <mat-hint>Hint</mat-hint>
+          <input matInput #name [formControl]="userInput.name" (change)="checkFrom()">          
+          <mat-error *ngIf="userInput.name.invalid">{{getErrorMessageName()}}</mat-error>
           </mat-form-field>
       </p>
 
       <p>
           <mat-form-field>
             <mat-select placeholder="Office" #office>
-              <mat-option value="HQ">HQ</mat-option>
-              <mat-option value="country_list">Country list</mat-option>
+              <mat-option value="iTechArt">iTechArt</mat-option>
+              <mat-option value="Epam">Epam</mat-option>
+              <mat-option value="IBA">Epam</mat-option>
             </mat-select>
           </mat-form-field>
       </p>
@@ -25,26 +26,27 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Enter your phone number</mat-label>
-          <input matInput #phone>          
-          <mat-hint>Hint</mat-hint>
+          <input matInput #phone [formControl]="userInput.phone" (change)="checkFrom()">          
+          <mat-error *ngIf="userInput.phone.invalid">{{getErrorMessagePhone()}}</mat-error>
         </mat-form-field>
       </p>
 
       <p>
           <mat-form-field appearance="outline">
             <mat-label>Enter your e-mail adress</mat-label>
-            <input matInput #email>          
-            <mat-hint>Hint</mat-hint>
+            <input matInput #email [formControl]="userInput.email" (change)="checkFrom()">          
+            <mat-error *ngIf="userInput.email.invalid">{{getErrorMessageEmail()}}</mat-error>
           </mat-form-field>
       </p>
     
       <p>
           <mat-form-field appearance="outline">
             <mat-label>Enter your password</mat-label>
-            <input matInput #password>          
-            <mat-hint>Hint</mat-hint>
+            <input matInput #password [type]="hide ? 'password' : 'text'" [formControl]="userInput.password" (change)="checkFrom()"> 
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>         
+            <mat-error *ngIf="userInput.password.invalid">{{getErrorMessagePassword()}}</mat-error>
           </mat-form-field>
       </p>  
-      <button mat-button color="primary" (click)="submit(name.value, office.value, phone.value, email.value, password.value)">OK</button>
+      <button [disabled]="isShowSubmitBtn" mat-button color="primary" (click)="submit(name.value, office.value, phone.value, email.value, password.value)">OK</button>
   </div>  
 </div>
