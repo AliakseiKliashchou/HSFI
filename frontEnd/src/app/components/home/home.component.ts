@@ -2,10 +2,6 @@ import { Component, OnInit,  Directive, ViewChild, ElementRef, NgZone } from '@a
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
-
-
-declare var ymaps:any;
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,7 +9,12 @@ declare var ymaps:any;
 })
 export class HomeComponent implements OnInit {
   
-
+formattedAddres = '';
+options = {
+  componentRestrictions : {
+    country: ['BY']
+  }
+}
   constructor(private _router: Router,  private NgZone: NgZone, private elRef: ElementRef) {
     
    }  
@@ -21,6 +22,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  public handleAddressChange(address: any){
+    this.formattedAddres = address.formatted_address;
+    console.log(address.geometry.location.lat());
   }
 
   userStatus = localStorage.getItem('userStatus');
