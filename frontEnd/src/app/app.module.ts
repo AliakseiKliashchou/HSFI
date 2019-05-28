@@ -42,6 +42,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import {AgmCoreModule} from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 
 
 
@@ -83,7 +85,7 @@ const appRoutes: Routes = [
     FaoProfileComponent, 
     NpcProfileComponent, 
     OperatorProfileComponent, 
-    FileSelectDirective,  
+    FileSelectDirective, 
   ],
   imports: [
     BrowserModule,
@@ -109,11 +111,11 @@ const appRoutes: Routes = [
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDa9R87pK5BOBy5bCKP9b8n7vSVP_LmE8k', 
+      apiKey: 'AIzaSyCCqDJQC4lVsw4pDBHE9D7NbPnlLtqO4yE', 
       libraries: ["places"]
     }),
     MatGoogleMapsAutocompleteModule.forRoot(),
-    
+    GooglePlaceModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

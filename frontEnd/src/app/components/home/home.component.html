@@ -8,19 +8,10 @@
 
 
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <h2>Angular Google</h2>
-        <div class="form-group">
-          <label for="place">Search Google</label>
-          <input type="text" id="place" #search [formControl]="searchControl" autocomplete="off" autocapitalize="off" spellcheck="off">
-        </div>
-      </div>
-    </div>
-    
+  <div>
+    <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+    <p>{{formattedAddress}}</p>
   </div>
-
 
 
 
