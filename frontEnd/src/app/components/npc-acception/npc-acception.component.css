@@ -1,0 +1,36 @@
+.main{
+    background-image: url('../../../assets/images/background.jpeg');
+    background-repeat: vertical;
+    background-size: 100%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px; 
+    min-height: 800px;
+}
+
+.wrapper{
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.863);
+    min-height: 60px;
+    /*text-align: center;*/
+    padding-bottom: 70px;
+}
+
+h4{
+    display: inline-block;
+}
+
+.npc{
+    width: 80%;
+    margin: 15px auto;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+.accept_btn{
+    background-color: rgb(50, 252, 50);
+}
+.decline_btn{
+    background-color: rgb(223, 54, 76);
+}

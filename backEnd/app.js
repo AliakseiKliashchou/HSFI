@@ -118,6 +118,21 @@ const reportRouter = require('./routes/report_router');
 app.post('/report', reportRouter);
 //******************************************* */
 
+//***********GET ALL NEW NPC********** */
+const getNewNpcRouter = require('./routes/get_new_npc_router');
+app.get('/getNewNpc', getNewNpcRouter);
+//******************************************* */
+
+//***********GET ALL NEW OPERATORS********** */
+const getNewOperatorRouter = require('./routes/get_new_operator_router');
+app.get('/getNewOperator', getNewOperatorRouter);
+//******************************************* */
+
+//***********CHANGE NEW NPC********** */
+const changeNewNpcRouter = require('./routes/change_new_nps_router');
+app.post('/changeNewNpc', changeNewNpcRouter);
+//******************************************* */
+
 
 app.get('/mail', (req,res) =>{
   const nodemailer = require('nodemailer');

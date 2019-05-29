@@ -38,4 +38,16 @@
     position: relative;
     top: -51px;
     margin: 0 10px 0 10px;
+} 
+.mail{
+    float: right;
+    background-color: rgba(255, 255, 255, 0.623);
+    position: relative;
+    top: -51px;   
+    margin-left: 10px;
+    border-radius: 5px;
+}
+.mail_btn{
+    background-color: rgba(185, 183, 183, 0.623);
+    font-size: 30px;
 }

@@ -7,11 +7,20 @@
     <div>   
 
         <p>
-            <mat-form-field>
-              <mat-select placeholder="Country" #country>            
-                <mat-option value="option">Country list</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your country</mat-label>
+            <input 
+            matInput 
+            [formControl]="userInput.country" 
+            (change)="checkForm()" 
+            #country
+            ngx-google-places-autocomplete 
+            [options]='options' 
+            #placesRef="ngx-places" 
+            (onAddressChange)="handleAddressChange($event)"
+            >          
+            <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
+          </mat-form-field>
         </p>
 
         <p>

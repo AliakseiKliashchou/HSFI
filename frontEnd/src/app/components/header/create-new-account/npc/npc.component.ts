@@ -23,7 +23,12 @@ userInput = {
   email: new FormControl('', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)]),
   mailing: new FormControl('', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)]),
   organization: new FormControl('', [Validators.required]),
+  country: new FormControl('', [Validators.required]),
 }
+getErrorMessageCountry(){
+  return this.userInput.organization.hasError('required') ? 'You must enter a value' : '';
+}
+
 getErrorMessageName(){
   return this.userInput.name.hasError('required') ? 'You must enter a value' :
     this.userInput.name.hasError('pattern') ? 'The name field should not contains numbers' :
@@ -59,12 +64,21 @@ checkForm(){
     !this.userInput.organization.invalid && 
     !this.userInput.mailing.invalid &&
     !this.userInput.password.invalid &&
-    !this.userInput.phone.invalid){
+    !this.userInput.phone.invalid &&
+    !this.userInput.country.invalid
+    ){
       this.isShowSubmitBtn = false;
   }else this.isShowSubmitBtn = true;
 }
 
 //----------------------------------------------------------------------------------------
+public handleAddressChange(address: any){
+ // this.formattedAddres = address.formatted_address;
+  //let str = address.formatted_address.split(',');    
+  //console.log(str[1]);
+  console.log(address);
+  
+}
   submit(country, name, organization, mailing, phone, email, password){
 
     const httpOptions = {

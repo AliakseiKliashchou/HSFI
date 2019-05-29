@@ -43,6 +43,9 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import {AgmCoreModule} from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import {MatBadgeModule} from '@angular/material/badge';
+import { NpcAcceptionComponent } from './components/npc-acception/npc-acception.component';
+import { OperatorAcceptionComponent } from './components/operator-acception/operator-acception.component';
 
 
 
@@ -60,7 +63,10 @@ const appRoutes: Routes = [
   {path:'inspectionDesk', component: InspectionDeskComponent},
   {path:'report', component: ReportComponent},
   {path:'scratchCardDesk', component: ScratchCardDeskComponent},
-  {path:'vendorregistrationDesk', component: VendorRegistrationDeskComponent}
+  {path:'vendorregistrationDesk', component: VendorRegistrationDeskComponent},
+  {path:'npc-acception', component: NpcAcceptionComponent},
+  {path:'operator-acception', component: OperatorAcceptionComponent},
+
 
 ];
 
@@ -85,7 +91,7 @@ const appRoutes: Routes = [
     FaoProfileComponent, 
     NpcProfileComponent, 
     OperatorProfileComponent, 
-    FileSelectDirective, 
+    FileSelectDirective, NpcAcceptionComponent, OperatorAcceptionComponent, 
   ],
   imports: [
     BrowserModule,
@@ -116,6 +122,7 @@ const appRoutes: Routes = [
     }),
     MatGoogleMapsAutocompleteModule.forRoot(),
     GooglePlaceModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

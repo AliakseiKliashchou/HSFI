@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 formattedAddres = '';
 options = {
   componentRestrictions : {
-    country: ['BY']
+    //country: ['BY']
   }
 }
   constructor(private _router: Router,  private NgZone: NgZone, private elRef: ElementRef) {
@@ -26,7 +26,9 @@ options = {
 
   public handleAddressChange(address: any){
     this.formattedAddres = address.formatted_address;
-    console.log(address.geometry.location.lat());
+    let str = address.formatted_address.split(',');    
+    console.log(str[1]);
+    
   }
 
   userStatus = localStorage.getItem('userStatus');

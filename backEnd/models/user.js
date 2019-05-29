@@ -47,6 +47,10 @@ const UserSchema = new Schema({
   organization: {
     type: String,
     default: ''
+  },
+  activity : {
+    type: String,
+    default: 'wait'
   }
 
 });

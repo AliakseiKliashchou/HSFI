@@ -24,6 +24,10 @@ export class OperatorsComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(2)]),   
     email: new FormControl('', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)]),   
     organization: new FormControl('', [Validators.required]),
+    country: new FormControl('', [Validators.required]),
+  }
+  getErrorMessageCountry(){
+    return this.userInput.organization.hasError('required') ? 'You must enter a value' : '';
   }
   getErrorMessageName(){
     return this.userInput.name.hasError('required') ? 'You must enter a value' :
@@ -48,7 +52,9 @@ export class OperatorsComponent implements OnInit {
     if(!this.userInput.email.invalid && 
       !this.userInput.name.invalid && 
       !this.userInput.organization.invalid &&      
-      !this.userInput.password.invalid){
+      !this.userInput.password.invalid &&
+      !this.userInput.country.invalid
+      ){
         this.isShowSubmitBtn = false;
     }else this.isShowSubmitBtn = true;
   }
