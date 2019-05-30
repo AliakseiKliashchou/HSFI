@@ -1,17 +1,75 @@
 <div class="main">
   <app-header></app-header>
+
+  <div class="start_block" *ngIf="!userStatus">
+    <p class="title">Welcome to <strong>HSFI</strong> service!</p>
+    <p>HSFI - healthy street food intencities system. 
+      This service helps you to choose the best cellers and best street food. 
+      Let`s do our food better together!</p>
+      <p>To get access to service, please, <strong>Log In</strong></p>
+      <p>To join us and make a carreer here, please, <strong>create new account</strong> and wait while administrator will moderate it</p>
+  </div>
+
   <button mat-button (click)="goToVendorRegistrationDesk()" *ngIf="userStatus">Vendor Registration Desk</button><br><br>
   <button mat-button (click)="goToScratchCardDesk()" *ngIf="userStatus">Scratch Card Desk</button><br><br>
   <button mat-button (click)="goToHotline()" *ngIf="userStatus">Hotline</button><br><br>
   <button mat-button (click)="goToInspectionDesk()" *ngIf="userStatus">Inspection Desk</button><br><br>
   <button mat-button (click)="goToReport()" *ngIf="userStatus">Report</button>
 
+  <div class="admin_panel">
+    <p style="font-size: 25px;">Administration panel</p>
 
+    <div class="countries">
+      <p>Countries</p>
+      <ul *ngFor="let country of countries; let i = index">
+        <li>{{country}} <span  class="delete_btn" (click)='delete_country(i)'>&#10008;</span></li>
+      </ul>
+      <input 
+      #country      
+      class="form-control" 
+      placeholder="Enter new country..." 
+      value="" 
+      ngx-google-places-autocomplete 
+      #placesRef="ngx-places"
+      (onAddressChange)="newCountry(country.value)"
+      >
+      <button mat-button *ngIf="saveCounrtyChangesBtn" class="saveChangesBtn" (click)="saveCountry()">Save</button>
+    </div>
 
-  <div>
-    <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
-   
+    <div class="food_group">
+        <p>Food groups</p>
+        <ul *ngFor="let foodGroup of foodGroups; let i = index">
+            <li>{{foodGroup}} <span  class="delete_btn" (click)='delete_foodGroup(i)'>&#10008;</span></li>
+          </ul>
+          <input #foodGroup class="form-control" (change)="newFoodGroup(foodGroup.value)" placeholder="Enter new food group...">
+          <button mat-button *ngIf="saveFoodGroupChangesBtn" class="saveChangesBtn" (click)="saveFoodGroup()">Save</button>
+    </div>
+
+    <div class="organization">
+        <p>Organizations</p>
+        <ul *ngFor="let organization of organizations; let i = index">
+            <li>{{organization}} <span  class="delete_btn" (click)='delete_organization(i)'>&#10008;</span></li>
+          </ul>
+          <input #organization class="form-control" (change)="newOrganization(organization.value)" placeholder="Enter new organization...">
+          <button mat-button *ngIf="saveOrganizationChangesBtn" class="saveChangesBtn" (click)="saveOrganization()">Save</button>
+    </div>
+
+    <div class="questions">
+        <p>Questions</p>
+        <ul *ngFor="let question of questions; let i = index">
+            <li>{{question}} <span  class="delete_btn" (click)='delete_question(i)'>&#10008;</span></li>
+          </ul>
+          <input #question class="form-control" (change)="newQuestion(question.value)" placeholder="Enter new question...">
+          <button mat-button *ngIf="saveQuestionChangesBtn" class="saveChangesBtn" (click)="saveQuestion()">Save</button>
+
+    </div>
+
+    <div style="clear:both;"></div>
   </div>
+
+
+
+  
 
 
 

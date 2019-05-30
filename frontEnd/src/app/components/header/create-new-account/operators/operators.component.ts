@@ -12,9 +12,25 @@ export class OperatorsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    this.http.get('http://localhost:3000/getAdminData', httpOptions).subscribe((data: any) => {      
+        for(let i = 0; i < data[0].countries.length; i++){
+          this.countriesArray[i] = data[0].countries[i];        
+        }
+        for(let i = 0; i < data[0].organizations.length; i++){
+          this.organizationsArray[i] = data[0].organizations[i];        
+        }        
+    });
   }
   toppings = new FormControl();
   toppingList: string[] = ['Vendor registration', 'Scratch card desk', 'Hotline', 'Inspection'];
+  countriesArray = [];
+  organizationsArray = [];
 
   //-----------------------------VALIDATIONS---------------------------------------------
   isShowSubmitBtn = true;
@@ -25,9 +41,13 @@ export class OperatorsComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)]),   
     organization: new FormControl('', [Validators.required]),
     country: new FormControl('', [Validators.required]),
+    task: new FormControl('', [Validators.required]),
   }
   getErrorMessageCountry(){
     return this.userInput.organization.hasError('required') ? 'You must enter a value' : '';
+  }
+  getErrorMessageTask(){
+    return this.userInput.task.hasError('required') ? 'You must enter a value' : '';
   }
   getErrorMessageName(){
     return this.userInput.name.hasError('required') ? 'You must enter a value' :
@@ -53,7 +73,8 @@ export class OperatorsComponent implements OnInit {
       !this.userInput.name.invalid && 
       !this.userInput.organization.invalid &&      
       !this.userInput.password.invalid &&
-      !this.userInput.country.invalid
+      !this.userInput.country.invalid &&
+      !this.userInput.task.invalid 
       ){
         this.isShowSubmitBtn = false;
     }else this.isShowSubmitBtn = true;

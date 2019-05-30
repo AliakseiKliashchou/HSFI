@@ -129,9 +129,32 @@ app.get('/getNewOperator', getNewOperatorRouter);
 //******************************************* */
 
 //***********CHANGE NEW NPC********** */
-const changeNewNpcRouter = require('./routes/change_new_nps_router');
+const changeNewNpcRouter = require('./routes/change_new_npc_router');
 app.post('/changeNewNpc', changeNewNpcRouter);
 //******************************************* */
+
+//***********CHANGE NEW OPERATOR********** */
+const changeNewOperatorRouter = require('./routes/change_new_operator_router');
+app.post('/changeNewOperator', changeNewOperatorRouter);
+//******************************************* */
+
+//***********GET ADMIN DATA********** */
+const getAdminDataRouter = require('./routes/get_admin_data_router');
+app.get('/getAdminData', getAdminDataRouter);
+//******************************************* */
+
+//***********CHANGE ADMIN DATA********** */
+const changeAdminDataRouter = require('./routes/change_admin_data_router');
+app.post('/changeAdminData', changeAdminDataRouter);
+//******************************************* */
+
+app.get('/createAdmin', (req,res) =>{
+   const Admin = require('../backEnd/models/admin');
+   Admin.create({flag: 'first'}, (err, doc) =>{ 
+     if(err){console.log(err);}
+     res.json({message: 'Admin was reg.'});
+   });
+});
 
 
 app.get('/mail', (req,res) =>{

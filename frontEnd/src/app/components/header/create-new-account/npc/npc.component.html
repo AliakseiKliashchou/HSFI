@@ -8,17 +8,9 @@
 
         <p>
             <mat-form-field appearance="outline">
-              <mat-label>Enter your country</mat-label>
-              <input 
-              matInput 
-              [formControl]="userInput.country" 
-              (change)="checkForm()" 
-              #country
-              ngx-google-places-autocomplete 
-              [options]='options' 
-              #placesRef="ngx-places" 
-              (onAddressChange)="handleAddressChange($event)"
-              >          
+                <mat-select placeholder="Country" #country [formControl]="userInput.country" (change)="checkForm()">
+                    <mat-option *ngFor="let country of countriesArray; let i = index" [value]="country">{{country}}</mat-option>                    
+                  </mat-select>          
               <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
             </mat-form-field>
         </p>
@@ -33,8 +25,9 @@
 
         <p>
             <mat-form-field appearance="outline">
-              <mat-label>Enter your organization</mat-label>
-              <input matInput #organization [formControl]="userInput.organization" (change)="checkForm()">          
+                <mat-select placeholder="Organization" #organization [formControl]="userInput.organization" (change)="checkForm()">
+                    <mat-option *ngFor="let organization of organizationsArray; let i = index" [value]="organization">{{organization}}</mat-option>                    
+                  </mat-select>          
               <mat-error *ngIf="userInput.organization.invalid">{{getErrorMessageOrganization()}}</mat-error>
             </mat-form-field>
         </p>

@@ -12,7 +12,25 @@ export class NpcComponent implements OnInit {
   constructor( private http: HttpClient) { }
 
   ngOnInit() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    this.http.get('http://localhost:3000/getAdminData', httpOptions).subscribe((data: any) => {      
+        for(let i = 0; i < data[0].countries.length; i++){
+          this.countriesArray[i] = data[0].countries[i];        
+        }
+        for(let i = 0; i < data[0].organizations.length; i++){
+          this.organizationsArray[i] = data[0].organizations[i];        
+        }        
+    });
   }
+
+  countriesArray = [];
+  organizationsArray = [];
+
 //--------------VALIDATION----------------------------------------------------------------
 isShowSubmitBtn = true;
 hide = true;
@@ -72,13 +90,7 @@ checkForm(){
 }
 
 //----------------------------------------------------------------------------------------
-public handleAddressChange(address: any){
- // this.formattedAddres = address.formatted_address;
-  //let str = address.formatted_address.split(',');    
-  //console.log(str[1]);
-  console.log(address);
-  
-}
+
   submit(country, name, organization, mailing, phone, email, password){
 
     const httpOptions = {

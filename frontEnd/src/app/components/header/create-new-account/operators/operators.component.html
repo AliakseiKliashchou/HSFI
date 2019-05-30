@@ -7,20 +7,12 @@
     <div>   
 
         <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Enter your country</mat-label>
-            <input 
-            matInput 
-            [formControl]="userInput.country" 
-            (change)="checkForm()" 
-            #country
-            ngx-google-places-autocomplete 
-            [options]='options' 
-            #placesRef="ngx-places" 
-            (onAddressChange)="handleAddressChange($event)"
-            >          
-            <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
-          </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-select placeholder="Country" #country [formControl]="userInput.country" (change)="checkForm()">
+                    <mat-option *ngFor="let country of countriesArray; let i = index" [value]="country">{{country}}</mat-option>                    
+                  </mat-select>          
+              <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
+            </mat-form-field>
         </p>
 
         <p>
@@ -33,8 +25,9 @@
 
         <p>
             <mat-form-field appearance="outline">
-              <mat-label>Enter your organization</mat-label>
-              <input matInput #organization [formControl]="userInput.organization" (change)="checkForm()">          
+                <mat-select placeholder="Organization" #organization [formControl]="userInput.organization" (change)="checkForm()">
+                    <mat-option *ngFor="let organization of organizationsArray; let i = index" [value]="organization">{{organization}}</mat-option>                    
+                  </mat-select>          
               <mat-error *ngIf="userInput.organization.invalid">{{getErrorMessageOrganization()}}</mat-error>
             </mat-form-field>
         </p>
@@ -57,19 +50,12 @@
         </p> 
 
         <p>
-           <!--- <mat-form-field>
-              <mat-select placeholder="Task" #task>            
-                <mat-option value="vendor_registration">Vendor regestration</mat-option>
-                <mat-option value="scratch_card_desk">Scratch card desk</mat-option>
-                <mat-option value="hotline">Hotline</mat-option>
-                <mat-option value="inspection">Inspection</mat-option>
-              </mat-select>
-            </mat-form-field>-->
             <mat-form-field>
               <mat-label>Toppings</mat-label>
-              <mat-select [formControl]="toppings" multiple #task>
+              <mat-select [formControl]="userInput.task" multiple #task (change)="checkForm()">
                 <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="userInput.task.invalid">{{getErrorMessageTask()}}</mat-error>
             </mat-form-field>
         </p>
         <button mat-button color="primary" [disabled]="isShowSubmitBtn" (click)="submit(country.value, name.value, organization.value, email.value, password.value, task.value)">OK</button>
