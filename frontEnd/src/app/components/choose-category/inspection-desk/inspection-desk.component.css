@@ -113,3 +113,8 @@ agm-map{
 ul{
     text-align: left;
 }
+mat-progress-bar{
+    width: 90%;
+    margin: 0 auto;
+    top: -35px;
+}

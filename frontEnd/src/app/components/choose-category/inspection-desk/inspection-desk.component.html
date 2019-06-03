@@ -1,5 +1,6 @@
 <div class="wrapper">
   <app-header></app-header>
+  <mat-progress-bar mode="indeterminate" *ngIf="isShowProgressBar"></mat-progress-bar>
   <div class="form_wrapper">
 
     <div class="view_vendors">
@@ -22,8 +23,8 @@
               <p>
                   <mat-form-field appearance="outline">
                   <mat-select placeholder="Open/Closed" #openClosed>      
-                    <mat-option value="option">Open</mat-option>
-                    <mat-option value="option">Closed</mat-option>         
+                    <mat-option value="open">Open</mat-option>
+                    <mat-option value="closed">Closed</mat-option>         
                   </mat-select>
                   </mat-form-field>  
                 </p>
@@ -152,10 +153,12 @@
       </p>
 
       <mat-form-field>
-          <input matInput [matDatepicker]="dp" placeholder="Date of registration" [formControl]="date" #dateVal>
+          <input matInput [matDatepicker]="dp" placeholder="Date of inspection" [formControl]="date" #dateVal>
           <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
           <mat-datepicker #dp></mat-datepicker>
         </mat-form-field>
+
+       
 
         <p>
             <mat-form-field appearance="outline">
@@ -184,10 +187,7 @@
                   </mat-form-field>
               </p>
               
-                <ul><strong>GPS Location</strong> 
-                  <li>Latitude:</li>
-                  <li>Longitude:</li>
-                </ul>
+                
               
                 <h5 style="text-decoration: underline">Question List</h5>
                 <ul>

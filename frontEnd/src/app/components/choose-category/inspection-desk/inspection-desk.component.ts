@@ -35,6 +35,9 @@ export class InspectionDeskComponent implements OnInit {
   constructor(private http: HttpClient, private modalService: BsModalService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    let day = this.date.value._d.toString();    
+    let day2 = day.split(' ', 3);    
+    this.currentDay = day2[0];
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -55,6 +58,9 @@ export class InspectionDeskComponent implements OnInit {
       for(let i = 0; i < data[0].foodGroups.length; i++){
         this.foodGroups[i] = data[0].foodGroups[i];        
       }
+      for(let i = 0; i < data[0].questions.length; i++){
+        this.questions[i] = data[0].questions[i];        
+      }
      
   });
 
@@ -62,18 +68,14 @@ export class InspectionDeskComponent implements OnInit {
 
   countries = [];
   foodGroups = [];
-
+  currentDay = '';
+  openClosedStatus = '';
   userName = localStorage.getItem('userName');
-
+  isShowProgressBar = false;
   latitude = 53.54;
   longitude = 27.30;
 
-  questions = [
-    'Safety of sell point',
-    'Quality of environment',
-    'Quality of clothes',
-    'Quality of products'
-  ];
+  questions = [];
   ossResult = [];
 
   toggle = false;
@@ -127,13 +129,14 @@ export class InspectionDeskComponent implements OnInit {
 
   showVendor( country, openClosed, foodGroup, oss, yes, no, stars){
   //---------------collect all data in request object-------------   
-  this.vendorsArray = [];
+  this.isShowProgressBar = true;
+  this.vendorsArray = [];  
     if(country){                            //
       this.vendor.country = country;        //
     }                                       //
                                           // 
     if(openClosed){                         //
-      this.vendor.openClosed = openClosed;  //
+      this.openClosedStatus = openClosed;  //
     }                                       //
     if(foodGroup){                          //
       this.vendor.foodGroup = foodGroup;    //
@@ -158,11 +161,12 @@ export class InspectionDeskComponent implements OnInit {
         "Access-Control-Allow-Origin": "*"
       })
     };
-    this.http.post('http://localhost:3000/viewVendor', this.vendor, httpOptions).subscribe((data: any) => {
+    this.http.post(`http://localhost:3000/viewVendor?openClosedStatus=${this.openClosedStatus}&currentDay=${this.currentDay}`, this.vendor, httpOptions).subscribe((data: any) => {
       for(let i = 0; i < data.length; i++){
         this.vendorsArray.push(data[i]);
       }
       console.log(this.vendorsArray);
+      this.isShowProgressBar = false;
   });
 
   }
@@ -319,7 +323,8 @@ export class InspectionDeskComponent implements OnInit {
     }                                       //
   }                                         //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  saveChanges(i){                                                                                                              // 
+  saveChanges(i){  
+    this.isShowProgressBar = true;                                                                                                            // 
     const httpOptions = {                                                                                                      // 
       headers: new HttpHeaders({                                                                                               // 
         "Content-Type": "application/json",                                                                                    // 
@@ -334,7 +339,8 @@ export class InspectionDeskComponent implements OnInit {
       this.isShowChangesBtn = false;                                                                                           // 
   });                                                                                                                          // 
   }                                                                                                                            // 
-  saveChangesMap(i){                                                                                                           // 
+  saveChangesMap(i){  
+    this.isShowProgressBar = true;                                                                                                          // 
     const httpOptions = {                                                                                                      //   
       headers: new HttpHeaders({                                                                                               // 
         "Content-Type": "application/json",                                                                                    //   
@@ -353,6 +359,7 @@ export class InspectionDeskComponent implements OnInit {
   
   
   markerMove(event, i){
+    this.isShowChangesBtn = true; 
     this.vendorsArrayMap[i].latitude = event.coords.lat;
     this.vendorsArrayMap[i].longitude = event.coords.lng;
     console.log(this.vendorsArrayMap[i]);
@@ -366,7 +373,8 @@ export class InspectionDeskComponent implements OnInit {
       console.log(this.vendorsArrayMap[i]);
       this._snackBar.open('Changes was successfully saved','', {
         duration: 2000,
-      });      
+      }); 
+      this.isShowChangesBtn = false;      
   });
   }
 //------Make OSS and push it into DB----------------//
@@ -384,7 +392,8 @@ export class InspectionDeskComponent implements OnInit {
       console.log(this.ossResult);                  //
     }                                               //
   }                                                 //
-  overal_safety_score(){                            //
+  overal_safety_score(){   
+    this.isShowChangesBtn = true;                          //
     let accum = 0;                                  //
     for(let i = 0; i < this.ossResult.length; i++){ //
       accum += this.ossResult[i];                   //
@@ -404,12 +413,14 @@ export class InspectionDeskComponent implements OnInit {
                                                     //
       this._snackBar.open('Changes was successfully saved','', {
         duration: 2000,
-      });     // 
+      });
+      this.isShowChangesBtn = false;      // 
 
   });                                              //
   }                                                 //
 //--------------------------------------------------//  
 findVendor(licenceNumberFind){  
+  this.isShowChangesBtn = true; 
   const httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
@@ -425,6 +436,7 @@ findVendor(licenceNumberFind){
       }else this._snackBar.open('Vendor not found','', {
         duration: 2000,
       });;   
+      this.isShowChangesBtn = false; 
   });
 }
 

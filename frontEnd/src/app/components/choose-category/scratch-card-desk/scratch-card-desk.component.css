@@ -39,3 +39,8 @@ img{
     left: 25%;
     text-decoration: underline;
 }
+mat-progress-bar{
+    width: 90%;
+    margin: 0 auto;
+    top: -35px;
+}
