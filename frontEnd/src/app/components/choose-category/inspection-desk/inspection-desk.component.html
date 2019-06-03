@@ -12,26 +12,12 @@
           <p>
               <mat-form-field appearance="outline">
               <mat-select placeholder="Country" #country>      
-                <mat-option value="Russia">Russia</mat-option>
-                <mat-option value="Belarus">Belarus</mat-option> 
-                <mat-option value="Ukraine">Ukraine</mat-option>        
+                <mat-option *ngFor="let country of countries; let i = index" [value]="country">{{country}}</mat-option>                      
               </mat-select>
               </mat-form-field>  
             </p>
             
-            <p>
-                <mat-form-field appearance="outline">
-                <mat-select placeholder="City" #city>      
-                  <mat-option value="Minsk">Minsk</mat-option> 
-         
-                  <mat-option value="Gomel">Gomel</mat-option> 
-                  <mat-option value="Brest">Brest</mat-option> 
-                  <mat-option value="Grodno">Grodno</mat-option> 
-                  <mat-option value="Mogilev">Mogilev</mat-option> 
-                  <mat-option value="Vitebsk">Vitebsk</mat-option>        
-                </mat-select>
-                </mat-form-field>  
-              </p>
+          
               
               <p>
                   <mat-form-field appearance="outline">
@@ -45,9 +31,7 @@
                 <p>
                     <mat-form-field appearance="outline">
                     <mat-select placeholder="Food Group" #foodGroup>      
-                      <mat-option value="Fruit">Fruit</mat-option>
-                      <mat-option value="Meat">Meat</mat-option>  
-                      <mat-option value="Fastfood">Fastfood</mat-option>        
+                      <mat-option *ngFor="let foodGroup of foodGroups; let i = index" [value]="foodGroup">{{foodGroup}}</mat-option>                            
                     </mat-select>
                     </mat-form-field>  
                   </p>
@@ -70,15 +54,13 @@
             
                     <p>
                         <mat-form-field appearance="outline">
-                          <mat-label>Qquality stars</mat-label>
-                          <input matInput #stars>          
-                          <mat-hint>Hint</mat-hint>
+                          <mat-label>Quality stars</mat-label>
+                          <input matInput #stars >                           
                           </mat-form-field>
                       </p> <br><br>
 
               <button mat-button type="button" class="save_btn" (click)="showVendor(
-                country.value,
-                city.value,
+                country.value,                
                 openClosed.value,
                 foodGroup.value,
                 oss.value,

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl, Validators} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import * as _moment from 'moment';
 const moment = _moment;
 export const MY_FORMATS = {
@@ -29,11 +30,38 @@ export const MY_FORMATS = {
 export class HotlineComponent implements OnInit {
 
   date = new FormControl(moment());
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,  private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.userName = localStorage.getItem('userName');
   }
+
+   //*****************VALIDATION******************************************************* */
+   isShowSubmitBtn = true;
+   userInput = {    
+     idOfCaller: new FormControl('', [Validators.required]),
+     serialNumber: new FormControl('', [Validators.required]),
+     
+   }
+   getErrorMessageIdOfCaller(){
+     return this.userInput.idOfCaller.hasError('required') ? 'You must enter a value' : '';
+   }
+   getErrorMessageSerialNumber(){
+     return this.userInput.serialNumber.hasError('required') ? 'You must enter a value' : '';
+   }   
+   checkForm(){
+     if(
+       !this.userInput.idOfCaller.invalid &&
+       !this.userInput.serialNumber.invalid 
+     ){
+       this.isShowSubmitBtn = false;
+     }else this.isShowSubmitBtn = true;
+   }
+ 
+   //************************************************************************************ */
+
+
+
 userName = '';
 
 submit(operatorName, dateVal, callerID, serialNumber){
@@ -56,6 +84,9 @@ submit(operatorName, dateVal, callerID, serialNumber){
     };
     this.http.post('http://localhost:3000/hotline', vendor, httpOptions).subscribe((data: any) => {
       console.log(data);
+      this._snackBar.open('The call was done','', {
+        duration: 2000,
+      });
   });
 
     

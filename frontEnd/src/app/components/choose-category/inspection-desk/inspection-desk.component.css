@@ -38,6 +38,7 @@
     height: 400px;
     border: 2px solid black;
     border-radius: 6px;
+    margin: 15px auto;
 }
 .mat-radio-button ~ .mat-radio-button {
     margin-left: 10px;

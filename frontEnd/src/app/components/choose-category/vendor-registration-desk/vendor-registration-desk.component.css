@@ -1,15 +1,10 @@
-.title{
-    height: 50px;
-    text-align: center;
-}
-.h2_title{
-    display: inline-block;
+#title{
+    width: 50%;
     position: relative;
-    top: -40px;
-    width: 550px;
-    margin: 0 auto;
-    color: white;
+    left: 25%;
+    text-decoration: underline;
 }
+
 .form_wrapper{
     width: 700px;
     height: 100%;
@@ -19,6 +14,7 @@
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;  
+    border: 2px solid rgb(111, 111, 129);
 }
 .wrapper{
     background-image: url('../../../../assets/images/background.jpeg');
@@ -27,4 +23,12 @@
 }
 button{
     background-color: rgb(74, 238, 74);
+}
+mat-progress-bar{
+    width: 90%;
+    margin: 0 auto;
+    top: -35px;
+}
+mat-form-field{
+    margin: 8px 8px;
 }

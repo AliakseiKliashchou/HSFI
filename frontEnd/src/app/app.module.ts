@@ -46,6 +46,9 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import {MatBadgeModule} from '@angular/material/badge';
 import { NpcAcceptionComponent } from './components/npc-acception/npc-acception.component';
 import { OperatorAcceptionComponent } from './components/operator-acception/operator-acception.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 
@@ -123,6 +126,9 @@ const appRoutes: Routes = [
     MatGoogleMapsAutocompleteModule.forRoot(),
     GooglePlaceModule,
     MatBadgeModule,
+    MatProgressBarModule,
+    MatSnackBarModule
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

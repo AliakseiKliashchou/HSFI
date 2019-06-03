@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {FormControl} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import * as jsPDF from 'jspdf';
 import * as _moment from 'moment';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
@@ -42,6 +42,7 @@ export class ScratchCardDeskComponent implements OnInit {
    this.vendorCardData.operatorName = operatorName;
     //==================================================================   
   }
+  
 
   isShowPhoto = false;
   isShowCost = false;
@@ -62,6 +63,42 @@ export class ScratchCardDeskComponent implements OnInit {
     cost: 0,
     money: ''
   };
+
+  //*****************VALIDATION******************************************************* */
+  isShowSubmitBtn = true;
+  userInput = {    
+    licenceNumber: new FormControl('', [Validators.required]),
+    quantityOfCard: new FormControl('', [Validators.required]),
+    cost: new FormControl('', [Validators.required]),
+    money: new FormControl('', [Validators.required]),
+  }
+  getErrorMessageLicenceNumber(){
+    return this.userInput.licenceNumber.hasError('required') ? 'You must enter a value' : '';
+  }
+  getErrorMessageQuantityofCard(){
+    return this.userInput.quantityOfCard.hasError('required') ? 'You must enter a value' : '';
+  }
+  getErrorMessageCost(){
+    return this.userInput.cost.hasError('required') ? 'You must enter a value' : '';    
+  }
+  getErrorMessageMoney(){
+    return this.userInput.money.hasError('required') ? 'You must enter a value' : '';  
+  }
+  checkForm(){
+    if(
+      !this.userInput.licenceNumber.invalid &&
+      !this.userInput.quantityOfCard.invalid &&
+      !this.userInput.cost.invalid &&
+      !this.userInput.money.invalid
+    ){
+      this.isShowSubmitBtn = false;
+    }else this.isShowSubmitBtn = true;
+  }
+
+  //************************************************************************************ */
+
+
+
 //------PULL SOME DATA FROM DB ON LICENCE NUMBER-------------------
   licenceCheck(licence){  
     const httpOptions = {
@@ -103,7 +140,7 @@ export class ScratchCardDeskComponent implements OnInit {
       this.http.post('http://localhost:3000/createVendorCard', this.vendorCardData, httpOptions).subscribe((data: any) => {
         console.log(data);
         this.isShowCost = true;
-        //this.isShowConvert = true;
+        this.isShowConvert = true;
       });      
     }    
   }

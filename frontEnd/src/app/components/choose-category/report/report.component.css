@@ -25,3 +25,9 @@ button{
     background-color: rgb(74, 238, 74);  
     margin: 10px;  
 }
+#title{
+    width: 50%;
+    position: relative;
+    left: 25%;
+    text-decoration: underline;
+}

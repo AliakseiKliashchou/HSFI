@@ -7,8 +7,7 @@
     <div class="mail" *ngIf="isLogin"><button class="mail_btn" mat-raised-button matBadge="{{badgeValue}}" [matBadgeHidden]="isShowBadge" matBadgeColor="accent" (click)="goAcception()">&#9993;</button></div>
     <app-create-new-account class="button"></app-create-new-account>
     <div class="view" *ngIf="isLogin"><button mat-raised-button class="view_btn" (click)="goProfile()">View profile</button></div>
-    <div class="nameOfUser" >{{name}}</div> 
-    
+    <div class="nameOfUser" >{{name}}</div>     
     <div style="clear:both;"></div>
     <router-outlet></router-outlet>
 

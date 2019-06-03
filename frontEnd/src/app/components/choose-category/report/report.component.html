@@ -1,19 +1,15 @@
 <div class="wrapper">
-  <app-header></app-header>
-        <h1>generate report</h1>
+  <app-header></app-header>       
 
         <div class="form_wrapper">
+            <h3 id="title">Report</h3>
           <p>
             <mat-form-field>
               <input matInput [matDatepicker]="dp" placeholder="Date of registration" [formControl]="date" #dateVal>
               <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
               <mat-datepicker #dp></mat-datepicker>
             </mat-form-field>
-          </p>
-
-        <br>
-        <p>Здесь будет календарь</p>
-        <br>
+          </p>      
 
         <p>
           <mat-form-field appearance="outline">

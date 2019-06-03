@@ -1,9 +1,13 @@
 <div class="wrapper">
     <app-header></app-header>
 
-    <div class="title"><h2 class="h2_title">Vendor registration desk</h2></div>
+    <mat-progress-bar mode="indeterminate" *ngIf="isShowProgressBar"></mat-progress-bar>
+
+    
 
   <div class="form_wrapper">
+
+    <h3 id="title">Vendor registration desk</h3>
     
       <mat-form-field>
           <input matInput [matDatepicker]="dp" placeholder="Date of registration" [formControl]="date" #dateVal>
@@ -14,34 +18,33 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Operator`s Name (fetched)</mat-label>
-        <input matInput [value]="vendor.operatorName" #operatorName>          
+        <input matInput [value]="vendor.operatorName" disabled="true" #operatorName>          
         <mat-hint>Hint</mat-hint>
         </mat-form-field>
     </p>   
 
     <p>
       <mat-form-field>
-        <mat-select placeholder="Conutry" #country>      
-          <mat-option value="Russia">Russia</mat-option>
-          <mat-option value="Belarus">Belarus</mat-option>
-          <mat-option value="Ukraine">Ukraine</mat-option>          
+        <mat-select placeholder="Conutry" #country [formControl]="userInput.country" (change)="checkForm()">      
+          <mat-option *ngFor="let country of countriesFromDb; let i = index" [value]="country">{{country}}</mat-option>                   
         </mat-select>
+        <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
       </mat-form-field>
     </p>
 
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Vendor Name</mat-label>
-        <input matInput #name>          
-        <mat-hint>Hint</mat-hint>
+        <input matInput #name [formControl]="userInput.name" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.name.invalid">{{getErrorMessageName()}}</mat-error>
         </mat-form-field>
     </p>
 
     <p>
       <mat-form-field appearance="outline">
         <mat-label>License number</mat-label>
-        <input matInput #licenceNumber>          
-        <mat-hint>Hint</mat-hint>
+        <input matInput #licenceNumber [formControl]="userInput.licenceNumber" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.licenceNumber.invalid">{{getErrorLicenceBumber()}}</mat-error>
         </mat-form-field>
     </p>
 
@@ -66,16 +69,16 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Phone</mat-label>
-        <input matInput #phone>          
-        <mat-hint>Hint</mat-hint>
+        <input matInput #phone [formControl]="userInput.phone" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.phone.invalid">{{getErrorMessagePhone()}}</mat-error>
         </mat-form-field>
     </p>
 
     <p>
       <mat-form-field appearance="outline">
         <mat-label>E-mail</mat-label>
-        <input matInput #email>          
-        <mat-hint>Hint</mat-hint>
+        <input matInput #email [formControl]="userInput.email" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.email.invalid">{{getErrorMessageEmail()}}</mat-error>
         </mat-form-field>
     </p>
 
@@ -83,21 +86,28 @@
     <p *ngFor="let string of locationArray; let i = index"> 
       <mat-form-field appearance="outline">
         <mat-label>City</mat-label>
-        <input matInput #city (change)="businessLocationCity(city.value, i)">          
-        <mat-hint>Hint</mat-hint>
+        <input 
+        matInput 
+        #city 
+        (onAddressChange)="businessLocationCity($event, i)" 
+        [formControl]="userInput.cityLocation" 
+        #placesRef="ngx-places"       
+        ngx-google-places-autocomplete 
+        (change)="checkForm()">          
+        <mat-error *ngIf="userInput.cityLocation.invalid">{{getErrorCityLocation()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Street</mat-label>
-          <input matInput #street (change)="businessLocationStreet(street.value, i)">          
-          <mat-hint>Hint</mat-hint>
+          <input matInput #street (change)="businessLocationStreet(street.value, i)" [formControl]="userInput.streetLocation" (change)="checkForm()">          
+          <mat-error *ngIf="userInput.streetLocation.invalid">{{getErrorStreetLocation()}}</mat-error>
           </mat-form-field>
           
           <mat-form-field appearance="outline">
             <mat-label>#</mat-label>
-            <input matInput #num (change)="businessLocationNum(num.value, i)">          
-            <mat-hint>Hint</mat-hint>
-            </mat-form-field>  
+            <input matInput #num (change)="businessLocationNum(num.value, i)" [formControl]="userInput.numLocation" (change)="checkForm()">          
+            <mat-error *ngIf="userInput.numLocation.invalid">{{getErrorNumLocation()}}</mat-error>
+            </mat-form-field>  <br>
 
             <button mat-button (click)="addLocation()">ADD+</button>    
     </p>
@@ -105,7 +115,7 @@
     <p>Business schedule</p>
     <p *ngFor="let string of scheduleArray; let i = index"> 
       <mat-form-field appearance="outline">
-        <mat-select  #day placeholder="Day" (focus)="businessScheduleDay(day.value, i)">      
+        <mat-select  #day placeholder="Day" (focus)="businessScheduleDay(day.value, i)" [formControl]="userInput.daySchedule" (change)="checkForm()">      
           <mat-option value="Mon">Mon</mat-option>
           <mat-option value="Thue">Thue</mat-option>
           <mat-option value="Wen">Wen</mat-option>
@@ -114,19 +124,18 @@
           <mat-option value="Sat">Sat</mat-option>
           <mat-option value="Sun">Sun</mat-option>
         </mat-select>
+        <mat-error *ngIf="userInput.daySchedule.invalid">{{getErrorDaySchedule()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>from</mat-label>
-          <input matInput #from (change)="businessScheduleFrom(from.value, i)">          
-          <mat-hint>Hint</mat-hint>
+          <input type="time" matInput #from (change)="businessScheduleFrom(from.value, i)">           
           </mat-form-field>
           
           <mat-form-field appearance="outline">
             <mat-label>to</mat-label>
-            <input matInput #to (change)="businessScheduleTo(to.value, i)">          
-            <mat-hint>Hint</mat-hint>
-            </mat-form-field>  
+            <input type="time" matInput #to (change)="businessScheduleTo(to.value, i)">            
+            </mat-form-field>  <br>
             
             <button mat-button (click)="addSchedule()">ADD+</button>    
     </p>
@@ -135,24 +144,23 @@
     <p *ngFor="let string of ingredientArray; let i = index">
       <mat-form-field appearance="outline">
         <mat-label>ingredient source</mat-label>
-        <input matInput #item  (change)="ingredientValue(item.value, i)">          
-        <mat-hint>Hint</mat-hint>
-        </mat-form-field>
+        <input matInput #item  (change)="ingredientValue(item.value, i)" [formControl]="userInput.ingredient" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.ingredient.invalid">{{getErrorIngredient()}}</mat-error>
+        </mat-form-field><br>
 
         <button mat-button (click)="addIngredient()" >ADD+</button>  
     </p>
 
     <p>
       <mat-form-field appearance="outline">
-        <mat-select placeholder="Food group" #foodGroup>      
-          <mat-option value="Fruit">Fruit</mat-option>
-          <mat-option value="Meat">Meat</mat-option>
-          <mat-option value="Fastfood">Fastfood</mat-option>
+        <mat-select placeholder="Food group" #foodGroup [formControl]="userInput.foodGroup" (change)="checkForm()">      
+          <mat-option *ngFor="let foodGroup of foodGroupsFromDb; let i = index" [value]="foodGroup">{{foodGroup}}</mat-option>         
         </mat-select>
+        <mat-error *ngIf="userInput.foodGroup.invalid">{{getErrorFoodGroup()}}</mat-error>
         </mat-form-field>
     </p>
 
-    <button mat-button type="button" (click)="submit(
+    <button [disabled]="isShowSubmitBtn" mat-button type="button" (click)="submit(
       dateVal.value,
       operatorName.value,
       country.value,

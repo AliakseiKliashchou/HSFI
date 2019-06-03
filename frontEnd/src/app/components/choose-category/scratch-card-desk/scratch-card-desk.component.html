@@ -2,7 +2,7 @@
   <app-header></app-header>
   <div class="form_wrapper" #content>
       
-    <h1>Scratch Card Desk</h1>
+    <h3 id="title">Scratch card desk</h3>
     
     <p>
       <mat-form-field appearance="outline">
@@ -23,8 +23,8 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>License number</mat-label>
-        <input matInput #licenceNumber (change)="licenceCheck(licenceNumber.value)">          
-        <mat-hint>Hint</mat-hint>
+        <input matInput #licenceNumber (change)="licenceCheck(licenceNumber.value)" [formControl]="userInput.licenceNumber" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.licenceNumber.invalid">{{getErrorMessageLicenceNumber()}}</mat-error>
         </mat-form-field>
     </p>
 
@@ -52,38 +52,31 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Quantity of cards</mat-label>
-        <input matInput #cardQuantity>          
-        <mat-hint>Hint</mat-hint>
+        <input matInput #cardQuantity [formControl]="userInput.quantityOfCard" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.quantityOfCard.invalid">{{getErrorMessageQuantityofCard()}}</mat-error>
         </mat-form-field>
-    </p>
-
-    <p *ngFor="let item of cardCount; let i = index">
-      <mat-form-field appearance="outline">
-        <mat-label>First card`s serial no.</mat-label>
-        <input matInput disabled="true">          
-        <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-    </p>
+    </p>  
 
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Cost per card</mat-label>
-        <input matInput #cost>          
-        <mat-hint>Hint</mat-hint>
+        <input matInput #cost [formControl]="userInput.cost" (change)="checkForm()">          
+        <mat-error *ngIf="userInput.cost.invalid">{{getErrorMessageCost()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-select placeholder="$" #money>      
+          <mat-select placeholder="$" #money [formControl]="userInput.money" (change)="checkForm()">      
             <mat-option value="USD">USD</mat-option>
             <mat-option value="RUR">RUR</mat-option>  
             <mat-option value="BUR">BUR</mat-option>         
           </mat-select>
+          <mat-error *ngIf="userInput.money.invalid">{{getErrorMessageMoney()}}</mat-error>
           </mat-form-field>
     </p><br>
 
     <p *ngIf="isShowCost">Summary cost of cards:{{summaryCost}}</p><br>
 
-    <button mat-button type="button" (click)="submit(
+    <button mat-button type="button" [disabled]="isShowSubmitBtn" (click)="submit(
       dateVal.value,
       licenceNumber.value,
       cardQuantity.value,

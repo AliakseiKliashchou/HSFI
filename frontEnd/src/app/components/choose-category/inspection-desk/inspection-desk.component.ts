@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {FormControl} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import * as _moment from 'moment';
 const moment = _moment;
@@ -31,7 +32,7 @@ export const MY_FORMATS = {
 export class InspectionDeskComponent implements OnInit {
   date = new FormControl(moment());
   modalRef: BsModalRef;
-  constructor(private http: HttpClient, private modalService: BsModalService) { }
+  constructor(private http: HttpClient, private modalService: BsModalService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const httpOptions = {
@@ -46,8 +47,21 @@ export class InspectionDeskComponent implements OnInit {
       }
       console.log(this.vendorsArrayMap);
   });
+  this.http.get('http://localhost:3000/getAdminData', httpOptions).subscribe((data: any) => {   
+      console.log(data[0]);      
+      for(let i = 0; i < data[0].countries.length; i++){
+        this.countries[i] = data[0].countries[i];        
+      }
+      for(let i = 0; i < data[0].foodGroups.length; i++){
+        this.foodGroups[i] = data[0].foodGroups[i];        
+      }
+     
+  });
 
   } 
+
+  countries = [];
+  foodGroups = [];
 
   userName = localStorage.getItem('userName');
 
@@ -110,14 +124,14 @@ export class InspectionDeskComponent implements OnInit {
     this.toggle = !this.toggle;   
   }
 //------------------FORM REQUEST TO SERVER----------------------------
-  showVendor( country, city, openClosed, foodGroup, oss, yes, no, stars){
-  //---------------sober all data in request object-------------   
+
+  showVendor( country, openClosed, foodGroup, oss, yes, no, stars){
+  //---------------collect all data in request object-------------   
+  this.vendorsArray = [];
     if(country){                            //
       this.vendor.country = country;        //
     }                                       //
-    if(city){                               //
-      this.vendor.city = city;              //
-    }                                       // 
+                                          // 
     if(openClosed){                         //
       this.vendor.openClosed = openClosed;  //
     }                                       //
@@ -128,9 +142,10 @@ export class InspectionDeskComponent implements OnInit {
       this.vendor.oss = oss;                //
     }                                       //
     if(yes.checked){                        //
-      this.vendor.wasFlag = yes.value;      //
-    }else if(no.checked){                   //
-      this.vendor.wasFlag = no.value;       //
+      this.vendor.wasFlag = yes.value;      //     
+    } 
+    if(no.checked){                         //
+      this.vendor.wasFlag = no.value;       //     
     }                                       //
     if(stars){                              //
       this.vendor.stars = stars;            //
@@ -313,7 +328,9 @@ export class InspectionDeskComponent implements OnInit {
     };                                                                                                                         // 
     this.http.post('http://localhost:3000/changeVendorProfile', this.vendorsArray[i], httpOptions).subscribe((data: any) => {  // 
       console.log(this.vendorsArray[i]);                                                                                       // 
-      alert('Changes was successfully saved');                                                                                 // 
+      this._snackBar.open('Profile was changed','', {
+        duration: 2000,
+      });                                                                               // 
       this.isShowChangesBtn = false;                                                                                           // 
   });                                                                                                                          // 
   }                                                                                                                            // 
@@ -326,7 +343,9 @@ export class InspectionDeskComponent implements OnInit {
     };                                                                                                                         //   
     this.http.post('http://localhost:3000/changeVendorProfile', this.vendorsArrayMap[i], httpOptions).subscribe((data: any) => {//
       console.log(this.vendorsArrayMap[i]);                                                                                    // 
-      alert('Changes was successfully saved');                                                                                 // 
+      this._snackBar.open('Changes was saved','', {
+        duration: 2000,
+      });                                                                                // 
       this.isShowChangesBtn = false;                                                                                           // 
   });                                                                                                                          // 
   }                                                                                                                            // 
@@ -345,7 +364,9 @@ export class InspectionDeskComponent implements OnInit {
     };
     this.http.post('http://localhost:3000/changeVendorProfile', this.vendorsArrayMap[i], httpOptions).subscribe((data: any) => {
       console.log(this.vendorsArrayMap[i]);
-      alert('Changes was successfully saved');       
+      this._snackBar.open('Changes was successfully saved','', {
+        duration: 2000,
+      });      
   });
   }
 //------Make OSS and push it into DB----------------//
@@ -381,7 +402,10 @@ export class InspectionDeskComponent implements OnInit {
     };                                              //
     this.http.post('http://localhost:3000/changeVendorProfile', this.vendorOnInspection, httpOptions).subscribe((data: any) => {
                                                     //
-      alert('Changes was successfully saved');      // 
+      this._snackBar.open('Changes was successfully saved','', {
+        duration: 2000,
+      });     // 
+
   });                                              //
   }                                                 //
 //--------------------------------------------------//  
@@ -398,7 +422,9 @@ findVendor(licenceNumberFind){
           
        console.log(this.vendorOnInspection);
        this.isShowFindVendor = true;
-      }else alert('Vendor is not found');   
+      }else this._snackBar.open('Vendor not found','', {
+        duration: 2000,
+      });;   
   });
 }
 

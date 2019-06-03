@@ -18,7 +18,7 @@ hotlineRouter.post('/hotline', async(req, res, next) => {
                 console.log(VendorErr);
                 res.json({message: VendorErr});
             }
-            //Push new callDate
+            //Push new callDate 
             let currentDate = req.body.callDate;            
             let callDate = vendor.callDate;           
             callDate.push(currentDate);
@@ -36,6 +36,7 @@ hotlineRouter.post('/hotline', async(req, res, next) => {
             
             if(callCount >= 3){
                 flag = 'redFlagged';
+                wasFlag = true;
             }
             let newCallCount = callCount + 1;
             //-----------Update all new data----------
