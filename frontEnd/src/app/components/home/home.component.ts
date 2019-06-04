@@ -2,6 +2,7 @@ import { Component, OnInit,  Directive, ViewChild, ElementRef, NgZone } from '@a
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ options = {
     //country: ['BY']
   }
 }
-  constructor(private _router: Router,  private NgZone: NgZone, private elRef: ElementRef,  private http: HttpClient,) {
+  constructor(private _router: Router,  private NgZone: NgZone, private elRef: ElementRef,  private http: HttpClient, private _snackBar: MatSnackBar) {
     
    }  
   
@@ -67,7 +68,10 @@ options = {
   }
   saveCountry(){    
     this.http.post('http://localhost:3000/changeAdminData', {target: 'countries', countries: this.countries}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data);   
+        console.log(data); 
+        this._snackBar.open('Country list was changed','', {
+          duration: 2000,
+        });   
   });
   }
 //----------------------Food group----------------------------------------------
@@ -81,7 +85,10 @@ delete_foodGroup(i){
 }
 saveFoodGroup(){
   this.http.post('http://localhost:3000/changeAdminData', {target: 'foodGroups', foodGroups: this.foodGroups}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data);   
+        console.log(data);
+        this._snackBar.open('Food group list was changed','', {
+          duration: 2000,
+        });    
   });
 }
 //----------------------Organization----------------------------------------------
@@ -95,7 +102,10 @@ delete_organization(i){
 }
 saveOrganization(){
   this.http.post('http://localhost:3000/changeAdminData', {target: 'organizations', organizations: this.organizations}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data);   
+        console.log(data); 
+        this._snackBar.open('Organization list was changed','', {
+          duration: 2000,
+        });   
   });
 }
 //----------------------Questions---------------------------------------------------
@@ -109,7 +119,10 @@ delete_question(i){
 }
 saveQuestion(){
   this.http.post('http://localhost:3000/changeAdminData', {target: 'questions', questions: this.questions}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data);   
+        console.log(data); 
+        this._snackBar.open('Question list was changed','', {
+          duration: 2000,
+        });   
   });
 }
 //*************************************************************************** */

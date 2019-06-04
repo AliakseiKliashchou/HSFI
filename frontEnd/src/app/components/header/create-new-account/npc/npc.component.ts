@@ -1,6 +1,7 @@
 import { Component, ViewChild, EventEmitter, Output, OnInit, AfterViewInit, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-npc',
@@ -9,7 +10,7 @@ import {FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 })
 export class NpcComponent implements OnInit {
 
-  constructor( private http: HttpClient) { }
+  constructor( private http: HttpClient,  private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const httpOptions = {
@@ -30,7 +31,7 @@ export class NpcComponent implements OnInit {
 
   countriesArray = [];
   organizationsArray = [];
-
+  isShowProgressBar = false;
 //--------------VALIDATION----------------------------------------------------------------
 isShowSubmitBtn = true;
 hide = true;
@@ -92,7 +93,7 @@ checkForm(){
 //----------------------------------------------------------------------------------------
 
   submit(country, name, organization, mailing, phone, email, password){
-
+    this.isShowProgressBar = true;
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -112,8 +113,10 @@ checkForm(){
     };
     this.http.post('http://localhost:3000/npcReg', user, httpOptions).subscribe((data: any) => {
       console.log(data);
-      alert('New ' + data.name + ' was registered!');
-
+      this._snackBar.open('The user was successfully registered','', {
+        duration: 2000,
+      });
+      this.isShowProgressBar = false;
   });
   };
 

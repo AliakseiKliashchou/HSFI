@@ -10,13 +10,18 @@
       <p>To join us and make a carreer here, please, <strong>create new account</strong> and wait while administrator will moderate it</p>
   </div>
 
-  <button mat-button (click)="goToVendorRegistrationDesk()" *ngIf="userStatus">Vendor Registration Desk</button><br><br>
-  <button mat-button (click)="goToScratchCardDesk()" *ngIf="userStatus">Scratch Card Desk</button><br><br>
-  <button mat-button (click)="goToHotline()" *ngIf="userStatus">Hotline</button><br><br>
-  <button mat-button (click)="goToInspectionDesk()" *ngIf="userStatus">Inspection Desk</button><br><br>
-  <button mat-button (click)="goToReport()" *ngIf="userStatus">Report</button>
+  <div class="btn_group" *ngIf="userStatus">
+    <button class="btn" mat-button (click)="goToVendorRegistrationDesk()" *ngIf="userStatus">Vendor Registration Desk</button>
+    <button class="btn" mat-button (click)="goToScratchCardDesk()" *ngIf="userStatus">Scratch Card Desk</button>
+    <button class="btn" mat-button (click)="goToHotline()" *ngIf="userStatus">Hotline</button>
+    <button class="btn" mat-button (click)="goToInspectionDesk()" *ngIf="userStatus">Inspection Desk</button>
+    <button class="btn" mat-button (click)="goToReport()" *ngIf="userStatus">Report</button>
+    <div style="clear:both;"></div>
+  </div>
 
-  <div class="admin_panel">
+  
+
+  <div class="admin_panel" *ngIf="userStatus">
     <p style="font-size: 25px;">Administration panel</p>
 
     <div class="countries">
@@ -76,5 +81,3 @@
 
 </div>
 
-<app-footer>  
-</app-footer> 

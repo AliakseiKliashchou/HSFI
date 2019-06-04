@@ -1,6 +1,6 @@
 <div class="wrapper">
   <app-header></app-header>       
-
+  <mat-progress-bar mode="indeterminate" *ngIf="isShowProgressBar"></mat-progress-bar>
         <div class="form_wrapper">
             <h3 id="title">Report</h3>
           <p>
@@ -9,23 +9,8 @@
               <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
               <mat-datepicker #dp></mat-datepicker>
             </mat-form-field>
-          </p>      
-
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-select placeholder="Country">      
-              <mat-option value="option">Country list</mat-option>       
-            </mat-select>
-            </mat-form-field>
-        </p>
-
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-select placeholder="City">      
-              <mat-option value="option">City list</mat-option>       
-            </mat-select>
-            </mat-form-field>
-        </p>
+          </p>   
+       
 
         <p>
           <mat-radio-group aria-label="Select an option" *ngFor="let task of taskList; let i = index">

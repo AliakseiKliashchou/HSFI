@@ -29,3 +29,9 @@ button{
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+mat-progress-bar{
+    width: 90%;
+    margin: 0 auto;
+    top: -35px;
+}

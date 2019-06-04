@@ -2,10 +2,10 @@
     margin: 0px 0px;
     background-image: url('../../../assets/images/home.jpg');
     background-repeat: vertical;
-    background-size: 100%;
+    background-size: 100% 100%;
    
     width:100%;
-    min-height: 800px;
+    min-height: 1000px;
 }
 
 button{
@@ -97,4 +97,16 @@ input{
     display: block;
     margin: 10px auto;
     border: 2px solid rgb(99, 99, 99);
+}
+.btn_group{
+    width: 100%;
+    min-height: 60px;
+    border: 1px solid white;
+    border-radius: 8px;
+    background-color: rgba(29, 28, 28, 0.795);    
+    margin: 15px 0px;
+}
+.btn{
+    display: inline-block;
+    margin: 10px 10px;
 }

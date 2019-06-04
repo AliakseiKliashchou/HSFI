@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import * as _moment from 'moment';
 import * as jsPDF from 'jspdf';
 const moment = _moment;
@@ -31,9 +32,9 @@ export class ReportComponent implements OnInit {
 
   date = new FormControl(moment());
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
-  ngOnInit() {
+  ngOnInit() {   
   }
 //You should see this list and compare its values with indexes
 //to undestanding all matches
@@ -59,6 +60,9 @@ export class ReportComponent implements OnInit {
   task_7 = '';
 
   isShowReportBtn = false;
+  isShowProgressBar = false;
+
+  
 
   check_checkBox(check_box, i){
     if(check_box.checked){
@@ -69,6 +73,7 @@ export class ReportComponent implements OnInit {
   }
 
   submit(){
+    this.isShowProgressBar = true;
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -106,15 +111,19 @@ export class ReportComponent implements OnInit {
         }
        
     });
-   
+    this._snackBar.open('Your .pdf file is ready','', {
+      duration: 2000,
+    }); 
+    this.isShowProgressBar = false;
   } 
 
   report(dateVal){
     let doc = new jsPDF();
     doc.text(
-      `================================================
+      `
+      ================================================
        REPORT: ${dateVal}
-       ================================================
+      ================================================
       ` + '\r\n'
       +
       `${this.task_0}`

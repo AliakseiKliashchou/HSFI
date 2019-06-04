@@ -34,3 +34,9 @@ h4{
 .decline_btn{
     background-color: rgb(223, 54, 76);
 }
+#title{
+    width: 50%;
+    position: relative;
+    left: 25%;
+    text-decoration: underline;
+}

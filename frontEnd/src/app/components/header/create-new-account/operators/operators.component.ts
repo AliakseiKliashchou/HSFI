@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-operators',
@@ -9,7 +10,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class OperatorsComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const httpOptions = {
@@ -31,7 +32,7 @@ export class OperatorsComponent implements OnInit {
   toppingList: string[] = ['Vendor registration', 'Scratch card desk', 'Hotline', 'Inspection'];
   countriesArray = [];
   organizationsArray = [];
-
+  isShowProgressBar = false;
   //-----------------------------VALIDATIONS---------------------------------------------
   isShowSubmitBtn = true;
   hide = true;
@@ -82,6 +83,7 @@ export class OperatorsComponent implements OnInit {
   //-------------------------------------------------------------------------------------
 
   submit(country, name, organization, email, password, task){
+    this.isShowProgressBar = true;
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -101,7 +103,10 @@ export class OperatorsComponent implements OnInit {
     };
     this.http.post('http://localhost:3000/operatorReg', user, httpOptions).subscribe((data: any) => {
       console.log(data);
-      alert('New ' + data.name + ' was registered!');
+      this._snackBar.open('The user was successfully registered','', {
+        duration: 2000,
+      });
+      this.isShowProgressBar = false;
     });
   }
 
