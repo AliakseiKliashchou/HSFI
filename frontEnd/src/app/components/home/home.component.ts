@@ -19,9 +19,7 @@ options = {
 }
   constructor(private _router: Router,  private NgZone: NgZone, private elRef: ElementRef,  private http: HttpClient, private _snackBar: MatSnackBar) {
     
-   }  
-  
-
+  } 
   ngOnInit() {    
     this.http.get('http://localhost:3000/getAdminData', this.httpOptions).subscribe((data: any) => {   
       console.log(data[0]);      
@@ -39,6 +37,39 @@ options = {
       }
       
   });
+    if(localStorage.getItem('role')=='fao' || localStorage.getItem('role')=='npc' ){     
+      this.tasks.hotline = true;
+      this.tasks.inspectionDesk = true;
+      this.tasks.report = true;
+      this.tasks.scratchCardDesk = true;
+      this.tasks.vendorRegistrationDesk = true;
+
+    }
+    if(localStorage.getItem('role')=='fao'){
+      this.faoStatus = true;
+    }
+    if(localStorage.getItem('role') == 'operator'){
+      this.http.post('http://localhost:3000/viewProfile', {email: localStorage.getItem('userName')}, this.httpOptions).subscribe((data: any) => {
+        for(let i = 0; i < data.user.task.length; i++){
+          if(data.user.task[i] == 'Vendor registration'){
+            this.tasks.vendorRegistrationDesk = true;
+          }
+          if(data.user.task[i] == 'Scratch card desk'){
+            this.tasks.scratchCardDesk = true;
+          }
+          if(data.user.task[i] == 'Hotline'){
+            this.tasks.hotline = true;
+          }
+          if(data.user.task[i] == 'Inspection'){
+            this.tasks.inspectionDesk = true;
+          }
+          if(data.user.task[i] == 'Report'){
+            this.tasks.report = true;
+          }
+        }
+      });
+    }
+   
   }
   httpOptions = {
     headers: new HttpHeaders({
@@ -46,11 +77,19 @@ options = {
       "Access-Control-Allow-Origin": "*"
     })
   };
-
+  faoStatus = false;
   countries = [];
   foodGroups = [];
   organizations = [];
   questions = [];
+
+  tasks = {
+    vendorRegistrationDesk: false,
+    scratchCardDesk: false,
+    hotline: false,
+    inspectionDesk: false,
+    report: false
+  }
 
   saveCounrtyChangesBtn = false;
   saveFoodGroupChangesBtn = false;

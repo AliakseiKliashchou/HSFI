@@ -5,14 +5,20 @@ const User = require('../models/user');
 
 const getNewOperatorRouter = express.Router();
 
-getNewOperatorRouter.get('/getNewOperator', async(req, res, next) => {    
+getNewOperatorRouter.get('/getNewOperator', async(req, res, next) => { 
+    console.log(req.query.email);
+    User.findOne({email: req.query.email}, (err, doc) => {
+        if(err){console.log(err);}
+        User.find({activity: 'wait', role: 'operator', country: doc.country}, (err, doc) => {
+            if(err){console.log(err);}
+            
+            res.json(doc);
+        });
+    });   
+
     
-   User.find({activity: 'wait', role: 'operator'}, (err, doc) => {
-       if(err){console.log(err);}
-       console.log(doc);
-       res.json(doc);
-   });
+   
     
 });     
      
-module.exports = getNewOperatorRouter;
+module.exports = getNewOperatorRouter; 

@@ -3,6 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-log-in',
@@ -12,7 +13,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class LogInComponent implements OnInit {
   modalRef: BsModalRef;
  
-  constructor(private modalService: BsModalService, private http: HttpClient, private _router: Router) { 
+  constructor(private modalService: BsModalService, private http: HttpClient, private _router: Router, private _snackBar: MatSnackBar) { 
     
   }
 
@@ -24,9 +25,9 @@ export class LogInComponent implements OnInit {
     }
     
   }
-
+  
   isShowSubmitBtn = true;
-
+  hide = true;
   enterData = {      
     enterQuit: 'Log In', //Button "Log In/Quit" text
     modalLogIn: true, //In 'ngIf' templates    
@@ -76,25 +77,34 @@ export class LogInComponent implements OnInit {
       
       this.http.post('http://localhost:3000/login', user, httpOptions).subscribe((data: any) => {
       console.log(data);
-      if(data.isFind){       
-        this.enterData.isLogin = data.isFind; 
-        this.enterData.token = data.token;
-        this.enterData.enterQuit = 'Quit';
-        this.enterData.modalLogIn = false;
-        localStorage.setItem('userName', data.user.email);         
-        localStorage.setItem('user', data.token);
-        localStorage.setItem('userStatus', 'true');
-        localStorage.setItem('role', data.user.role);
-        this.onSetName.emit({
-          name : localStorage.getItem('userName'), 
-          isLogin : this.enterData.isLogin
-        });
-        window.location.reload();
-      
+      if(data.isFind){
+        this.http.post('http://localhost:3000/viewProfile', user, httpOptions).subscribe((data: any) => {
+          if(data.user.activity == 'wait'){
+            this._snackBar.open('Your account on moderation now','', {
+              duration: 2000,
+            });   
+          }else{            
+            this.enterData.isLogin = data.isFind; 
+            this.enterData.token = data.token;
+            this.enterData.enterQuit = 'Quit';
+            this.enterData.modalLogIn = false;
+            localStorage.setItem('userName', data.user.email);         
+            localStorage.setItem('user', data.token);
+            localStorage.setItem('userStatus', 'true');
+            localStorage.setItem('role', data.user.role);
+            this.onSetName.emit({
+              name : localStorage.getItem('userName'), 
+              isLogin : this.enterData.isLogin
+            });
+            window.location.reload();
+          }
+        });      
       }else {
         console.log('Server not answered!(');
-        console.log(data);
-        alert(data.message);
+        console.log(data);        
+        this._snackBar.open(`${data.message}`,'', {
+          duration: 2000,
+        }); 
       }       
     });
   } 

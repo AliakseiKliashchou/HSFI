@@ -11,17 +11,17 @@
   </div>
 
   <div class="btn_group" *ngIf="userStatus">
-    <button class="btn" mat-button (click)="goToVendorRegistrationDesk()" *ngIf="userStatus">Vendor Registration Desk</button>
-    <button class="btn" mat-button (click)="goToScratchCardDesk()" *ngIf="userStatus">Scratch Card Desk</button>
-    <button class="btn" mat-button (click)="goToHotline()" *ngIf="userStatus">Hotline</button>
-    <button class="btn" mat-button (click)="goToInspectionDesk()" *ngIf="userStatus">Inspection Desk</button>
-    <button class="btn" mat-button (click)="goToReport()" *ngIf="userStatus">Report</button>
+    <button class="btn" mat-button (click)="goToVendorRegistrationDesk()" *ngIf="tasks.vendorRegistrationDesk">Vendor Registration Desk</button>
+    <button class="btn" mat-button (click)="goToScratchCardDesk()" *ngIf="tasks.scratchCardDesk">Scratch Card Desk</button>
+    <button class="btn" mat-button (click)="goToHotline()" *ngIf="tasks.hotline">Hotline</button>
+    <button class="btn" mat-button (click)="goToInspectionDesk()" *ngIf="tasks.inspectionDesk">Inspection Desk</button>
+    <button class="btn" mat-button (click)="goToReport()" *ngIf="tasks.report">Report</button>
     <div style="clear:both;"></div>
   </div>
 
   
 
-  <div class="admin_panel" *ngIf="userStatus">
+  <div class="admin_panel" *ngIf="faoStatus">
     <p style="font-size: 25px;">Administration panel</p>
 
     <div class="countries">
@@ -71,6 +71,16 @@
 
     <div style="clear:both;"></div>
   </div>
+
+<div class="start_text" *ngIf="userStatus">
+  <p id="start_text">Now you can work with the service. Choose granted functions. For any questions you can call to our administrations. Have a pleasant work!</p>
+  <ul class="contacts"> 
+    <li><strong>E-mail: </strong> iron-goga@yandex.ru</li>
+    <li><strong>Phone: </strong> +375293186358</li>
+    <li><strong>Skype: </strong> iron-goga</li>
+  </ul>
+  <p id="start_text">We hope together we can do this world better!)</p>
+</div>
 
 
 

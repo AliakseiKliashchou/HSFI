@@ -29,7 +29,7 @@ export class OperatorsComponent implements OnInit {
     });
   }
   toppings = new FormControl();
-  toppingList: string[] = ['Vendor registration', 'Scratch card desk', 'Hotline', 'Inspection'];
+  toppingList: string[] = ['Vendor registration', 'Scratch card desk', 'Hotline', 'Inspection', 'Report'];
   countriesArray = [];
   organizationsArray = [];
   isShowProgressBar = false;

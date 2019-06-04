@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
           "Access-Control-Allow-Origin": "*"
         })
       };
-      this.http.get('http://localhost:3000/getNewOperator', httpOptions).subscribe((data: any) => {
+      this.http.get(`http://localhost:3000/getNewOperator?email=${localStorage.getItem('userName')}`, httpOptions).subscribe((data: any) => {
         console.log(data);
         if(data.length > 0){
           this.badgeValue = data.length;
