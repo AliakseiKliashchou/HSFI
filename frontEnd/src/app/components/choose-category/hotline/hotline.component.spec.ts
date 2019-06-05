@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NgModule, NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HotlineComponent } from './hotline.component';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 describe('HotlineComponent', () => {
   let component: HotlineComponent;
@@ -8,7 +12,9 @@ describe('HotlineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HotlineComponent ]
+      declarations: [ HotlineComponent ],
+      schemas:      [ NO_ERRORS_SCHEMA ],
+      imports: [HttpClientModule, MatSnackBarModule]
     })
     .compileComponents();
   }));
