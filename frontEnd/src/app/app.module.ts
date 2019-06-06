@@ -97,7 +97,8 @@ const appRoutes: Routes = [
     FileSelectDirective, NpcAcceptionComponent, OperatorAcceptionComponent, 
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

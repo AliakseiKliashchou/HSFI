@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { ChooseCategoryComponent } from './choose-category.component';
+import {Routes, RouterModule} from '@angular/router';
 
 describe('ChooseCategoryComponent', () => {
   let component: ChooseCategoryComponent;
@@ -8,7 +9,8 @@ describe('ChooseCategoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChooseCategoryComponent ]
+      declarations: [ ChooseCategoryComponent ],
+      imports: [RouterModule, RouterTestingModule,]
     })
     .compileComponents();
   }));

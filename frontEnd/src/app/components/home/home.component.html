@@ -35,7 +35,7 @@
       placeholder="Enter new country..." 
       value="" 
       ngx-google-places-autocomplete 
-      #placesRef="ngx-places"
+      
       (onAddressChange)="newCountry(country.value)"
       >
       <button mat-button *ngIf="saveCounrtyChangesBtn" class="saveChangesBtn" (click)="saveCountry()">Save</button>

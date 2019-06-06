@@ -91,7 +91,7 @@
         #city 
         (onAddressChange)="businessLocationCity($event, i)" 
         [formControl]="userInput.cityLocation" 
-        #placesRef="ngx-places"       
+             
         ngx-google-places-autocomplete 
         (change)="checkForm()">          
         <mat-error *ngIf="userInput.cityLocation.invalid">{{getErrorCityLocation()}}</mat-error>

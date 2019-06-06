@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgModule, NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { FaoProfileComponent } from './fao-profile.component';
 
@@ -8,7 +10,9 @@ describe('FaoProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FaoProfileComponent ]
+      declarations: [ FaoProfileComponent ],
+      schemas:      [ NO_ERRORS_SCHEMA ],
+      imports: [HttpClientModule]
     })
     .compileComponents();
   }));

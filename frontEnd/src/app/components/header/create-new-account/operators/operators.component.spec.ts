@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgModule, NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import { OperatorsComponent } from './operators.component';
 
@@ -8,7 +12,9 @@ describe('OperatorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OperatorsComponent ]
+      declarations: [ OperatorsComponent ],
+      schemas:      [ NO_ERRORS_SCHEMA ],
+      imports: [HttpClientModule, MatSnackBarModule]
     })
     .compileComponents();
   }));
