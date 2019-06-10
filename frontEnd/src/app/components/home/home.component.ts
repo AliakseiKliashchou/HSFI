@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { APIserviceService } from 'src/app/services/apiservice.service';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,11 @@ options = {
     //country: ['BY']
   }
 }
-  constructor(private _router: Router,  private NgZone: NgZone, private elRef: ElementRef,  private http: HttpClient, private _snackBar: MatSnackBar) {
+  constructor(private _router: Router,  private http: HttpClient, private _snackBar: MatSnackBar, private HTTP: APIserviceService) {
     
   } 
   ngOnInit() {    
-    this.http.get('http://localhost:3000/getAdminData', this.httpOptions).subscribe((data: any) => {   
+    this.HTTP.getAdminData().subscribe((data: any) => {   
       console.log(data[0]);      
       for(let i = 0; i < data[0].countries.length; i++){
         this.countries[i] = data[0].countries[i];        

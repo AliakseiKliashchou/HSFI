@@ -48,6 +48,7 @@ import { NpcAcceptionComponent } from './components/npc-acception/npc-acception.
 import { OperatorAcceptionComponent } from './components/operator-acception/operator-acception.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { APIserviceService } from './services/apiservice.service';
 
 
 
@@ -137,7 +138,7 @@ const appRoutes: Routes = [
     MatSnackBarModule
    
   ],
-  providers: [],
+  providers: [APIserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
