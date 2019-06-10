@@ -338,7 +338,7 @@ export class InspectionDeskComponent implements OnInit {
       });                                                                               // 
       this.isShowChangesBtn = false;                                                                                           // 
   });                                                                                                                          // 
-  }                                                                                                                            // 
+  }                                                                                                                             // 
   saveChangesMap(i){  
     this.isShowProgressBar = true;                                                                                                          // 
     const httpOptions = {                                                                                                      //   
