@@ -2,6 +2,7 @@ import { Component, ViewChild, EventEmitter, Output, OnInit, AfterViewInit, Inpu
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { APIserviceService } from 'src/app/services/apiservice.service';
 
 @Component({
   selector: 'app-npc',
@@ -10,16 +11,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class NpcComponent implements OnInit {
 
-  constructor( private http: HttpClient,  private _snackBar: MatSnackBar) { }
+  constructor( private http: HttpClient,  private _snackBar: MatSnackBar, private HTTP: APIserviceService) { }
 
-  ngOnInit() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.get('http://localhost:3000/getAdminData', httpOptions).subscribe((data: any) => {      
+  ngOnInit() {    
+    this.HTTP.getAdminData().subscribe((data: any) => {      
         for(let i = 0; i < data[0].countries.length; i++){
           this.countriesArray[i] = data[0].countries[i];        
         }
@@ -28,7 +23,6 @@ export class NpcComponent implements OnInit {
         }        
     });
   }
-
   countriesArray = [];
   organizationsArray = [];
   isShowProgressBar = false;
@@ -93,14 +87,7 @@ checkForm(){
 //----------------------------------------------------------------------------------------
 
   submit(country, name, organization, mailing, phone, email, password){
-    this.isShowProgressBar = true;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    }; 
-    console.log(country, name, organization, mailing, phone, email, password);
+    this.isShowProgressBar = true;    
     let user = {
       country: country,
       name: name,
@@ -111,8 +98,7 @@ checkForm(){
       password: password,
       role: 'npc'
     };
-    this.http.post('http://localhost:3000/npcReg', user, httpOptions).subscribe((data: any) => {
-      console.log(data);
+    this.HTTP.npcReg(user).subscribe((data: any) => {     
       this._snackBar.open('The user was successfully registered','', {
         duration: 2000,
       });

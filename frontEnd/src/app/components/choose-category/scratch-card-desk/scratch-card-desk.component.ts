@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { APIserviceService } from 'src/app/services/apiservice.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 import * as jsPDF from 'jspdf';
 import * as _moment from 'moment';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
@@ -34,15 +37,14 @@ export class ScratchCardDeskComponent implements OnInit {
 
   date = new FormControl(moment());
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private HTTP: APIserviceService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     //--------PULL FETCH NAME OF OPERATOR FROM DB--------------------
    const operatorName = localStorage.getItem('userName');
    this.vendorCardData.operatorName = operatorName;
     //==================================================================   
-  }
-  
+  }  
 
   isShowPhoto = false;
   isShowCost = false;
@@ -101,17 +103,13 @@ export class ScratchCardDeskComponent implements OnInit {
 
 //------PULL SOME DATA FROM DB ON LICENCE NUMBER-------------------
   licenceCheck(licence){  
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };  
-    this.http.post('http://localhost:3000/getVendor', {licenceNumber: licence}, httpOptions).subscribe((data: any) => {
+    this.HTTP.getVendor(licence).subscribe((data: any) => {
         if(data.vendor){
           this.vendorCardData = data.vendor;          
           this.isShowPhoto = true;
-        }else console.log('vendor is not found');   
+        }else this._snackBar.open('Vendor not found','', {
+            duration: 2000,
+        });  ;   
     });
   }
 //-------------------------------------------------------------------------
@@ -129,16 +127,8 @@ export class ScratchCardDeskComponent implements OnInit {
       let random = Math.floor(Math.random()*(max - min));
       this.vendorCardData.serialNumber = random;
       this.vendorCardData.cost = cost;
-      this.vendorCardData.money = money;
-      console.log(random);
-      const httpOptions = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        })
-      };
-      this.http.post('http://localhost:3000/createVendorCard', this.vendorCardData, httpOptions).subscribe((data: any) => {
-        console.log(data);
+      this.vendorCardData.money = money;  
+     this.HTTP.createVendorCard(this.vendorCardData).subscribe((data: any) => {       
         this.isShowCost = true;
         this.isShowConvert = true;
       });      

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { APIserviceService } from 'src/app/services/apiservice.service';
 
 @Component({
   selector: 'app-operator-acception',
@@ -8,61 +9,38 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class OperatorAcceptionComponent implements OnInit {
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient, private HTTP: APIserviceService) { }
 
-  ngOnInit() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.get(`http://localhost:3000/getNewOperator?email=${localStorage.getItem('userName')}`, httpOptions).subscribe((data: any) => {
+  ngOnInit() {  
+    this.HTTP.getNewOperator(localStorage.getItem('userName')).subscribe((data: any) => {
     if(data.length > 0){
      for(let i = 0; i < data.length; i++){
       this.operatorsArray[i] = data[i];
      }
-      this.isShowNullMessage = false;
-      
-    }
-   
+      this.isShowNullMessage = false;      
+    }   
   });
   }
 
   isShowNullMessage = true;
   operatorsArray = [];
 
-  accept(header, i){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.post('http://localhost:3000/changeNewOperator', {_id: this.operatorsArray[i]._id, activity: 'active'}, httpOptions).subscribe((data: any) => {  
+  accept(header, i){  
+    this.HTTP.changeNewOperator(this.operatorsArray[i]._id, 'active').subscribe((data: any) => {  
     this.operatorsArray.splice(i, 1);
-    header.ngOnInit();
-    console.log(this.operatorsArray);
+    header.ngOnInit();    
     if(this.operatorsArray.length == 0){
       this.isShowNullMessage = true;
     }
   });
   }
-  decline(header, i){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.post('http://localhost:3000/changeNewOperator', {_id: this.operatorsArray[i]._id, activity: 'passive'}, httpOptions).subscribe((data: any) => {  
+  decline(header, i){  
+    this.HTTP.changeNewOperator(this.operatorsArray[i]._id, 'passive').subscribe((data: any) => {  
     this.operatorsArray.splice(i, 1);
-    header.ngOnInit();
-    console.log(this.operatorsArray);
+    header.ngOnInit();   
     if(this.operatorsArray.length == 0){
       this.isShowNullMessage = true;
     }
   });
   }
-
 }

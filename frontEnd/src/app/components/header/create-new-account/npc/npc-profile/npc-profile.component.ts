@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { APIserviceService } from 'src/app/services/apiservice.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-npc-profile',
@@ -8,18 +11,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class NpcProfileComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private HTTP: APIserviceService, private _snackBar: MatSnackBar,) { }
 
   ngOnInit() {
-    const userEmail = { email : localStorage.getItem('userName')};    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.post('http://localhost:3000/viewProfile', userEmail, httpOptions).subscribe((data: any) => {
-      console.log(data.user.name);
+    const userEmail = { email : localStorage.getItem('userName')};   
+    this.HTTP.viewProfile(localStorage.getItem('userName')).subscribe((data: any) => {      
       this.user.name = data.user.name;
       this.user.email = data.user.email;
       this.user.country = data.user.country;
@@ -37,8 +33,7 @@ export class NpcProfileComponent implements OnInit {
     password: '',
     organization: '',
   };
-  //----------------------------------
-  
+  //----------------------------------  
 
   //disables--------------  //
   disableName     = true;   //
@@ -69,8 +64,7 @@ export class NpcProfileComponent implements OnInit {
   }                               //
   confirmNameChanges(newName){    //
     this.confirmNameBtn = false;  //
-    this.disableName    = true;   //
-    console.log(newName);         //
+    this.disableName    = true;   //    
     this.user.name = newName;     //
   }                               //
   //------------------------------//
@@ -83,8 +77,7 @@ export class NpcProfileComponent implements OnInit {
   }                               //
   confirmEmailChanges(newEmail){  //
     this.confirmEmailBtn  = false;//
-    this.disableEmail     = true; //
-    console.log(newEmail);        //
+    this.disableEmail     = true; //    
     this.user.email = newEmail;   //
   }                               //
   //------------------------------//
@@ -97,8 +90,7 @@ export class NpcProfileComponent implements OnInit {
   }                                 //
   confirmCountryChanges(newCountry){//
     this.disableCountry     = true; //
-    this.confirmCountryBtn  = false;//
-    console.log(newCountry);        //
+    this.confirmCountryBtn  = false;//   
     this.user.country = newCountry; //
   }                                 //    
   //------------------------------- //
@@ -111,27 +103,20 @@ export class NpcProfileComponent implements OnInit {
   }                              //
   confirmPhoneChanges(newPhone){ //
     this.disablePhone    = true; //
-    this.confirmPhoneBtn = false;//
-    console.log(newPhone);       //
+    this.confirmPhoneBtn = false;//   
     this.user.phone = newPhone;  //
   }                              //   
   //-----------------------------//
 
   //--------PASSWORD------------------//
 
-  acceptNewPassword(password_1, password_2){
-    console.log(password_1);
-    this.disablePasswordFields = true;
-          
+  acceptNewPassword(password_1, password_2){    
+    this.disablePasswordFields = true;          
       if((password_1 == password_2) && (password_1 == '')){        
-        delete this.user.password;
-        console.log(this.user);
-        
+        delete this.user.password;        
       }
      else if((password_1 == password_2) && (password_1 !== '')){  
-      this.user.password = password_1;    
-      console.log(this.user);
-      
+      this.user.password = password_1;        
     }
   }
 
@@ -144,16 +129,14 @@ export class NpcProfileComponent implements OnInit {
   saveChanges(){
     if(this.user.password == ''){
       delete this.user.password;
-    }
-    console.log(this.user);       
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.post('http://localhost:3000/changeProfile', this.user, httpOptions).subscribe((data: any) => {
-        
+    }        
+    
+    this.HTTP.changeProfile(this.user).subscribe((data: any) => {
+        if(data){
+          this._snackBar.open('Data was successfully changed','', {
+            duration: 2000,
+          }); 
+        }
     });
 
   }

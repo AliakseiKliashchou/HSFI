@@ -21,7 +21,7 @@ changeProfileRouter.post('/changeProfile', async(req, res, next) => {
         {new: true},
         function(err, user){
             if(err){ return console.log(err)};
-            console.log(user);
+            res.json(user);
         });
     }else{
         console.log('password here');
@@ -40,6 +40,7 @@ changeProfileRouter.post('/changeProfile', async(req, res, next) => {
         function(err, user){
             if(err){ return console.log(err)};
             console.log(user);
+            res.json(user);
         });
     }
     

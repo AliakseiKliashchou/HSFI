@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { APIserviceService } from 'src/app/services/apiservice.service';
+
 
 @Component({
   selector: 'app-fao',
@@ -10,7 +12,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class FaoComponent implements OnInit {
 
-  constructor( private http: HttpClient, private _snackBar: MatSnackBar) { }
+  constructor( private http: HttpClient, private _snackBar: MatSnackBar, private HTTP: APIserviceService) { }
 
   ngOnInit() {
   }
@@ -50,16 +52,11 @@ export class FaoComponent implements OnInit {
     }else this.isShowSubmitBtn = true;
   }
   //-----------------------------------------------------------------------------------
+
   isShowProgressBar = false;
+
   submit(name, office, phone, email, password){
-    this.isShowProgressBar = true;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    }; 
-    console.log(name, office, phone, email, password);
+    this.isShowProgressBar = true;    
     let user = {
       role: 'fao',
       name: name,
@@ -68,14 +65,12 @@ export class FaoComponent implements OnInit {
       email: email,
       password: password
     };
-    this.http.post('http://localhost:3000/faoReg', user, httpOptions).subscribe((data: any) => {
-      console.log(data);
+    this.HTTP.faoReg(user).subscribe((data: any) => {      
       this._snackBar.open('The user was successfully registered','', {
         duration: 2000,
       });
       this.isShowProgressBar = false;
     });
-
   }
 
 }

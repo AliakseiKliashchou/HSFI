@@ -22,8 +22,7 @@ options = {
     
   } 
   ngOnInit() {    
-    this.HTTP.getAdminData().subscribe((data: any) => {   
-      console.log(data[0]);      
+    this.HTTP.getAdminData().subscribe((data: any) => {          
       for(let i = 0; i < data[0].countries.length; i++){
         this.countries[i] = data[0].countries[i];        
       }
@@ -50,7 +49,7 @@ options = {
       this.faoStatus = true;
     }
     if(localStorage.getItem('role') == 'operator'){
-      this.http.post('http://localhost:3000/viewProfile', {email: localStorage.getItem('userName')}, this.httpOptions).subscribe((data: any) => {
+      this.HTTP.viewProfile(localStorage.getItem('userName')).subscribe((data: any) => {
         for(let i = 0; i < data.user.task.length; i++){
           if(data.user.task[i] == 'Vendor registration'){
             this.tasks.vendorRegistrationDesk = true;
@@ -72,12 +71,7 @@ options = {
     }
    
   }
-  httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    })
-  };
+  
   faoStatus = false;
   countries = [];
   foodGroups = [];
@@ -107,8 +101,7 @@ options = {
     this.saveCounrtyChangesBtn = true;
   }
   saveCountry(){    
-    this.http.post('http://localhost:3000/changeAdminData', {target: 'countries', countries: this.countries}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data); 
+    this.HTTP.changeAdminData('countries', this.countries).subscribe((data: any) => {        
         this._snackBar.open('Country list was changed','', {
           duration: 2000,
         });   
@@ -124,8 +117,7 @@ delete_foodGroup(i){
   this.saveFoodGroupChangesBtn = true;
 }
 saveFoodGroup(){
-  this.http.post('http://localhost:3000/changeAdminData', {target: 'foodGroups', foodGroups: this.foodGroups}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data);
+  this.HTTP.changeAdminData('foodGroups', this.foodGroups).subscribe((data: any) => {         
         this._snackBar.open('Food group list was changed','', {
           duration: 2000,
         });    
@@ -141,8 +133,7 @@ delete_organization(i){
   this.saveOrganizationChangesBtn = true;
 }
 saveOrganization(){
-  this.http.post('http://localhost:3000/changeAdminData', {target: 'organizations', organizations: this.organizations}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data); 
+  this.HTTP.changeAdminData('organizations', this.organizations).subscribe((data: any) => {        
         this._snackBar.open('Organization list was changed','', {
           duration: 2000,
         });   
@@ -158,8 +149,7 @@ delete_question(i){
   this.saveQuestionChangesBtn = true;
 }
 saveQuestion(){
-  this.http.post('http://localhost:3000/changeAdminData', {target: 'questions', questions: this.questions}, this.httpOptions).subscribe((data: any) => {        
-        console.log(data); 
+  this.HTTP.changeAdminData('questions', this.questions).subscribe((data: any) => {         
         this._snackBar.open('Question list was changed','', {
           duration: 2000,
         });   
@@ -168,9 +158,7 @@ saveQuestion(){
 //*************************************************************************** */
   public handleAddressChange(address: any){
     this.formattedAddres = address.formatted_address;
-    let str = address.formatted_address.split(',');    
-    console.log(str[1]);
-    
+    let str = address.formatted_address.split(',');      
   }
 
   userStatus = localStorage.getItem('userStatus');

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { APIserviceService } from 'src/app/services/apiservice.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as _moment from 'moment';
 import * as jsPDF from 'jspdf';
@@ -32,7 +33,7 @@ export class ReportComponent implements OnInit {
 
   date = new FormControl(moment());
 
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar, private HTTP: APIserviceService) { }
 
   ngOnInit() {   
   }
@@ -60,9 +61,7 @@ export class ReportComponent implements OnInit {
   task_7 = '';
 
   isShowReportBtn = false;
-  isShowProgressBar = false;
-
-  
+  isShowProgressBar = false;  
 
   check_checkBox(check_box, i){
     if(check_box.checked){
@@ -73,14 +72,8 @@ export class ReportComponent implements OnInit {
   }
 
   submit(){
-    this.isShowProgressBar = true;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };  
-    this.http.post('http://localhost:3000/report', this.tasksToPush, httpOptions).subscribe((data: any) => {        
+    this.isShowProgressBar = true;   
+    this.HTTP.report(this.tasksToPush).subscribe((data: any) => {        
         this.isShowReportBtn = true;
         if(data[0] !== ''){
           this.task_0 = `Registered vendors: ${data[0]}` + '\r\n';

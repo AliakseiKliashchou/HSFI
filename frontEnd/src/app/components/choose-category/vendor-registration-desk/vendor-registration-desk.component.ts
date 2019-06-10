@@ -5,7 +5,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-
+import { APIserviceService } from 'src/app/services/apiservice.service';
 import * as _moment from 'moment';
 const moment = _moment;
 export const MY_FORMATS = {
@@ -19,9 +19,6 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-
-
-
 
 @Component({
   selector: 'app-vendor-registration-desk',
@@ -42,15 +39,13 @@ export class VendorRegistrationDeskComponent implements OnInit {
   public uploader:FileUploader = new FileUploader({url: `http://localhost:3000/uploadVendorPhoto?logoName=${localStorage.getItem('userName')}`, itemAlias: 'avatar'});
   public uploader2:FileUploader = new FileUploader({url: `http://localhost:3000/uploadVendorLicence?logoName=${localStorage.getItem('userName')}`, itemAlias: 'licence'});
 
-  constructor(private http: HttpClient, private el: ElementRef, private _snackBar: MatSnackBar) {   }
- 
+  constructor(private http: HttpClient, private el: ElementRef, private _snackBar: MatSnackBar, private HTTP: APIserviceService) {   } 
 
   ngOnInit() {  
   //UPLOAD PHOTO AND LICENCE SCAN   
   this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-      this.isShowProgressBar = true;
-      console.log("ImageUpload:uploaded:", item, status, response);  
+      this.isShowProgressBar = true;      
       this._snackBar.open('Image was successfully loaded','', {
         duration: 2000,
       });
@@ -59,8 +54,7 @@ export class VendorRegistrationDeskComponent implements OnInit {
     };
   this.uploader2.onAfterAddingFile = (file)=> { file.withCredentials = false; };
     this.uploader2.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-      this.isShowProgressBar = true;
-      console.log("ImageUpload:uploaded:", item, status, response);  
+      this.isShowProgressBar = true;        
       this._snackBar.open('Image was successfully loaded','', {
         duration: 2000,
       });  
@@ -68,18 +62,13 @@ export class VendorRegistrationDeskComponent implements OnInit {
       this.isShowProgressBar = false;
     };
     //---------------------------
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    //REQUEST FOR FETCHING OPERATOR`S NAME FIELD
-    this.http.post('http://localhost:3000/getOperator', {email: localStorage.getItem('userName')}, httpOptions).subscribe((data: any) => {
+    
+    //REQUEST FOR FETCHING OPERATOR`S NAME FIELD 
+    this.HTTP.getOperator(localStorage.getItem('userName')).subscribe((data: any) => {
         this.vendor.operatorName = data.user.email;
         console.log(this.vendor);  
     });
-    this.http.get('http://localhost:3000/getAdminData', httpOptions).subscribe((data: any) => {
+    this.HTTP.getAdminData().subscribe((data: any) => {
       for(let i = 0; i < data[0].foodGroups.length; i++){
         this.foodGroupsFromDb[i] = data[0].foodGroups[i];
       }
@@ -205,10 +194,7 @@ export class VendorRegistrationDeskComponent implements OnInit {
     //this.vendor.businessLocation[0][i] = city;        //
     this.vendor.businessLocation[0][i] = city.address_components[0].long_name;
     this.vendor.latitude = city.geometry.location.lat();
-    this.vendor.longitude = city.geometry.location.lng();
-    console.log(city.address_components[0].long_name);
-    console.log(city.geometry.location.lat());
-    console.log(city.geometry.location.lng());
+    this.vendor.longitude = city.geometry.location.lng();    
   }                                                     //      
   businessLocationStreet(street, i){                    //
     this.vendor.businessLocation[1][i] = street;        //
@@ -248,18 +234,8 @@ submit(date, operatorName, country, name, licenceNumber, phone, email, foodGroup
   this.vendor.licenceNumber = licenceNumber;
   this.vendor.phone = phone;
   this.vendor.email = email;
-  this.vendor.foodGroup = foodGroup;
-  console.log(this.vendor);
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    })
-  };
-  
-  this.http.post('http://localhost:3000/vendorRegistration', this.vendor, httpOptions).subscribe((data: any) => {      
-      console.log(data); 
+  this.vendor.foodGroup = foodGroup;  
+  this.HTTP.vendorRegistration(this.vendor).subscribe((data: any) => {         
       this._snackBar.open('The vendor was successfully registered','', {
         duration: 2000,
       });

@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { APIserviceService } from 'src/app/services/apiservice.service';
+
 
 @Component({
   selector: 'app-log-in',
@@ -13,7 +15,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class LogInComponent implements OnInit {
   modalRef: BsModalRef;
  
-  constructor(private modalService: BsModalService, private http: HttpClient, private _router: Router, private _snackBar: MatSnackBar) { 
+  constructor(private modalService: BsModalService, private http: HttpClient, private _router: Router, private _snackBar: MatSnackBar, private HTTP: APIserviceService) { 
     
   }
 
@@ -62,23 +64,15 @@ export class LogInComponent implements OnInit {
   
 //Check login and logining
   logining(loginValue, passwordValue){     
-    if(!Boolean(localStorage.getItem('userStatus'))){
-      const httpOptions = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        })
-      };  
+    if(!Boolean(localStorage.getItem('userStatus'))){       
       let user = {
         email: loginValue,
         password: passwordValue
-      };
-      console.log(user.email, user.password);
-      
-      this.http.post('http://localhost:3000/login', user, httpOptions).subscribe((data: any) => {
-      console.log(data);
+      };      
+    
+      this.HTTP.login(user).subscribe((data: any) => {      
       if(data.isFind){
-        this.http.post('http://localhost:3000/viewProfile', user, httpOptions).subscribe((data: any) => {
+        this.HTTP.viewProfileUser(user).subscribe((data: any) => {
           if(data.user.activity == 'wait'){
             this._snackBar.open('Your account on moderation now','', {
               duration: 2000,
@@ -99,9 +93,7 @@ export class LogInComponent implements OnInit {
             window.location.reload();
           }
         });      
-      }else {
-        console.log('Server not answered!(');
-        console.log(data);        
+      }else {               
         this._snackBar.open(`${data.message}`,'', {
           duration: 2000,
         }); 
@@ -111,8 +103,7 @@ export class LogInComponent implements OnInit {
 }
 // QUIT
 quit(){
-  if(this.enterData.isLogin){
-    console.log('confirm');    
+  if(this.enterData.isLogin){       
     if(confirm('Do you really want to quit?')){
       this.enterData.enterQuit = 'Log In';
       //this.enterData.modalLogIn = true;      

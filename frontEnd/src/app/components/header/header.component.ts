@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { APIserviceService } from 'src/app/services/apiservice.service';
 
 @Component({
   selector: 'app-header',
@@ -8,48 +9,30 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
   
-  constructor(private _router: Router, private http: HttpClient,) { }
+  constructor(private _router: Router, private http: HttpClient, private HTTP: APIserviceService) { }
 
-  ngOnInit() {  
-    console.log('init header comp');
-    if(localStorage.getItem('role') == 'fao'){
-      const httpOptions = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        })
-      };
-      this.http.get('http://localhost:3000/getNewNpc', httpOptions).subscribe((data: any) => {
-        console.log(data);
+  ngOnInit() {     
+    if(localStorage.getItem('role') == 'fao'){     
+      this.HTTP.getNewNpc().subscribe((data: any) => {        
         if(data.length > 0){
           this.badgeValue = data.length;
           this.isShowBadge = false;
         }else{
           this.badgeValue = 0;
           this.isShowBadge = true;
-        }
-        
+        }        
     });
     }
-    if(localStorage.getItem('role') == 'npc'){
-      const httpOptions = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        })
-      };
-      this.http.get(`http://localhost:3000/getNewOperator?email=${localStorage.getItem('userName')}`, httpOptions).subscribe((data: any) => {
-        console.log(data);
+    if(localStorage.getItem('role') == 'npc'){     
+      this.HTTP.getNewOperator(localStorage.getItem('userName')).subscribe((data: any) => {        
         if(data.length > 0){
           this.badgeValue = data.length;
           this.isShowBadge = false;
         }else{
           this.badgeValue = 0;
           this.isShowBadge = true;
-        }
-        
+        }        
     });
     }
    

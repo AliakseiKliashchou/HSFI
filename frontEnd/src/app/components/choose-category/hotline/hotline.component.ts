@@ -4,6 +4,8 @@ import {FormControl, Validators} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { APIserviceService } from 'src/app/services/apiservice.service';
+
 import * as _moment from 'moment';
 const moment = _moment;
 export const MY_FORMATS = {
@@ -30,7 +32,7 @@ export const MY_FORMATS = {
 export class HotlineComponent implements OnInit {
 
   date = new FormControl(moment());
-  constructor(private http: HttpClient,  private _snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient,  private _snackBar: MatSnackBar, private HTTP: APIserviceService) { }
 
   ngOnInit() {
     this.userName = localStorage.getItem('userName');
@@ -60,36 +62,20 @@ export class HotlineComponent implements OnInit {
  
    //************************************************************************************ */
 
-
-
 userName = '';
 
-submit(operatorName, dateVal, callerID, serialNumber){
-    //console.log(dateValue);
-    //2019-05-14
-    //var y = '2019-05-10';
-    //var x =  moment(y);
-    //console.log(moment(y).fromNow());
+submit(operatorName, dateVal, callerID, serialNumber){  
    let vendor = {
     operatorName: operatorName,
     callDate: dateVal,
     callerID: callerID, 
     serialNumber: serialNumber,   
-    }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.post('http://localhost:3000/hotline', vendor, httpOptions).subscribe((data: any) => {
-      console.log(data);
+    }    
+    this.HTTP.hotline(vendor).subscribe((data: any) => {      
       this._snackBar.open('The call was done','', {
         duration: 2000,
       });
-  });
-
-    
+  });    
 }
 
 }

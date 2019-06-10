@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { APIserviceService } from 'src/app/services/apiservice.service';
+
 
 @Component({
   selector: 'app-operators',
@@ -10,16 +12,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class OperatorsComponent implements OnInit {
 
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar, private HTTP: APIserviceService) { }
 
-  ngOnInit() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    this.http.get('http://localhost:3000/getAdminData', httpOptions).subscribe((data: any) => {      
+  ngOnInit() {   
+    this.HTTP.getAdminData().subscribe((data: any) => {      
         for(let i = 0; i < data[0].countries.length; i++){
           this.countriesArray[i] = data[0].countries[i];        
         }
@@ -83,15 +79,7 @@ export class OperatorsComponent implements OnInit {
   //-------------------------------------------------------------------------------------
 
   submit(country, name, organization, email, password, task){
-    this.isShowProgressBar = true;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      })
-    };
-    
-    console.log(country, name, organization, email, password, task);
+    this.isShowProgressBar = true;   
     const user = {
       role: 'operator',
       country: country,
@@ -101,16 +89,11 @@ export class OperatorsComponent implements OnInit {
       password: password,
       task: task,
     };
-    this.http.post('http://localhost:3000/operatorReg', user, httpOptions).subscribe((data: any) => {
-      console.log(data);
+    this.HTTP.operatorReg(user).subscribe((data: any) => {     
       this._snackBar.open('The user was successfully registered','', {
         duration: 2000,
       });
       this.isShowProgressBar = false;
     });
   }
-
-  
-  
-
 }
