@@ -1,6 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const nodemailer = require('nodemailer');
 
@@ -41,7 +39,7 @@ operatorRouter.post('/operatorReg', async(req, res, next) => {
       if(err){console.log(err);}      
     });
 
-    res.json({message: "Vse zaebok!", name: req.body.name});
+    res.json({message: "Ok", name: req.body.name});
 });     
      
 module.exports = operatorRouter;

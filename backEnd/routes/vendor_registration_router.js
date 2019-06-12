@@ -40,10 +40,9 @@ vendorRegistrationRouter.post('/vendorRegistration', (req, res) => {
             });
             
         }
-    });    
-//operator@operator.ru-photo
-//operator@operator.ru-photo     
-    res.json({message: "Vse zaebok! Vendor zaregan)"});
+    });   
+   
+    res.json({message: "User was registered"});
 });  
 
 module.exports = vendorRegistrationRouter;

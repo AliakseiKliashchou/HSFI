@@ -1,7 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
 const path = require('path');
 const multer = require('multer');
 
@@ -38,8 +35,7 @@ const upload = multer({
   };  
 
   uploadVendorLicenceRouter.post('/uploadVendorLicence', (req, res) => {
-    var logoName = req.query.logoName;
-    //console.log(logoName);
+    var logoName = req.query.logoName;    
     upload(req, res, (err) => {
       if(err){
         res.json( { msg: err });

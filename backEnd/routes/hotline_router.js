@@ -1,6 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const Vendor = require('../models/vendor');
 const VendorCard = require('../models/vendorCard');
 
@@ -9,13 +7,11 @@ const hotlineRouter = express.Router();
 hotlineRouter.post('/hotline', async(req, res, next) => {     
     
     VendorCard.findOne({serialNumber: req.body.serialNumber}, (cardErr, card) => {
-        if(cardErr){
-            console.log(cardErr);
+        if(cardErr){            
             res.json({message: cardErr});
         }         
         Vendor.findOne({licenceNumber: card.licenceNumber}, (VendorErr, vendor) => {
-            if(VendorErr){
-                console.log(VendorErr);
+            if(VendorErr){                
                 res.json({message: VendorErr});
             }
             //Push new callDate 
@@ -48,9 +44,8 @@ hotlineRouter.post('/hotline', async(req, res, next) => {
             },
             {new: true},
             function(err, user){
-                if(err){ return console.log(err)};
-                console.log('Zaebumba!');
-                res.json({message: 'Zaebumba!'})
+                if(err){ return console.log(err)};                
+                res.json({message: 'Ok'})
             });
         });
     });

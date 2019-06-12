@@ -4,8 +4,8 @@ const VendorCard = require('../models/vendorCard');
 
 const createVendorCardRouter = express.Router();
 
-createVendorCardRouter.post('/createVendorCard', async(req, res) => {      
-    console.log(req.body);
+createVendorCardRouter.post('/createVendorCard', async(req, res) => { 
+    
     VendorCard.create({
         operatorName : req.body.operatorName,
         registrationDate: req.body.registrationDate,
@@ -16,10 +16,9 @@ createVendorCardRouter.post('/createVendorCard', async(req, res) => {
         serialNumber: req.body.serialNumber,   
         cost: req.body.cost,
         money: req.body.money,           
-    });
-       
-    console.log('check2');
-    res.json({message: "Vse zaebok! Card zaregana)"});
+    });       
+   
+    res.json({message: "Vendor card was registered"});
 });   
 
 module.exports = createVendorCardRouter;

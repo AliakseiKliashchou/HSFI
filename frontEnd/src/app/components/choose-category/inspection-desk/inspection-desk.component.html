@@ -2,12 +2,10 @@
   <app-header></app-header>
   <mat-progress-bar mode="indeterminate" *ngIf="isShowProgressBar"></mat-progress-bar>
   <div class="form_wrapper">
-
     <div class="view_vendors">
     <!-----------------------VIEW WENDORS------------------------------------------->      
       <h3>View vendors</h3>
-      <p><mat-slide-toggle (click)="toggler()">Switch beetwen table or map modes</mat-slide-toggle></p>
-      
+      <p><mat-slide-toggle (click)="toggler()">Switch beetwen table or map modes</mat-slide-toggle></p>      
       <!---*******************TABLE MODE**************************---> 
       <div class="table_mode" *ngIf="!toggle">
           <p>
@@ -16,49 +14,42 @@
                 <mat-option *ngFor="let country of countries; let i = index" [value]="country">{{country}}</mat-option>                      
               </mat-select>
               </mat-form-field>  
-            </p>
-            
-          
-              
-              <p>
-                  <mat-form-field appearance="outline">
-                  <mat-select placeholder="Open/Closed" #openClosed>      
-                    <mat-option value="open">Open</mat-option>
-                    <mat-option value="closed">Closed</mat-option>         
-                  </mat-select>
-                  </mat-form-field>  
-                </p>
-            
-                <p>
-                    <mat-form-field appearance="outline">
-                    <mat-select placeholder="Food Group" #foodGroup>      
-                      <mat-option *ngFor="let foodGroup of foodGroups; let i = index" [value]="foodGroup">{{foodGroup}}</mat-option>                            
-                    </mat-select>
-                    </mat-form-field>  
-                  </p>
-            
-                  <p>
-                      <mat-form-field appearance="outline">
-                        <mat-label>OSS</mat-label>
-                        <input matInput #oss>          
-                        <mat-hint>Hint</mat-hint>
-                        </mat-form-field>
-                    </p>
-
-                    <p>
-                    <mat-radio-group aria-label="Was red flags?" #radio>
-                        <p>Was red flags?</p>
-                        <mat-radio-button #yes value="true">Yes</mat-radio-button>
-                        <mat-radio-button #no value="false">No</mat-radio-button>
-                      </mat-radio-group>
-                    </p>
-            
-                    <p>
-                        <mat-form-field appearance="outline">
-                          <mat-label>Quality stars</mat-label>
-                          <input matInput #stars >                           
-                          </mat-form-field>
-                      </p> <br><br>
+          </p>              
+          <p>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Open/Closed" #openClosed>      
+                  <mat-option value="open">Open</mat-option>
+                  <mat-option value="closed">Closed</mat-option>         
+                </mat-select>
+              </mat-form-field>  
+          </p>            
+          <p>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Food Group" #foodGroup>      
+                  <mat-option *ngFor="let foodGroup of foodGroups; let i = index" [value]="foodGroup">{{foodGroup}}</mat-option>                            
+                </mat-select>
+              </mat-form-field>  
+          </p>            
+          <p>
+              <mat-form-field appearance="outline">
+                <mat-label>OSS</mat-label>
+                  <input matInput #oss>          
+                <mat-hint>Hint</mat-hint>
+              </mat-form-field>
+          </p>
+          <p>
+            <mat-radio-group aria-label="Was red flags?" #radio>
+              <p>Was red flags?</p>
+              <mat-radio-button #yes value="true">Yes</mat-radio-button>
+              <mat-radio-button #no value="false">No</mat-radio-button>
+            </mat-radio-group>
+          </p>            
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Quality stars</mat-label>
+              <input matInput #stars >                           
+            </mat-form-field>
+          </p> <br><br>
 
               <button mat-button type="button" class="save_btn" (click)="showVendor(
                 country.value,                
@@ -156,17 +147,15 @@
           <input matInput [matDatepicker]="dp" placeholder="Date of inspection" [formControl]="date" #dateVal>
           <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
           <mat-datepicker #dp></mat-datepicker>
-        </mat-form-field>
-
-       
+        </mat-form-field>       
 
         <p>
             <mat-form-field appearance="outline">
               <mat-label>Licence number</mat-label>
               <input matInput #licenceNumberFind (change)="findVendor(licenceNumberFind.value)">          
               <mat-hint>Hint</mat-hint>
-              </mat-form-field>
-          </p>
+            </mat-form-field>
+        </p>
 
           <p *ngIf="isShowFindVendor">
               <mat-form-field appearance="outline">

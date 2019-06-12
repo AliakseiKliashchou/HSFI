@@ -1,8 +1,5 @@
 <div class="wrapper">
-
-  <app-header></app-header>
-
-  
+  <app-header></app-header>  
   <div class="form_wrapper">
       <h3 id="title">Hotline</h3>
     <p>
@@ -12,7 +9,6 @@
         <mat-hint>Hint</mat-hint>
         </mat-form-field>
     </p>
-
     <p>
       <mat-form-field>
         <input matInput [matDatepicker]="dp" placeholder="Date of registration" [formControl]="date" #dateVal>
@@ -20,7 +16,6 @@
         <mat-datepicker #dp></mat-datepicker>
       </mat-form-field>
     </p>
-
     <p>
       <mat-form-field appearance="outline">
         <mat-label>National ID n. of caller</mat-label>
@@ -28,7 +23,6 @@
         <mat-error *ngIf="userInput.idOfCaller">{{getErrorMessageIdOfCaller()}}</mat-error>
         </mat-form-field>
     </p>
-
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Scratch card serial no.</mat-label>

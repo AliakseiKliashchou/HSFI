@@ -1,6 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const nodemailer = require('nodemailer');
 

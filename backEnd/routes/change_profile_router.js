@@ -1,6 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 
@@ -9,8 +7,7 @@ const changeProfileRouter = express.Router();
 
 changeProfileRouter.post('/changeProfile', async(req, res, next) => {      
  
-    if(!req.body.password){
-        console.log('no password');
+    if(!req.body.password){       
         User.findOneAndUpdate({email: req.body.email}, {
             name: req.body.name, 
             email: req.body.email, 
@@ -23,12 +20,10 @@ changeProfileRouter.post('/changeProfile', async(req, res, next) => {
             if(err){ return console.log(err)};
             res.json(user);
         });
-    }else{
-        console.log('password here');
+    }else{       
         const passwordFromUser = req.body.password;
         const salt = bcrypt.genSaltSync(10);
-        const passwordToSave = bcrypt.hashSync(passwordFromUser, salt);
-        console.log(passwordToSave);
+        const passwordToSave = bcrypt.hashSync(passwordFromUser, salt);       
         User.findOneAndUpdate({email: req.body.email}, {
             name: req.body.name, 
             email: req.body.email, 
@@ -38,8 +33,7 @@ changeProfileRouter.post('/changeProfile', async(req, res, next) => {
         },
         {new: true},
         function(err, user){
-            if(err){ return console.log(err)};
-            console.log(user);
+            if(err){ return console.log(err)};            
             res.json(user);
         });
     }

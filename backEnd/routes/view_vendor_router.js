@@ -1,9 +1,5 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const Vendor = require('../models/vendor');
-const VendorCard = require('../models/vendorCard');
-
 const viewVendorRouter = express.Router();
 
 viewVendorRouter.post('/viewVendor', async(req, res, next) => {  

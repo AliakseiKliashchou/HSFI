@@ -1,6 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const nodemailer = require('nodemailer');
 
@@ -40,7 +38,7 @@ faoRouter.post('/faoReg', async(req, res, next) => {
         if(err){console.log(err);}       
       });
 
-    res.json({message: "Vse zaebok!", name: req.body.name});
+    res.json({message: "Ok", name: req.body.name});
 });     
      
 module.exports = faoRouter;

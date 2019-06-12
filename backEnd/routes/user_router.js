@@ -11,13 +11,11 @@ router.post('/signup', passport.authenticate('signup', { session: false }), asyn
   });
 });
 
-router.post('/login', async(req, res, next) => {
-  console.log(req.body);
+router.post('/login', async(req, res, next) => {  
   passport.authenticate('login', async(err, user, info) => {
     try { 
       if(err || !user) {
-        const error = new Error('An Error occured');
-        //console.log('fuck you'); это если неправильные логин или пароль
+        const error = new Error('An Error occured');        
         return res.json({message: 'User not found or wrong login or password!'});
       }
       
@@ -25,13 +23,11 @@ router.post('/login', async(req, res, next) => {
         if(error) { return next(error) }
 
         const body = {_id: user._id, email: user.email};
-        const token = jwt.sign({ user: body }, 'top_secret');      
-        console.log(token);
+        const token = jwt.sign({ user: body }, 'top_secret');       
         User.findOneAndUpdate({email: req.body.email}, {
           token: token,
         }, {new: true}, (err, doc) => {
-          if(err){console.log(err);}
-          console.log(doc);
+          if(err){console.log(err);}         
         });
        
       return  res.json({ token, isFind: true, user });
