@@ -18,7 +18,7 @@ const fs = require('fs');
 app.use(express.static('./public/uploads'));
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/HSFI', { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/nephelim', { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 mongoose.connection.on('error', error => console.log(error));
 mongoose.Promise = global.Promise;
