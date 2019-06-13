@@ -25,7 +25,7 @@
 
     <p>
       <mat-form-field>
-        <mat-select placeholder="Conutry" #country [formControl]="userInput.country" (change)="checkForm()">      
+        <mat-select placeholder="Conutry" #country [formControl]="userInput.country" (blur)="checkForm()">      
           <mat-option *ngFor="let country of countriesFromDb; let i = index" [value]="country">{{country}}</mat-option>                   
         </mat-select>
         <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
@@ -152,9 +152,9 @@
     </p>
 
     <p>
-      <mat-form-field appearance="outline">
-        <mat-select placeholder="Food group" #foodGroup [formControl]="userInput.foodGroup" (change)="checkForm()">      
-          <mat-option *ngFor="let foodGroup of foodGroupsFromDb; let i = index" [value]="foodGroup">{{foodGroup}}</mat-option>         
+      <mat-form-field appearance="outline" >
+        <mat-select placeholder="Food group" #foodGroup [formControl]="userInput.foodGroup" (blur)="checkForm()">      
+          <mat-option *ngFor="let foodGroup of foodGroupsFromDb; let i = index" [value]="foodGroup" >{{foodGroup}}</mat-option>         
         </mat-select>
         <mat-error *ngIf="userInput.foodGroup.invalid">{{getErrorFoodGroup()}}</mat-error>
         </mat-form-field>

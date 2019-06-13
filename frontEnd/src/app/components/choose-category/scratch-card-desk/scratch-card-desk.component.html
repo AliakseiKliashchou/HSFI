@@ -65,7 +65,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-select placeholder="$" #money [formControl]="userInput.money" (change)="checkForm()">      
+          <mat-select placeholder="$" #money [formControl]="userInput.money" (blur)="checkForm()">      
             <mat-option value="USD">USD</mat-option>
             <mat-option value="RUR">RUR</mat-option>  
             <mat-option value="BUR">BUR</mat-option>         

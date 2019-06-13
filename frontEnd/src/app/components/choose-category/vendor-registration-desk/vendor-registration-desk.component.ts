@@ -137,7 +137,9 @@ export class VendorRegistrationDeskComponent implements OnInit {
     this.userInput.email.hasError('pattern') ? 'Not a valid email' :
         '';
   }
-  
+  checkIt(){
+    console.log('check');
+  }
   checkForm(){
     if(!this.userInput.email.invalid && 
       !this.userInput.name.invalid &&      
