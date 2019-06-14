@@ -141,5 +141,4 @@ export class NpcProfileComponent implements OnInit {
 
   }
 
-
 }

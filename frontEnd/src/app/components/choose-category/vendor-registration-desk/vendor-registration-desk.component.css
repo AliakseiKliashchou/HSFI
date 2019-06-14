@@ -23,6 +23,7 @@
 }
 button{
     background-color: rgb(74, 238, 74);
+    margin-left: 5px;
 }
 mat-progress-bar{
     width: 90%;

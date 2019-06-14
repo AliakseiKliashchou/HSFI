@@ -101,15 +101,16 @@
           <mat-label>Street</mat-label>
           <input matInput #street (change)="businessLocationStreet(street.value, i)" [formControl]="userInput.streetLocation" (change)="checkForm()">          
           <mat-error *ngIf="userInput.streetLocation.invalid">{{getErrorStreetLocation()}}</mat-error>
-          </mat-form-field>
+        </mat-form-field>
           
-          <mat-form-field appearance="outline">
-            <mat-label>#</mat-label>
-            <input matInput #num (change)="businessLocationNum(num.value, i)" [formControl]="userInput.numLocation" (change)="checkForm()">          
-            <mat-error *ngIf="userInput.numLocation.invalid">{{getErrorNumLocation()}}</mat-error>
-            </mat-form-field>  <br>
+        <mat-form-field appearance="outline">
+          <mat-label>#</mat-label>
+          <input matInput #num (change)="businessLocationNum(num.value, i)" [formControl]="userInput.numLocation" (change)="checkForm()">          
+          <mat-error *ngIf="userInput.numLocation.invalid">{{getErrorNumLocation()}}</mat-error>
+        </mat-form-field>  <br>
 
-            <button mat-button (click)="addLocation()">ADD+</button>    
+        <button mat-button (click)="addLocation()">ADD+</button>
+        <button mat-button *ngIf="buisnessLocationDelBtn" (click)="delLocation()">Delete</button>     
     </p>
 
     <p>Business schedule</p>
@@ -125,19 +126,19 @@
           <mat-option value="Sun">Sun</mat-option>
         </mat-select>
         <mat-error *ngIf="userInput.daySchedule.invalid">{{getErrorDaySchedule()}}</mat-error>
-        </mat-form-field>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>from</mat-label>
-          <input type="time" matInput #from (change)="businessScheduleFrom(from.value, i)">           
-          </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>from</mat-label>
+        <input type="time" matInput #from (change)="businessScheduleFrom(from.value, i)">           
+      </mat-form-field>
           
-          <mat-form-field appearance="outline">
-            <mat-label>to</mat-label>
-            <input type="time" matInput #to (change)="businessScheduleTo(to.value, i)">            
-            </mat-form-field>  <br>
-            
-            <button mat-button (click)="addSchedule()">ADD+</button>    
+      <mat-form-field appearance="outline">
+        <mat-label>to</mat-label>
+        <input type="time" matInput #to (change)="businessScheduleTo(to.value, i)">            
+      </mat-form-field>  <br>            
+      <button mat-button (click)="addSchedule()">ADD+</button> 
+      <button mat-button *ngIf="buisnessScheduleDelBtn" (click)="delSchedule()">Delete</button>        
     </p>
 
 
@@ -146,9 +147,8 @@
         <mat-label>ingredient source</mat-label>
         <input matInput #item  (change)="ingredientValue(item.value, i)" [formControl]="userInput.ingredient" (change)="checkForm()">          
         <mat-error *ngIf="userInput.ingredient.invalid">{{getErrorIngredient()}}</mat-error>
-        </mat-form-field><br>
-
-        <button mat-button (click)="addIngredient()" >ADD+</button>  
+      </mat-form-field><br>
+      <button mat-button (click)="addIngredient()" >ADD+</button>  
     </p>
 
     <p>
@@ -157,7 +157,7 @@
           <mat-option *ngFor="let foodGroup of foodGroupsFromDb; let i = index" [value]="foodGroup" >{{foodGroup}}</mat-option>         
         </mat-select>
         <mat-error *ngIf="userInput.foodGroup.invalid">{{getErrorFoodGroup()}}</mat-error>
-        </mat-form-field>
+      </mat-form-field>
     </p>
 
     <button [disabled]="isShowSubmitBtn" mat-button type="button" (click)="submit(
@@ -170,7 +170,6 @@
       email.value,
       foodGroup.value
     )"   
-      
     >OK!</button>  
   </div>
 </div>

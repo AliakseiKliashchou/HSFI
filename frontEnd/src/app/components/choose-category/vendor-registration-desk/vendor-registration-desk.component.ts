@@ -186,17 +186,29 @@ export class VendorRegistrationDeskComponent implements OnInit {
   
   foodGroupsFromDb = [];
   countriesFromDb = [];
+
+  buisnessLocationDelBtn = false;
+  buisnessScheduleDelBtn = false;
   //-------------ADD AND FILL INPUTS FIELDS-------------//
                                                         //
   //Location                                            //
   addLocation(){                                        //
     this.locationArray.push('nextString');              //
+    if(this.locationArray.length > 1){                  //
+      this.buisnessLocationDelBtn = true;               //
+    }else this.buisnessLocationDelBtn = false;          //
+  }                                                     //
+  delLocation(){                                        //
+    this.locationArray.splice(1, 1);                    //
+    if(this.locationArray.length > 1){                  //
+      this.buisnessLocationDelBtn = true;               //
+    }else this.buisnessLocationDelBtn = false;          //
   }                                                     //
   businessLocationCity(city, i){                        //
     //this.vendor.businessLocation[0][i] = city;        //
     this.vendor.businessLocation[0][i] = city.address_components[0].long_name;
-    this.vendor.latitude = city.geometry.location.lat();
-    this.vendor.longitude = city.geometry.location.lng();    
+    this.vendor.latitude = city.geometry.location.lat();//
+    this.vendor.longitude = city.geometry.location.lng();//    
   }                                                     //      
   businessLocationStreet(street, i){                    //
     this.vendor.businessLocation[1][i] = street;        //
@@ -207,6 +219,15 @@ export class VendorRegistrationDeskComponent implements OnInit {
   //Schedule                                            //
   addSchedule(){                                        //
     this.scheduleArray.push('nextString');              //
+    if(this.scheduleArray.length > 1){                  //
+      this.buisnessScheduleDelBtn = true;               //
+    }else this.buisnessScheduleDelBtn = false;          //
+  }                                                     //
+  delSchedule(){                                        //
+    this.scheduleArray.splice(1, 1);                    //
+    if(this.scheduleArray.length > 1){                  //
+      this.buisnessScheduleDelBtn = true;               //
+    }else this.buisnessScheduleDelBtn = false;          //
   }                                                     //
   businessScheduleDay(day, i){                          //
     this.vendor.businessSchedule[0][i] = day;           //

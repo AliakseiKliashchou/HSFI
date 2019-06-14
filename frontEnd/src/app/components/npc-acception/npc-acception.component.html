@@ -1,12 +1,8 @@
 <div class="main">
   <app-header #header></app-header>
-
- 
-
     <div class="wrapper">
       <h3 id="title">NPC acception request</h3>
-      <p *ngIf="isShowNullMessage">You have no any incoming requests for registration</p>
-      
+      <p *ngIf="isShowNullMessage">You have no any incoming requests for registration</p>      
       <div class="npc" *ngFor="let user of npcArray; let i = index">
        <ul>
          <li type="none"><strong>Name: </strong>{{user.name}}</li>
@@ -18,12 +14,6 @@
          <button mat-raised-button class="accept_btn" (click)="accept(header, i)">Accept</button>
          <button mat-raised-button class="decline_btn" (click)="decline(header, i)">Decline</button>
        </ul>
-      </div>
-
-      
-      
+      </div>      
     </div>
-
- 
-
 </div>

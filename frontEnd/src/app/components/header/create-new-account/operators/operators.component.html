@@ -4,60 +4,59 @@
   <div class="center_wrapper">
     <h3>Operators registration form</h3>
 
-    <div>   
+    <div> 
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Country" #country [formControl]="userInput.country" (blur)="checkForm()">
+            <mat-option *ngFor="let country of countriesArray; let i = index" [value]="country">{{country}}</mat-option>                    
+          </mat-select>          
+          <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
+        </mat-form-field>
+      </p>
 
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-select placeholder="Country" #country [formControl]="userInput.country" (blur)="checkForm()">
-                    <mat-option *ngFor="let country of countriesArray; let i = index" [value]="country">{{country}}</mat-option>                    
-                  </mat-select>          
-              <mat-error *ngIf="userInput.country.invalid">{{getErrorMessageCountry()}}</mat-error>
-            </mat-form-field>
-        </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your name</mat-label>
+          <input matInput #name [formControl]="userInput.name" (change)="checkForm()">          
+          <mat-error *ngIf="userInput.name.invalid">{{getErrorMessageName()}}</mat-error>
+        </mat-form-field>
+      </p>
 
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Enter your name</mat-label>
-            <input matInput #name [formControl]="userInput.name" (change)="checkForm()">          
-            <mat-error *ngIf="userInput.name.invalid">{{getErrorMessageName()}}</mat-error>
-          </mat-form-field>
-        </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Organization" #organization [formControl]="userInput.organization" (blur)="checkForm()">
+            <mat-option *ngFor="let organization of organizationsArray; let i = index" [value]="organization">{{organization}}</mat-option>                    
+          </mat-select>          
+          <mat-error *ngIf="userInput.organization.invalid">{{getErrorMessageOrganization()}}</mat-error>
+        </mat-form-field>
+      </p>
 
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-select placeholder="Organization" #organization [formControl]="userInput.organization" (blur)="checkForm()">
-                    <mat-option *ngFor="let organization of organizationsArray; let i = index" [value]="organization">{{organization}}</mat-option>                    
-                  </mat-select>          
-              <mat-error *ngIf="userInput.organization.invalid">{{getErrorMessageOrganization()}}</mat-error>
-            </mat-form-field>
-        </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your e-mail adress</mat-label>
+          <input matInput #email [formControl]="userInput.email" (change)="checkForm()">          
+          <mat-error *ngIf="userInput.email.invalid">{{getErrorMessageEmail()}}</mat-error>
+        </mat-form-field>
+      </p> 
 
-        <p>
-            <mat-form-field appearance="outline">
-              <mat-label>Enter your e-mail adress</mat-label>
-              <input matInput #email [formControl]="userInput.email" (change)="checkForm()">          
-              <mat-error *ngIf="userInput.email.invalid">{{getErrorMessageEmail()}}</mat-error>
-            </mat-form-field>
-        </p> 
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your password</mat-label>
+          <input matInput #password [formControl]="userInput.password" (change)="checkForm()" [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>           
+          <mat-error *ngIf="userInput.password.invalid">{{getErrorMessagePassword()}}</mat-error>
+        </mat-form-field>
+      </p> 
 
-        <p>
-            <mat-form-field appearance="outline">
-              <mat-label>Enter your password</mat-label>
-              <input matInput #password [formControl]="userInput.password" (change)="checkForm()" [type]="hide ? 'password' : 'text'">
-              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>           
-              <mat-error *ngIf="userInput.password.invalid">{{getErrorMessagePassword()}}</mat-error>
-            </mat-form-field>
-        </p> 
-
-        <p>
-            <mat-form-field>
-              <mat-label>Toppings</mat-label>
-              <mat-select [formControl]="userInput.task" multiple #task (blur)="checkForm()">
-                <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="userInput.task.invalid">{{getErrorMessageTask()}}</mat-error>
-            </mat-form-field>
-        </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Toppings</mat-label>
+          <mat-select [formControl]="userInput.task" multiple #task (blur)="checkForm()">
+            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="userInput.task.invalid">{{getErrorMessageTask()}}</mat-error>
+        </mat-form-field>
+      </p>
         <button mat-button color="primary" [disabled]="isShowSubmitBtn" (click)="submit(country.value, name.value, organization.value, email.value, password.value, task.value)">OK</button>
     </div>
   </div>

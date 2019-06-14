@@ -1,19 +1,18 @@
 <div class="wrapper">
   <app-header></app-header>
   <div class="list">
-    <div class="form">
-    
+    <div class="form">    
       <h3>Main profile information</h3>
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Name:</mat-label>
-        <input matInput placeholder="Enter your name" value="{{user.name}}" disabled="{{disableName}}" #name>        
-      </mat-form-field>
-      <button mat-button color="primary" (click)="changeName()">&#9998;</button>
-      <button mat-button color="primary" (click)="confirmNameChanges(name.value)" *ngIf="confirmNameBtn">Ок</button>          
-    </form>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Name:</mat-label>
+          <input matInput placeholder="Enter your name" value="{{user.name}}" disabled="{{disableName}}" #name>        
+        </mat-form-field>
+        <button mat-button color="primary" (click)="changeName()">&#9998;</button>
+        <button mat-button color="primary" (click)="confirmNameChanges(name.value)" *ngIf="confirmNameBtn">Ок</button>          
+      </form>
 
-    <form class="example-form">
+      <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Email:</mat-label>
           <input matInput placeholder="Enter your e-mail" value="{{user.email}}" disabled="{{disableEmail}}" #email>        
@@ -23,48 +22,42 @@
       </form>
 
       <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Country:</mat-label>
-            <input matInput placeholder="Enter your country" value="{{user.country}}" disabled="{{disableCountry}}" #country>        
-          </mat-form-field><br>
-                    
-        </form> 
+        <mat-form-field class="example-full-width">
+          <mat-label>Country:</mat-label>
+          <input matInput placeholder="Enter your country" value="{{user.country}}" disabled="{{disableCountry}}" #country>        
+        </mat-form-field><br>                    
+      </form> 
         
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Organization:</mat-label>
-            <input matInput placeholder="Enter your organization" value="{{user.organization}}" disabled="{{disableOrganization}}" #organization>        
-          </mat-form-field>
-          <button mat-button color="primary" (click)="changeOrganization()">&#9998;</button>
-          <button mat-button color="primary" (click)="confirmOrganizationChanges(organization.value)" *ngIf="confirmOrganizationBtn">Ок</button>          
-        </form>  <br>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Organization:</mat-label>
+          <input matInput placeholder="Enter your organization" value="{{user.organization}}" disabled="{{disableOrganization}}" #organization>        
+        </mat-form-field>
+        <button mat-button color="primary" (click)="changeOrganization()">&#9998;</button>
+        <button mat-button color="primary" (click)="confirmOrganizationChanges(organization.value)" *ngIf="confirmOrganizationBtn">Ок</button>          
+      </form><br>
 
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Tasks:</mat-label>
-            <input matInput placeholder="Enter your task" value="{{user.task}}" disabled="{{disableTask}}" #task>        
-          </mat-form-field>
-                    
-        </form> <br>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Tasks:</mat-label>
+          <input matInput placeholder="Enter your task" value="{{user.task}}" disabled="{{disableTask}}" #task>        
+        </mat-form-field>                    
+      </form><br>
 
-          <button mat-button color="primary" (click)="changePassword()">Change password</button> 
-        <form class="example-form" *ngIf="changePasswordBtn">
-            <mat-form-field class="example-full-width">
-              <mat-label>Enter your password:</mat-label>
-              <input matInput type="password" #password1  value="" disabled="{{disablePasswordFields}}">     
-            </mat-form-field><br>   
-            <mat-form-field class="example-full-width">
-              <mat-label>Enter your password again:</mat-label>
-              <input matInput type="password" #password2  value="" disabled="{{disablePasswordFields}}">         
-            </mat-form-field><br>  
-          
+      <button mat-button color="primary" (click)="changePassword()">Change password</button> 
+
+      <form class="example-form" *ngIf="changePasswordBtn">
+        <mat-form-field class="example-full-width">
+          <mat-label>Enter your password:</mat-label>
+          <input matInput type="password" #password1  value="" disabled="{{disablePasswordFields}}">     
+        </mat-form-field><br>   
+        <mat-form-field class="example-full-width">
+          <mat-label>Enter your password again:</mat-label>
+          <input matInput type="password" #password2  value="" disabled="{{disablePasswordFields}}">         
+        </mat-form-field><br>  
             <button mat-button color="primary"  *ngIf="changePasswordBtn" (click)="acceptNewPassword(password1.value, password2.value)">Accept new password</button><br> 
-
-         </form><br> 
-         <button mat-button color="primary" (click)="saveChanges()" *ngIf="saveChangesBtn">Save changes</button>
-
-        
-
-  </div> 
+      </form><br> 
+      <button mat-button color="primary" (click)="saveChanges()" *ngIf="saveChangesBtn">Save changes</button>
+    </div> 
   </div>
 </div>

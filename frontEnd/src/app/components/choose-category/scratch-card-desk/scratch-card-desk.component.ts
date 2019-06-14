@@ -71,7 +71,7 @@ export class ScratchCardDeskComponent implements OnInit {
   userInput = {    
     licenceNumber: new FormControl('', [Validators.required]),
     quantityOfCard: new FormControl('', [Validators.required]),
-    cost: new FormControl('', [Validators.required]),
+    cost: new FormControl('', [Validators.required, Validators.pattern('[0-9].[0-9]{2}')]),
     money: new FormControl('', [Validators.required]),
   }
   getErrorMessageLicenceNumber(){
@@ -81,7 +81,9 @@ export class ScratchCardDeskComponent implements OnInit {
     return this.userInput.quantityOfCard.hasError('required') ? 'You must enter a value' : '';
   }
   getErrorMessageCost(){
-    return this.userInput.cost.hasError('required') ? 'You must enter a value' : '';    
+    return this.userInput.cost.hasError('required') ? 'You must enter a value' : 
+      this.userInput.cost.hasError('pattern') ? 'Not a valid number' :
+      '';     
   }
   getErrorMessageMoney(){
     return this.userInput.money.hasError('required') ? 'You must enter a value' : '';  

@@ -1,13 +1,13 @@
 <div class="wrapper">
   <app-header></app-header>  
   <div class="form_wrapper">
-      <h3 id="title">Hotline</h3>
+    <h3 id="title">Hotline</h3>
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Operator`s Name </mat-label> 
         <input matInput [value]="userName" #operatorName  disabled='true'>           
         <mat-hint>Hint</mat-hint>
-        </mat-form-field>
+      </mat-form-field>
     </p>
     <p>
       <mat-form-field>
@@ -21,14 +21,14 @@
         <mat-label>National ID n. of caller</mat-label>
         <input matInput #callerID [formControl]="userInput.idOfCaller" (change)="checkForm()">          
         <mat-error *ngIf="userInput.idOfCaller">{{getErrorMessageIdOfCaller()}}</mat-error>
-        </mat-form-field>
+      </mat-form-field>
     </p>
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Scratch card serial no.</mat-label>
         <input matInput #serialNumber [formControl]="userInput.serialNumber" (change)="checkForm()">          
         <mat-error *ngIf="userInput.serialNumber">{{getErrorMessageSerialNumber()}}</mat-error>
-        </mat-form-field>
+      </mat-form-field>
     </p>
     <br>
     <button mat-button type="button" [disabled]="isShowSubmitBtn" (click)="submit(operatorName.value, dateVal.value, callerID.value, serialNumber.value)">Submit</button>    
