@@ -2,7 +2,7 @@
   "name": "webapp",
   "version": "1.0.0",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
